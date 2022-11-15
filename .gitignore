@@ -1,0 +1,11 @@
+_pycache_/
+.pytest_cache/
+notebooks/.ipynb_checkpoints
+.vscode/
+*.jpg
+*.png
+*.zip
+venv/
+env/
+.env
+.DS_Store
