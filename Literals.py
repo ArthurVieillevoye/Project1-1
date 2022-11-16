@@ -5,18 +5,18 @@ class LitValue(Enum):
     TRUE = 1
     VARIABLE = 2
 
-    
+
 class Literals:
     value: LitValue
 
-    def interpret():
+    def interpret(self):
         if self.value == LitValue.VARIABLE:
             return 'This literal is still a variable'
         else :
             return (self.value == LitValue.TRUE)
 
-    def modifyValue(newVal):
+    def setValue(self, newVal):
         if (newVal):
-            value = LitValue.TRUE
+            self.value = LitValue.TRUE
         else: 
-            value = LitValue.FALSE
+            self.value = LitValue.FALSE
