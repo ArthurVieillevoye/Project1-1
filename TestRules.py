@@ -1,5 +1,5 @@
-import RuleStructure.Literals as Literals
-import RuleStructure.Rules as Rules
+import RuleStructure.Logic.Literals as Literals
+import RuleStructure.Logic.Rules as Rules
 
 a = Literals.Literals()
 b = Literals.Literals()

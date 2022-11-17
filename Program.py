@@ -1,4 +1,4 @@
-from RuleStructure.Literals import Literals
+from RuleStructure.Logic.Literals import Literals
 
 
 class Program:
