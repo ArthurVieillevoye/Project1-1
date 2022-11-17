@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+matplotlib = "*"
+scikit-learn = "*"
+nbconvert = "*"
+notebook-as-pdf = "*"
+pandas = "*"
+nltk = "*"
+beautifulsoup4 = "*"
+spacy = {extras = ["cuda-autodetect"], version = "*"}
+django = "*"
+
+[dev-packages]
+ipykernel = "*"
+
+[requires]
+python_version = "3.8"
