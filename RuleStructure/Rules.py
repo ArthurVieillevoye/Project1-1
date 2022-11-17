@@ -34,3 +34,6 @@ class Rules:
     
     def setBody(self, newBody):
         self.body = newBody
+
+    def initialize_law():
+        pass
