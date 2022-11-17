@@ -1,5 +1,5 @@
 from enum import Enum
-import Literals
+import RuleStructure.Literals as Literals
 
 class RuleType(Enum):
     STRICT = 0
@@ -20,8 +20,8 @@ class Rules:
     def interpret(self):
         if (self.operator == Operator.AND):
             return self.head.interpret() and self.body.interpret()
-        if (self.operator == Operator.OR):
-            return self.head.interpret and self.body.interpret()
+        elif (self.operator == Operator.OR):
+            return self.head.interpret() or self.body.interpret()
 
     def setOperator(self, op):
         if (op == 0):

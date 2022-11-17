@@ -1,5 +1,5 @@
-import Literals
-import Rules
+import RuleStructure.Literals as Literals
+import RuleStructure.Rules as Rules
 
 a = Literals.Literals()
 b = Literals.Literals()
@@ -17,5 +17,11 @@ r2.setOperator(0)
 r2.setHead(a)
 r2.setBody(b)
 
+r3 = Rules.Rules()
+r3.setOperator(0)
+r3.setHead(r1)
+r3.setBody(a)
+
 print(r1.interpret())
 print(r2.interpret())
+print(r3.interpret())
