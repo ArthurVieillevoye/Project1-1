@@ -12,7 +12,7 @@ class Operator(Enum):
     # IF = 2
     # IFF = 3
 
-class Rules:
+class StrictRules:
     type: RuleType
     head : Literals
     body : Literals
@@ -35,6 +35,3 @@ class Rules:
     
     def setBody(self, newBody):
         self.body = newBody
-
-    def initialize_law():
-        pass
