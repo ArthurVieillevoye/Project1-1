@@ -1,5 +1,6 @@
 from enum import Enum
-import RuleStructure.Literals as Literals
+import Literals
+
 
 class RuleType(Enum):
     STRICT = 0
