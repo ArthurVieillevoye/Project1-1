@@ -1,19 +1,12 @@
 from enum import Enum
 import Literals
-
-
-class RuleType(Enum):
-    STRICT = 0
-    DEFEASIBLE = 1
-
 class Operator(Enum):
     AND = 0
     OR = 1
     # IF = 2
     # IFF = 3
 
-class StrictRules:
-    type: RuleType
+class Rules:
     head : Literals
     body : Literals
     operator : Operator
