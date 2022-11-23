@@ -1,5 +1,5 @@
-from RuleStructure.Logic.Literals import Literals
-from RuleStructure.ArgumentationRule import StrictRules, DefeasibleRules
+from RuleStructure.Logic.Literal import Literal
+from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 
 class Program:
     facts = []

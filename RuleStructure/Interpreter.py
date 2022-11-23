@@ -1,6 +1,8 @@
 import pickle
-import Rules
-import Literals
+from Logic.Rule import *
+from Logic.Literal import Literal
+from ArgumentationRule import DefeasibleRule
+from Argument import *
 
 class Interpreter:
     def saveRules(self, list_of_rules):
@@ -14,23 +16,23 @@ class Interpreter:
 
 
 if __name__ == '__main__':
-    a = Literals.Literals()
-    b = Literals.Literals()
-    a.setValue(True)
-    b.setValue(False)
- 
-    lit = []
 
-    lit.append(a)
-    lit.append(b)
+    p = Literal(stringRepresentation='p')
+    q = Literal(stringRepresentation='q')
+    r = Literal(stringRepresentation='r')
+    s = Literal(stringRepresentation='s')
 
-    r1 = Rules.Rules()
-    r1.setOperator(0)
-    r1.setHead(a)
-    r1.setBody(b)
+    sigma = [Rule(p, Operator.OR, q), Literal(stringRepresentation='!q', negationOf=q)] #inital information
+    D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
 
-    print('hello')
-    print(r1.interpret())
+    root_arguments = []
 
-    b.setValue(False)
-    print(r1.interpret())
+    for clause in sigma:
+        root_arguments.append(Argument(support=[clause], conclusion=clause))
+
+    for defRule in D:
+        root_arguments.append(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
+
+    root_arguments.append(createTest(s, TestReason.TARGET_CONCLUSION))
+
+    print([str(arg) for arg in root_arguments])
