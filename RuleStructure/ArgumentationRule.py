@@ -1,6 +1,4 @@
 from typing import Generic, TypeVar, Union
-from Logic.Literal import Literal
-from Logic.Rule import Rule
 
 class StrictRule:
     head : None

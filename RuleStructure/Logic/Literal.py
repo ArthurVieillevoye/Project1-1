@@ -8,15 +8,19 @@ class LitValue(Enum):
 class Literal:
     value: LitValue
     stringRepresentation: str
-    isNegation: bool 
-    negationOf = None # Literal
-    def __init__(self, stringRepresentation: str, negationOf = None):
+    isNegation: bool
+    negationOf: None # Literal
+    isClosure: bool
+
+    def __init__(self, stringRepresentation: str, negationOf = None, isClosure: bool = False):
         self.stringRepresentation = stringRepresentation
         if negationOf:
             self.negationOf = negationOf
             self.isNegation = True
         else:
             self.isNegation = False
+        
+        self.isClosure = isClosure
 
     def interpret(self):
         if self.value == LitValue.VARIABLE:
