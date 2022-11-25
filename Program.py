@@ -8,24 +8,29 @@ from RuleStructure.TableauRule import *
 
 class Tableau:
     rootNode: TableauNode
-    defeasbileRules: List[DefeasibleRule]
-    isClosed: bool = False
+    defeasibleRules: List[DefeasibleRule]
+    isClosed: bool
     closureArguments: List[Argument]
 
-    def __init__(self, arguments: List[Argument], defeasbileRules: List[DefeasibleRule]):
-        self.defeasbileRules = defeasbileRules=defeasbileRules
-        self.rootNode = TableauNode(arguments=arguments)
+    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule]):
+        self.defeasibleRules = defeasibleRules
+        self.rootNode = TableauNode(arguments=arguments, defeasibleRules=defeasibleRules)
+        self.isClosed = False
+        self.closureArguments = []
 
     def addRootArgument(self, argument):
         self.rootNode.arguments.append(argument)
 
     def addDefeasibleRules(self, rule):
-        self.defeasbileRules.append(rule)
+        self.defeasibleRules.append(rule)
 
     def evaluate(self):
+        tableauChanged = False
         self.isClosed, self.closureArguments = self.rootNode.checkClosure()
-        self.rootNode.expandTree()
-        self.isClosed, self.closureArguments = self.rootNode.checkClosure()
+        while not self.isClosed and not tableauChanged:
+            tableauChanged = self.rootNode.expandTree()
+            self.rootNode.checkDefeasibleRules()
+            self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
                         
 
@@ -40,7 +45,7 @@ if __name__ == '__main__':
     D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
 
     
-    tableau = Tableau([], D)
+    tableau = Tableau(arguments=[], defeasibleRules=D)
 
     for clause in sigma:
         tableau.addRootArgument(Argument(support=[clause], conclusion=clause))

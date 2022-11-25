@@ -12,8 +12,8 @@ Operator.__str__ = __str__
 
 class Rule:
     head = None # Union(Rule, Literal)
-    body : None # Union(Rule, Literal)
     operator : Operator
+    body : None # Union(Rule, Literal)
 
     def __init__(self, head, operator: Operator, body):
         self.head = head 

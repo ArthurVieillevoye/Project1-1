@@ -14,8 +14,8 @@ class Literal:
 
     def __init__(self, stringRepresentation: str, negationOf = None, isClosure: bool = False):
         self.stringRepresentation = stringRepresentation
+        self.negationOf = negationOf
         if negationOf:
-            self.negationOf = negationOf
             self.isNegation = True
         else:
             self.isNegation = False
