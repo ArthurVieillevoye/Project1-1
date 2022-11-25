@@ -1,4 +1,6 @@
-class StrictRules:
+from typing import Generic, TypeVar, Union
+
+class StrictRule:
     head: None
     body: None
 
@@ -13,15 +15,15 @@ class StrictRules:
     
     def setBody(self, newBody):
         self.body = newBody
-    
-    def set_body_value(self, val):
-        # TODO: Pay attention, the body can be a logical rule as well --> Need to be taken care of.
-        self.body.setValue(val)
 
 
-class DefeasibleRules:
-    head: None
-    body: None
+class DefeasibleRule():
+    antecedent = None # Union(Literal, Rule, DefeasibleRule)
+    consequence = None # Union(Literal, Rule, DefeasibleRule)
+
+    def __init__(self, antecedent, consequence):
+        self.antecedent = antecedent
+        self.consequence = consequence
 
     def isHeadValid(self):
         return self.head.interpret()

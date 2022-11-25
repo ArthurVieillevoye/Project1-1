@@ -1,6 +1,8 @@
 import pickle
-import Rules
-import Literals
+from Logic.Rule import *
+from Logic.Literal import Literal
+from ArgumentationRule import DefeasibleRule
+from Argument import *
 
 class Interpreter:
     def saveRules(self, list_of_rules):
@@ -14,23 +16,4 @@ class Interpreter:
 
 
 if __name__ == '__main__':
-    a = Literals.Literals()
-    b = Literals.Literals()
-    a.setValue(True)
-    b.setValue(False)
- 
-    lit = []
-
-    lit.append(a)
-    lit.append(b)
-
-    r1 = Rules.Rules()
-    r1.setOperator(0)
-    r1.setHead(a)
-    r1.setBody(b)
-
-    print('hello')
-    print(r1.interpret())
-
-    b.setValue(False)
-    print(r1.interpret())
+    pass

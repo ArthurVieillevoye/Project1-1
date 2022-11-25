@@ -1,70 +1,71 @@
-from RuleStructure.Logic.Literals import Literals
-from RuleStructure.Logic.Rules import Rules
-from RuleStructure.ArgumentationRule import StrictRules, DefeasibleRules
+import copy
+from RuleStructure.Logic.Literal import *
+from RuleStructure.Logic.Rule import *
+from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
+from RuleStructure.Argument import *
+from RuleStructure.TableauNode import TableauNode
+from RuleStructure.TableauRule import *
 
-class Program:
-    facts = []
-    strictrules = []
-    defeasiblerules = []
+class Tableau:
+    rootNode: TableauNode
+    defeasibleRules: List[DefeasibleRule]
+    isClosed: bool
+    closureArguments: List[Argument]
 
-    def addLiteral(self, literal):
-        self.facts.append(literal)
+    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule]):
+        self.defeasibleRules = defeasibleRules
+        self.rootNode = TableauNode(arguments=arguments, defeasibleRules=defeasibleRules)
+        self.isClosed = False
+        self.closureArguments = []
 
-    def addRule(self, rule):
-        if (not rule.isDefeasible()):
-            self.strictrules.append(rule)
-        else:
-            self.defeasiblerules.append(rule)
+    def addRootArgument(self, argument):
+        self.rootNode.arguments.append(argument)
+
+    def addDefeasibleRules(self, rule):
+        self.defeasibleRules.append(rule)
 
     def evaluate(self):
-        for r in self.defeasiblerules:
-            if r.isHeadValid():
-                r.body.setValue(True)
-            else:
-                r.body.setValue(False)
-        
-            print(r.body.value)
+        tableauChanged = False
+        self.isClosed, self.closureArguments = self.rootNode.checkClosure()
+        while not self.isClosed and not tableauChanged:
+            tableauChanged = self.rootNode.expandTree()
+            self.rootNode.checkDefeasibleRules()
+            self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
-        for r in self.strictrules:
-            if r.isHeadValid():
-                r.body.setValue(True)
-            else:
-                r.body.setValue(False)
+                        
 
 
 if __name__ == '__main__':
-    p = Program()
+    p = Literal(stringRepresentation='p')
+    q = Literal(stringRepresentation='q')
+    r = Literal(stringRepresentation='r')
+    s = Literal(stringRepresentation='s')
 
-    a = Literals()
-    b = Literals()
-    c = Literals()
-    p.addLiteral(a)
-    p.addLiteral(b)
-    p.addLiteral(c)
+    sigma = [Rule(p, Operator.OR, q), Literal(stringRepresentation='¬q', negationOf=q)] #inital information
+    D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
 
-    a.setValue(True)
-    b.setValue(False)
+    
+    tableau = Tableau(arguments=[], defeasibleRules=D)
 
-    r1 = Rules()
-    r1.setOperator(0)
-    r1.setHead(a)
-    r1.setBody(b)
+    for clause in sigma:
+        tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    r2 = Rules()
-    r2.setOperator(1)
-    r2.setHead(a)
-    r2.setBody(b)
+    for defRule in D:
+        tableau.addRootArgument(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
 
-    sRule = StrictRules()
-    sRule.setHead(r1)
-    sRule.setBody(c)
+    tableau.addRootArgument(createTest(s, TestReason.TARGET_CONCLUSION))
 
-    dRule = DefeasibleRules()
-    dRule.setHead(r2)
-    dRule.setBody(c)
+    tableau.evaluate()
 
-    p.addRule(sRule)
-    p.addRule(dRule)
-    p.evaluate()
+    print('root arguments:')
+    print([str(arg) for arg in tableau.rootNode.arguments])
 
-    print(c.value)
+    print('left node arguments:')
+    print([str(arg) for arg in tableau.rootNode.left.arguments])
+
+    print('right node arguments:')
+    print([str(arg) for arg in tableau.rootNode.right.arguments])
+
+    print('arguments for closure:')
+    print([str(arg) for arg in tableau.rootNode.closureArguments])
+                
