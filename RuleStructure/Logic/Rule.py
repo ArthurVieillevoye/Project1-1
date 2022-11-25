@@ -1,6 +1,5 @@
 from enum import Enum
-import RuleStructure.Logic.Literals
-
+import RuleStructure.Logic.Literal
 
 class Operator(Enum):
     AND = 0
