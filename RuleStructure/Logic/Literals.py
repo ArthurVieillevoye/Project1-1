@@ -4,10 +4,11 @@ class LitValue(Enum):
     FALSE = 0
     TRUE = 1
     VARIABLE = 2
-
+    # TODO: Add the negation.
 
 class Literals:
-    value: LitValue
+    def __init__(self) -> None:
+        self.value = LitValue.VARIABLE
 
     def interpret(self):
         if self.value == LitValue.VARIABLE:

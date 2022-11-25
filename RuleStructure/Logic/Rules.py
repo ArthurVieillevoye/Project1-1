@@ -1,15 +1,18 @@
 from enum import Enum
-import Literals
+import RuleStructure.Logic.Literals
+
+
 class Operator(Enum):
     AND = 0
     OR = 1
     # IF = 2
     # IFF = 3
 
+
 class Rules:
-    head : Literals
-    body : Literals
-    operator : Operator
+    head: None
+    body: None
+    operator: Operator
 
     def interpret(self):
         if (self.operator == Operator.AND):
@@ -25,6 +28,6 @@ class Rules:
 
     def setHead(self, newHead):
         self.head = newHead
-    
+
     def setBody(self, newBody):
         self.body = newBody
