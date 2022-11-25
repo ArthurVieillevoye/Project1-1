@@ -70,3 +70,5 @@ if __name__ == '__main__':
     print([str(arg) for arg in tableau.rootNode.closureArguments])
                 
 
+
+    print(c.value)

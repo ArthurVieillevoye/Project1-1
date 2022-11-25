@@ -1,4 +1,6 @@
 from enum import Enum
+import RuleStructure.Logic.Literals
+
 
 class Operator(Enum):
     AND = 0
@@ -34,7 +36,7 @@ class Rule:
 
     def setHead(self, newHead):
         self.head = newHead
-    
+
     def setBody(self, newBody):
         self.body = newBody
 

@@ -1,13 +1,13 @@
 from typing import Generic, TypeVar, Union
 
 class StrictRule:
-    head : None
-    body : None
+    head: None
+    body: None
 
     def isHeadValid(self):
         return self.head.interpret()
 
-    def isDefeasibleRules(self):
+    def isDefeasible(self):
         return False
 
     def setHead(self, newHead):
@@ -28,7 +28,7 @@ class DefeasibleRule():
     def isHeadValid(self):
         return self.head.interpret()
 
-    def isDefeasibleRules(self):
+    def isDefeasible(self):
         return True
 
     def setHead(self, newHead):
