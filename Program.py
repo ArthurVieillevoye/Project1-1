@@ -33,8 +33,6 @@ class Tableau:
             tableauChanged = tableauChanged or self.rootNode.checkDefeasibleRules()
             self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
-                        
-
 
 if __name__ == '__main__':
     p = Literal(stringRepresentation='p')
@@ -54,7 +52,7 @@ if __name__ == '__main__':
     #for defRule in D:
     #    tableau.addRootArgument(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
 
-    tableau.addRootArgument(createTest(s, TestReason.TARGET_CONCLUSION))
+    tableau.addRootArgument(createTest(s))
 
     tableau.evaluate()
 
@@ -75,4 +73,4 @@ if __name__ == '__main__':
 
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
-                
+    

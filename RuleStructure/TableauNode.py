@@ -33,25 +33,27 @@ class TableauNode:
         if self.left:
             leftClosed, leftClosureArgs = self.left.checkClosure()
             self.closureArguments.extend(leftClosureArgs)
-        if self.right:
-            rightClosed, rightClosureArgs = self.right.checkClosure()
-            self.closureArguments.extend(rightClosureArgs)
-        
-        if leftClosed and rightClosed:
-            self.isClosed = True
-
-        for i in range(len(self.arguments)):
-            if self.arguments[i].isAtomic():
-                for j in range(i + 1, len(self.arguments)):
-                    if self.arguments[j].isAtomic():
-                        if self.arguments[i].conclusion.isNegation:
-                            if self.arguments[i].conclusion.negationOf == self.arguments[j].conclusion:
-                                self.isClosed = True
-                                self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
-                        elif self.arguments[j].conclusion.isNegation:
-                            if self.arguments[i].conclusion == self.arguments[j].conclusion.negationOf:
-                                self.isClosed = True
-                                self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
+            if self.right:
+                rightClosed, rightClosureArgs = self.right.checkClosure()
+                self.closureArguments.extend(rightClosureArgs)
+            else:
+                rightClosed = True
+            
+            if leftClosed and rightClosed:
+                self.isClosed = True
+        else:
+            for i in range(len(self.arguments)):
+                if self.arguments[i].isAtomic():
+                    for j in range(i + 1, len(self.arguments)):
+                        if self.arguments[j].isAtomic():
+                            if self.arguments[i].conclusion.isNegation:
+                                if self.arguments[i].conclusion.negationOf == self.arguments[j].conclusion:
+                                    self.isClosed = True
+                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
+                            elif self.arguments[j].conclusion.isNegation:
+                                if self.arguments[i].conclusion == self.arguments[j].conclusion.negationOf:
+                                    self.isClosed = True
+                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
         
         return self.isClosed, self.closureArguments
 
@@ -95,20 +97,21 @@ class TableauNode:
 
         if self.left:
             leftDefRulesChanged = self.left.checkDefeasibleRules()
-        if self.right:
-            rightDefRulesChanged = self.right.checkDefeasibleRules()
+            if self.right:
+                rightDefRulesChanged = self.right.checkDefeasibleRules()
         
 
-        defRules = copy.copy(self.defeasibleRules)
+        else:
+            defRules = copy.copy(self.defeasibleRules)
 
-        for i in range(len(defRules)):
-            for j in range(len(self.arguments)):
-                if defRules[i].antecedent == self.arguments[j].conclusion:
-                    self.addArgument(Argument(support=self.arguments[j].support, conclusion=defRules[i]))
-                    self.addArgument(Argument(support=[Argument(support=self.arguments[j].support, conclusion=defRules[i])], conclusion=defRules[i].consequence))
-                    self.defeasibleRules.remove(defRules[i])
+            for i in range(len(defRules)):
+                for j in range(len(self.arguments)):
+                    if defRules[i].antecedent == self.arguments[j].conclusion:
+                        self.addArgument(Argument(support=self.arguments[j].support, conclusion=defRules[i]))
+                        self.addArgument(Argument(support=[Argument(support=self.arguments[j].support, conclusion=defRules[i])], conclusion=defRules[i].consequence))
+                        self.defeasibleRules.remove(defRules[i])
 
-                    defeasibleRulesChanged = True
+                        defeasibleRulesChanged = True
 
         return leftDefRulesChanged or rightDefRulesChanged or defeasibleRulesChanged
 
