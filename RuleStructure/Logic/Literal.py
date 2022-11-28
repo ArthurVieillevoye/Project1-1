@@ -10,14 +10,22 @@ class Literal:
     stringRepresentation: str
     isNegation: bool
     negationOf: None # Literal
+    isTest: bool
 
-    def __init__(self, stringRepresentation: str = None, negationOf = None):
+    def __init__(self, stringRepresentation: str = None, negationOf = None, isTest=False):
         self.stringRepresentation = stringRepresentation
         self.negationOf = negationOf
+        self.isTest = isTest
         if negationOf:
             self.isNegation = True
         else:
             self.isNegation = False
+        
+        if isTest:
+            if self.stringRepresentation:
+                self.stringRepresentation = self.stringRepresentation + '?'
+            if self.isNegation:
+                self.negationOf.stringRepresentation = self.negationOf.stringRepresentation + '?'
 
     def interpret(self):
         if self.value == LitValue.VARIABLE:
