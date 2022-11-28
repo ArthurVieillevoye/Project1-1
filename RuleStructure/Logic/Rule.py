@@ -4,22 +4,35 @@ import RuleStructure.Logic.Literal
 class Operator(Enum):
     AND = 0
     OR = 1
-    # IF = 2
-    # IFF = 3
+    IF = 2
+    IFF = 3
 
-def __str__(self):
-    return self.name
-Operator.__str__ = __str__
+    def __str__(self):
+        if self.name == 'AND':
+            return '∧'
+        elif self.name == 'OR':
+            return '∨'
+        elif self.name == 'IF':
+            return '-->'
+        elif self.name == 'IFF':
+            return '<-->'
 
 class Rule:
     head = None # Union(Rule, Literal)
     operator : Operator
     body : None # Union(Rule, Literal)
+    isNegation: bool
+    negationOf: None # Rule
 
-    def __init__(self, head, operator: Operator, body):
+    def __init__(self, head = None, operator: Operator = None, body = None, negationOf = None):
         self.head = head 
         self.operator = operator
         self.body = body
+        self.negationOf = negationOf
+        if negationOf:
+            self.isNegation = True
+        else:
+            self.isNegation = False
 
     def interpret(self):
         if (self.operator == Operator.AND):
@@ -40,4 +53,6 @@ class Rule:
         self.body = newBody
 
     def __str__(self):
-        return self.head.stringRepresentation + ' ' + str(self.operator) + ' ' + self.body.stringRepresentation
+        if self.isNegation:
+            return '¬(' + str(self.negationOf) + ')'
+        return str(self.head) + ' ' + str(self.operator) + ' ' + str(self.body)
