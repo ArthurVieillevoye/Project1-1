@@ -10,17 +10,14 @@ class Literal:
     stringRepresentation: str
     isNegation: bool
     negationOf: None # Literal
-    isClosure: bool
 
-    def __init__(self, stringRepresentation: str, negationOf = None, isClosure: bool = False):
+    def __init__(self, stringRepresentation: str = None, negationOf = None):
         self.stringRepresentation = stringRepresentation
         self.negationOf = negationOf
         if negationOf:
             self.isNegation = True
         else:
             self.isNegation = False
-        
-        self.isClosure = isClosure
 
     def interpret(self):
         if self.value == LitValue.VARIABLE:
@@ -35,4 +32,7 @@ class Literal:
             self.value = LitValue.FALSE
 
     def __str__(self):
-        return self.stringRepresentation
+        if self.isNegation:
+            return '¬' + str(self.negationOf)
+        else:
+            return self.stringRepresentation

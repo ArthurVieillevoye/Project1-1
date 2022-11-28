@@ -36,3 +36,6 @@ class DefeasibleRule():
     
     def setBody(self, newBody):
         self.body = newBody
+
+    def __str__(self):
+        return str(self.antecedent) + ' ~~> ' + str(self.consequence)

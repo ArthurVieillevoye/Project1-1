@@ -23,7 +23,13 @@ class Argument:
         self.testReason = testReason
 
     def isAtomic(self):
-        return type(self.conclusion) == Literal
+        return type(self.conclusion) == Literal and (not self.conclusion.isNegation or not self.conclusion.negationOf.isNegation)
+
+    def getSupportString(self, supportItem):
+        if isinstance(supportItem, list):
+            return '{' + ', '.join(self.getSupportString(arg) for arg in supportItem) + '}'
+        else:
+            return str(supportItem)
 
     def __str__(self):
-        return '({' + ', '.join(str(arg) for arg in self.support) + '}, ' + str(self.conclusion) + ')'
+        return '({' + ', '.join(self.getSupportString(arg) for arg in self.support) + '}, ' + str(self.conclusion) + ')'

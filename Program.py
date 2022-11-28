@@ -25,11 +25,12 @@ class Tableau:
         self.defeasibleRules.append(rule)
 
     def evaluate(self):
-        tableauChanged = False
+        tableauChanged = True
         self.isClosed, self.closureArguments = self.rootNode.checkClosure()
-        while not self.isClosed and not tableauChanged:
+        while not self.isClosed and tableauChanged:
+            tableauChanged = False
             tableauChanged = self.rootNode.expandTree()
-            self.rootNode.checkDefeasibleRules()
+            tableauChanged = tableauChanged or self.rootNode.checkDefeasibleRules()
             self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
                         
@@ -41,17 +42,17 @@ if __name__ == '__main__':
     r = Literal(stringRepresentation='r')
     s = Literal(stringRepresentation='s')
 
-    sigma = [Rule(p, Operator.OR, q), Literal(stringRepresentation='¬q', negationOf=q)] #inital information
+    #sigma = [Rule(createNegation(clause=createNegation(clause=p)), Operator.OR, q), createNegation(clause=q)] #inital information
+    sigma = [Rule(p, Operator.OR, q), createNegation(clause=q)] #inital information
     D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
-
     
     tableau = Tableau(arguments=[], defeasibleRules=D)
 
     for clause in sigma:
         tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    for defRule in D:
-        tableau.addRootArgument(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
+    #for defRule in D:
+    #    tableau.addRootArgument(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
 
     tableau.addRootArgument(createTest(s, TestReason.TARGET_CONCLUSION))
 
@@ -66,6 +67,12 @@ if __name__ == '__main__':
     print('right node arguments:')
     print([str(arg) for arg in tableau.rootNode.right.arguments])
 
+    print('closed?')
+    print(tableau.isClosed)
+
     print('arguments for closure:')
     print([str(arg) for arg in tableau.rootNode.closureArguments])
+
+    print('arguments for closure reduced:')
+    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
                 
