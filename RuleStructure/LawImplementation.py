@@ -1,6 +1,6 @@
-from RuleStructure.Logic.Literal import *
-from RuleStructure.Logic.Rule import *
-from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
+from Logic.Literal import *
+from Logic.Rule import *
+from ArgumentationRule import StrictRule, DefeasibleRule
 
 
 ### Rules for initial situation ###
@@ -114,3 +114,16 @@ DefeasibleRule(r14, l15)
 ###########################################################################
 # Rules for first legal action: Request by Employee Change in Working place
 # Rule 16
+l17 = Literal(stringRepresentation='request is about a change in the working place')
+r15 = Rule(l2, Operator.AND, l17)
+
+l18 = Literal(stringRepresentation='Legal request for a change in working place')
+
+DefeasibleRule(r15, l18)
+
+# Rule 17
+r16 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l10)
+
+l19 = Literal(stringRepresentation='Not request is about a change in the working place')
+
+DefeasibleRule(r16, l19)
