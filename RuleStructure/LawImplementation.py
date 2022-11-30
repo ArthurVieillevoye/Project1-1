@@ -124,6 +124,75 @@ DefeasibleRule(r15, l18)
 # Rule 17
 r16 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l10)
 
-l19 = Literal(stringRepresentation='Not request is about a change in the working place')
+l19 = Literal(stringRepresentation='Not Legal request for a change in working place')
 
 DefeasibleRule(r16, l19)
+
+# Rule 18
+r17 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l12)
+
+DefeasibleRule(r17, l19)
+
+# Rule 19
+r18 = Rule (Rule(l2, Operator.AND, l17), Operator.AND, l13)
+DefeasibleRule(r18, l19)
+
+# Rule 20
+r19 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l7)
+DefeasibleRule(r19, l18)
+
+
+################################################################################
+# Rules resulting from legal action: Request by Employee Change in Working hours
+# Rule 21
+l20 = Literal(stringRepresentation='DUTY Consult Employee About Request Change Working Hours')
+DefeasibleRule(l8, l20)
+
+#Rule 22
+l21 = Literal(stringRepresentation='DUTY Accept Request Change Working Hours')
+DefeasibleRule(l8, l21)
+
+# Rule 23
+l22 = Literal(stringRepresentation='No power to Reject Request Change Working Hours')
+DefeasibleRule(l8, l22)
+
+# Rule 24
+l23 = Literal(stringRepresentation='IMMUNITY Substantial Business Or Service Interests')
+r20 = Rule(l8, l23)
+l24 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Hours')
+DefeasibleRule(l8, l24)
+
+# Rule 25
+l25 = Literal(stringRepresentation='power to Reject Request Change Working Hours')
+DefeasibleRule(r20, l25)
+
+
+###############################################################################
+# Rules resulting from legal action: Request by Employee Change in Working time
+# Rule 26 
+l26 = Literal(stringRepresentation='DUTY to Consult Employee About Request Change Working Times')
+DefeasibleRule(l15, l26)
+
+# Rule 27
+l27 = Literal(stringRepresentation='DUTY to Accept Request Change Working Times')
+DefeasibleRule(l15, l27)
+
+#Rule 28
+l28 = Literal(stringRepresentation='No POWER to Change Request Change Working Times')
+DefeasibleRule(l15, l28)
+
+# Rule 29
+l29 = Literal(stringRepresentation='IMMUNITY Interests Of Employee Yield For Reasons Of Reasonableness And Fairness')
+r21 = Rule(l15, Operator.AND, l29)
+l30 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Times')
+DefeasibleRule(r21, l30)
+
+# Rule 30
+l31 = Literal(stringRepresentation='POWER to Change Request Change Working Times')
+DefeasibleRule(r21, l31)
+
+################################################################################
+# Rules resulting from legal action: Request by Employee Change in Working place
+# Rule 31
+l32 = Literal(stringRepresentation='DUTY to Contemplate Request Change Working Place')
+DefeasibleRule(l18, l32) 
