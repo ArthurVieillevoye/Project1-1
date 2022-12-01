@@ -1,3 +1,4 @@
+import copy
 from enum import Enum
 
 class LitValue(Enum):
@@ -20,12 +21,6 @@ class Literal:
             self.isNegation = True
         else:
             self.isNegation = False
-        
-        if isTest:
-            if self.stringRepresentation:
-                self.stringRepresentation = self.stringRepresentation + '?'
-            if self.isNegation:
-                self.negationOf.stringRepresentation = self.negationOf.stringRepresentation + '?'
 
     def interpret(self):
         if self.value == LitValue.VARIABLE:
@@ -41,6 +36,11 @@ class Literal:
 
     def __str__(self):
         if self.isNegation:
-            return '¬' + str(self.negationOf)
+            returnString = '¬' + str(self.negationOf)
         else:
-            return self.stringRepresentation
+            returnString = self.stringRepresentation
+
+        if self.isTest:
+            returnString = returnString + '?'
+
+        return returnString

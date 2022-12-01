@@ -3,12 +3,15 @@ from RuleStructure.Logic.Literal import Literal
 from typing import List, Union
 from RuleStructure.Logic.Rule import *
 from RuleStructure.Argument import *
+from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 
 def createNegation(clause):
     if type(clause) == Literal:
         return Literal(negationOf=clause)
     elif type(clause) == Rule:
         return Rule(negationOf=clause)
+    elif type(clause) == DefeasibleRule:
+        return DefeasibleRule(negationOf=clause)
 
 def applyTableauRule(argument):
     if argument.conclusion.isNegation:

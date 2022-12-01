@@ -20,10 +20,20 @@ class StrictRule:
 class DefeasibleRule():
     antecedent = None # Union(Literal, Rule, DefeasibleRule)
     consequence = None # Union(Literal, Rule, DefeasibleRule)
+    isNegation: bool
+    negationOf: None # DefeasibleRule
+    orderValue: int
 
-    def __init__(self, antecedent, consequence):
+    def __init__(self, antecedent = None, consequence = None, negationOf = None, orderValue: int = 1):
         self.antecedent = antecedent
         self.consequence = consequence
+        self.negationOf = negationOf
+        self.orderValue = orderValue
+        
+        if negationOf:
+            self.isNegation = True
+        else:
+            self.isNegation = False
 
     def isHeadValid(self):
         return self.head.interpret()
@@ -38,4 +48,7 @@ class DefeasibleRule():
         self.body = newBody
 
     def __str__(self):
-        return str(self.antecedent) + ' ~~> ' + str(self.consequence)
+        if self.isNegation:
+            return '(' + str(self.negationOf.antecedent) + ' ~/~> ' + str(self.negationOf.consequence) + ')'
+        else:
+            return str(self.antecedent) + ' ~~> ' + str(self.consequence)

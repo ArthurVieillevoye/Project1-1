@@ -106,12 +106,28 @@ class TableauNode:
 
             for i in range(len(defRules)):
                 for j in range(len(self.arguments)):
+                    if defRules[i].antecedent == self.arguments[j].conclusion \
+                     and type(defRules[i].consequence) == DefeasibleRule \
+                     and defRules[i].consequence.isNegation:
+
+                        if defRules[i].consequence.negationOf in self.defeasibleRules:
+                            self.defeasibleRules.remove(defRules[i].consequence.negationOf)
+                            #self.defeasibleRules.remove(defRules[i])
+
+                            defeasibleRulesChanged = True
+
+            defRules = copy.copy(self.defeasibleRules)
+
+            for i in range(len(defRules)):
+                for j in range(len(self.arguments)):
                     if defRules[i].antecedent == self.arguments[j].conclusion:
+
                         self.addArgument(Argument(support=self.arguments[j].support, conclusion=defRules[i]))
                         self.addArgument(Argument(support=[Argument(support=self.arguments[j].support, conclusion=defRules[i])], conclusion=defRules[i].consequence))
                         self.defeasibleRules.remove(defRules[i])
 
                         defeasibleRulesChanged = True
+
 
         return leftDefRulesChanged or rightDefRulesChanged or defeasibleRulesChanged
 
