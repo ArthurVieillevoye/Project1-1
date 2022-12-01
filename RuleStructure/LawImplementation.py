@@ -248,3 +248,4 @@ DefeasibleRule(r33, l51)
 ################################################################
 # Rules for legal action: Employee too late with making decision
 # Rule 44
+l52 = Literal(stringRepresentation='Time Before Commencement Date Request Less Than One Month')
