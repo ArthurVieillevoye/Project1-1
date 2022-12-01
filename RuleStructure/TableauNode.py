@@ -49,11 +49,11 @@ class TableauNode:
                             if self.arguments[i].conclusion.isNegation:
                                 if self.arguments[i].conclusion.negationOf == self.arguments[j].conclusion:
                                     self.isClosed = True
-                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=LiteralClass(stringRepresentation='⊥')))
+                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
                             elif self.arguments[j].conclusion.isNegation:
                                 if self.arguments[i].conclusion == self.arguments[j].conclusion.negationOf:
                                     self.isClosed = True
-                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=LiteralClass(stringRepresentation='⊥')))
+                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
         
         return self.isClosed, self.closureArguments
 

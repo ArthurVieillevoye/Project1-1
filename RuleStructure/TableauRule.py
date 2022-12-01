@@ -5,8 +5,8 @@ from RuleStructure.Logic.Rule import *
 from RuleStructure.Argument import *
 
 def createNegation(clause):
-    if type(clause) == LiteralClass:
-        return LiteralClass(negationOf=clause)
+    if type(clause) == Literal:
+        return Literal(negationOf=clause)
     elif type(clause) == Rule:
         return Rule(negationOf=clause)
 
