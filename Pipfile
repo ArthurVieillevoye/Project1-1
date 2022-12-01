@@ -14,6 +14,7 @@ nltk = "*"
 beautifulsoup4 = "*"
 spacy = {extras = ["cuda-autodetect"], version = "*"}
 django = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 ipykernel = "*"
