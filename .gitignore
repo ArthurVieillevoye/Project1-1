@@ -10,3 +10,4 @@ env/
 .env
 .DS_Store
 *.pyc
+ASLD/frontend/package-lock.json
