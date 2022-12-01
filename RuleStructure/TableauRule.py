@@ -1,5 +1,5 @@
 from enum import Enum
-from RuleStructure.Logic.Literal import Literal
+from RuleStructure.Logic.LiteralClass import Literal
 from typing import List, Union
 from RuleStructure.Logic.Rule import *
 from RuleStructure.Argument import *

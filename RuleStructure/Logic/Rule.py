@@ -1,5 +1,5 @@
 from enum import Enum
-import RuleStructure.Logic.Literal
+from Logic.LiteralClass import Literal
 
 class Operator(Enum):
     # This class describes the operator that compose the rule.
