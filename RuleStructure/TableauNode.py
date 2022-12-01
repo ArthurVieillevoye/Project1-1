@@ -1,7 +1,7 @@
 import copy
 from enum import Enum
 from RuleStructure.ArgumentationRule import DefeasibleRule
-from RuleStructure.Logic.LiteralClass import LitValue, Literal
+from RuleStructure.Logic.Literal import LitValue, Literal
 from typing import List, Union
 from RuleStructure.Logic.Rule import *
 from RuleStructure.Argument import *
