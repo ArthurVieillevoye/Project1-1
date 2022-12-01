@@ -35,6 +35,7 @@ class Tableau:
 
 
 if __name__ == '__main__':
+    '''
     p = Literal(stringRepresentation='p')
     q = Literal(stringRepresentation='q')
     r = Literal(stringRepresentation='r')
@@ -74,3 +75,42 @@ if __name__ == '__main__':
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
     
+    '''
+    a = Literal(stringRepresentation='Person signs a contract')
+    b = Literal(stringRepresentation='Person is under the age of 14')
+    c = Literal(stringRepresentation='Guardian approved the contract')
+    d = Literal(stringRepresentation='Person is bound by the contract')
+
+    d1 = DefeasibleRule(a, d)
+    d2 = DefeasibleRule(b, createNegation(d1))
+    d3 = DefeasibleRule(c, createNegation(d2))
+
+    sigma = [a, b, c] #inital information
+    D = [d1, d2, d3] #defeasible rules
+    
+    tableau = Tableau(arguments=[], defeasibleRules=D)
+
+    for clause in sigma:
+        tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
+
+    tableau.addRootArgument(createTest(d))
+
+    tableau.evaluate()
+
+    print('root arguments:')
+    print([str(arg) for arg in tableau.rootNode.arguments])
+
+    #print('left node arguments:')
+    #print([str(arg) for arg in tableau.rootNode.left.left.arguments])
+
+    #print('right node arguments:')
+    #print([str(arg) for arg in tableau.rootNode.right.arguments])
+
+    print('closed?')
+    print(tableau.isClosed)
+
+    print('arguments for closure:')
+    print([str(arg) for arg in tableau.rootNode.closureArguments])
+
+    print('arguments for closure reduced:')
+    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
