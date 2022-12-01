@@ -1,4 +1,4 @@
-**/_pycache_/
+__pycache__/
 .pytest_cache/
 notebooks/.ipynb_checkpoints
 .vscode/
