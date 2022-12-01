@@ -9,3 +9,4 @@ venv/
 env/
 .env
 .DS_Store
+ASLD/frontend/package-lock.json
