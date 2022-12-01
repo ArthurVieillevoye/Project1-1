@@ -1,4 +1,4 @@
-from Logic.Literal import *
+from Logic.LiteralClass import Literal
 from Logic.Rule import *
 from ArgumentationRule import StrictRule, DefeasibleRule
 
@@ -78,7 +78,7 @@ r9 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, l7)
 
 DefeasibleRule(r9, l9)
 
-
+ 
 ##########################################################################
 # Rules for first legal action: Request by Employee Change in Working time
 # Rule 11
@@ -195,4 +195,9 @@ DefeasibleRule(r21, l31)
 # Rules resulting from legal action: Request by Employee Change in Working place
 # Rule 31
 l32 = Literal(stringRepresentation='DUTY to Contemplate Request Change Working Place')
-DefeasibleRule(l18, l32) 
+DefeasibleRule(l18, l32)    
+
+##############################################################
+# Rules for legal action: Decision made on request by Employer
+# Rule 32
+

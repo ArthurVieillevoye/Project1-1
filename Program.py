@@ -1,5 +1,5 @@
 import copy
-from RuleStructure.Logic.Literal import *
+from RuleStructure.Logic.LiteralClass import *
 from RuleStructure.Logic.Rule import *
 from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 from RuleStructure.Argument import *

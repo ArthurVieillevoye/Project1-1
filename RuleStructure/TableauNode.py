@@ -1,7 +1,7 @@
 import copy
 from enum import Enum
 from RuleStructure.ArgumentationRule import DefeasibleRule
-from RuleStructure.Logic.Literal import LitValue, Literal
+from RuleStructure.Logic.LiteralClass import LitValue, Literal
 from typing import List, Union
 from RuleStructure.Logic.Rule import *
 from RuleStructure.Argument import *
@@ -49,11 +49,11 @@ class TableauNode:
                             if self.arguments[i].conclusion.isNegation:
                                 if self.arguments[i].conclusion.negationOf == self.arguments[j].conclusion:
                                     self.isClosed = True
-                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
+                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=LiteralClass(stringRepresentation='⊥')))
                             elif self.arguments[j].conclusion.isNegation:
                                 if self.arguments[i].conclusion == self.arguments[j].conclusion.negationOf:
                                     self.isClosed = True
-                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=Literal(stringRepresentation='⊥')))
+                                    self.closureArguments.append(Argument(support=self.arguments[i].support + self.arguments[j].support, conclusion=LiteralClass(stringRepresentation='⊥')))
         
         return self.isClosed, self.closureArguments
 
