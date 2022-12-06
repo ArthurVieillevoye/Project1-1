@@ -2,6 +2,7 @@ from Logic.LiteralClass import Literal
 from Logic.Rule import *
 from ArgumentationRule import StrictRule, DefeasibleRule
 
+# This class implements the law of the working hours act
 
 ### Rules for initial situation ###
 #Rule 1
