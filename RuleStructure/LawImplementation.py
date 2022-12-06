@@ -249,3 +249,53 @@ DefeasibleRule(r33, l51)
 # Rules for legal action: Employee too late with making decision
 # Rule 44
 l52 = Literal(stringRepresentation='Time Before Commencement Date Request Less Than One Month')
+r34 = Rule(l52, Operator.AND, l9)
+DefeasibleRule(r34, l34)
+
+# Rule 45
+r34 = Rule(Rule(l25, Operator.AND, l52), Operator.AND, l38)
+DefeasibleRule(r34, l36)
+
+# Rule 46
+# l7 = Literal(stringRepresentation='Immunity unforseen circumstances')
+l53 = Literal(stringRepresentation='Time Before Commencement Date Request Less Than Five Days')
+r35 = Rule(Rule(l9, Operator.AND, l7), Operator.AND, l53)
+DefeasibleRule(r35, l34)
+
+# Rule 47
+r36 = Rule(Rule(Rule(l9, Operator.AND, l7), Operator.AND, l53), Operator.AND, l38)
+DefeasibleRule(r36, l36)
+
+# Rule 48
+r37 = Rule(l15, Operator.AND, l52)
+DefeasibleRule(r37, l41)
+
+# Rule 49
+r38 = Rule(Rule(l15, Operator.AND, l52), Operator.AND, l44)
+DefeasibleRule(r38, l42)
+
+# Rule 50
+# l7 = Literal(stringRepresentation='Immunity unforseen circumstances')
+r39 = Rule(Rule(l15, Operator.AND, l7), Operator.AND, l53)
+DefeasibleRule(r39, l41)
+
+# Rule 51
+r40 = Rule(Rule(Rule(l15, Operator.AND, l7), Operator.AND, l53), Operator.AND, l44)
+DefeasibleRule(r40, l42)
+
+# Rule 52
+r41 = Rule(l18, Operator.AND, l52)
+DefeasibleRule(r41, l47)
+
+# Rule 53 
+r42 = Rule(Rule(l18, Operator.AND, l52), Operator.AND, l50)
+DefeasibleRule(r42, l48)
+
+# Rule 54
+# l7 = Literal(stringRepresentation='Immunity unforseen circumstances')
+r43 = Rule(Rule(l18, Operator.AND, l7), Operator.AND, l53)
+DefeasibleRule(r43, l47)
+
+# Rule 55
+r44 = Rule(Rule(Rule(l18, Operator.AND, l7), Operator.AND, l53), Operator.AND, l50)
+DefeasibleRule(r44, l48)
