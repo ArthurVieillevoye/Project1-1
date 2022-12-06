@@ -1,4 +1,4 @@
-from Logic.LiteralClass import Literal
+from Logic.Literal import Literal
 from Logic.Rule import *
 from ArgumentationRule import StrictRule, DefeasibleRule
 

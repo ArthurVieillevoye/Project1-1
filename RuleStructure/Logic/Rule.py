@@ -1,5 +1,6 @@
 from enum import Enum
-from Logic.LiteralClass import Literal
+
+from RuleStructure.Logic.Literal import Literal
 
 class Operator(Enum):
     # This class describes the operator that compose the rule.
@@ -39,12 +40,27 @@ class Rule:
         else:
             self.isNegation = False
 
-    def interpret(self):
+    def interpret(self, validLiterals):
         # This method return the value of the literal (true, false, or a message if it is still a variable).
+        headValue = False
+        bodyValue = False
+
+        if type(self.head) == Rule:
+            headValue = self.head.interpret(validLiterals)
+        elif type(self.head) == Literal:
+            if self.head in validLiterals:
+                headValue = True
+
+        if type(self.body) == Rule:
+            bodyValue = self.body.interpret(validLiterals)
+        elif type(self.body) == Literal:
+            if self.body in validLiterals:
+                bodyValue = True
+
         if (self.operator == Operator.AND):
-            return self.head.interpret() and self.body.interpret()
+            return headValue and bodyValue
         elif (self.operator == Operator.OR):
-            return self.head.interpret() or self.body.interpret()
+            return headValue or bodyValue
 
     def setOperator(self, op):
         # Setter method. Set the operator of the rule.
