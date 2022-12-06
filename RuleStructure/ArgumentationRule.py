@@ -21,19 +21,40 @@ class StrictRule:
 class DefeasibleRule():
     # These class describes the defeasible rules.
     # The defeasible rules are the main rules that are used by the program to find a solution to a case.
-    # This defeasible rule is composed of a head and a consequence. When the head is true, the consequence can be set to True.
+    # This defeasible rule is composed of an head antecedent a consequence. When the antecedent is true, the consequence can be set to True.
 
     antecedent = None # Union(Literal, Rule, DefeasibleRule)
     consequence = None # Union(Literal, Rule, DefeasibleRule)
+
+    # indication whether the consequence is a negated defeasible rule like: a ~~> (b ~/~> c) (or a ~~> not(b ~~> c))
     isNegation: bool
+
+    # defeasible rule which is the negated consequence in case of negated rule
     negationOf: None # DefeasibleRule
+
+    # value by which to order rules in case of contradictions
     orderValue: int
 
-    def __init__(self, antecedent = None, consequence = None, negationOf = None, orderValue: int = 1):
+    # indicates, whether the rule was already applied in the current Node (True after antecedent holds and no undercutting defeaters)
+    wasApplied: bool
+
+    # indicates, whether the rule was defeated by an undercutting defeater
+    isDefeated: bool
+
+
+
+    def __init__(self, 
+                 antecedent = None, 
+                 consequence = None, 
+                 negationOf = None, 
+                 orderValue: int = 1
+                ):
         self.antecedent = antecedent
         self.consequence = consequence
         self.negationOf = negationOf
         self.orderValue = orderValue
+        self.wasApplied = False
+        self.isDefeated = False
         
         if negationOf:
             self.isNegation = True
@@ -55,6 +76,18 @@ class DefeasibleRule():
     def setBody(self, newBody):
         # Set the head of the rule to newBody.
         self.body = newBody
+
+    # set conseqence to defeated (this is undercutting defeater)
+    def defeatConsequence(self):
+        if type(self.consequence) == DefeasibleRule and self.consequence.isNegation:
+            self.consequence.negationOf.isDefeated = True
+            self.consequence.negationOf.resetConsequence()
+    
+    # reset "defeated" flag on consequence if this rule was undercutting defeater, but defeated by another undercutting defeater
+    def resetConsequence(self):
+        if type(self.consequence) == DefeasibleRule and self.consequence.isNegation:
+            self.consequence.negationOf.isDefeated = False
+
 
     def __str__(self):
         if self.isNegation:
