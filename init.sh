@@ -1,7 +1,12 @@
 #!/bin/bash
 # Authors: Leon, Arthur and Carlos
 # Maastricht University
+function finish {
+  pipenv --rm
+  npx kill-port 8000
+}
 
+trap finish SIGINT
 
 echo 'You are initializing ASLD'
 
@@ -9,6 +14,7 @@ version=$(python -V)
 if [[ "${version:(-6):3}" < "3.8" ]]
 then
     echo "No Python Version Supported, minimum version 3.8!" 
+    exit
 fi
 
 isPipenv=$(pip list | grep pipenv)
@@ -34,7 +40,7 @@ cd ../..
 pipenv install
 
 cd ./ASLD
-pipenv run -q python manage.py runserver &
+pipenv run python manage.py runserver &
 cd ..
 
 cd ./ASLD/frontend 
