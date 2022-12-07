@@ -1,7 +1,7 @@
 from enum import Enum
-from RuleStructure.Logic.Literal import Literal
+from .Logic.Literal import Literal
 from typing import List, Union
-from RuleStructure.Logic.Rule import Rule
+from .Logic.Rule import Rule
 
 
 def createTest(literal: Literal):

@@ -1,9 +1,9 @@
 from enum import Enum
-from RuleStructure.Logic.Literal import Literal
+from .Logic.Literal import Literal
 from typing import List, Union
-from RuleStructure.Logic.Rule import *
-from RuleStructure.Argument import *
-from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
+from .Logic.Rule import *
+from .Argument import *
+from .ArgumentationRule import StrictRule, DefeasibleRule
 
 def createNegation(clause):
     if type(clause) == Literal:

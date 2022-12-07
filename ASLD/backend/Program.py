@@ -1,11 +1,11 @@
 import copy
-from RuleStructure.Logic.Literal import *
-from RuleStructure.Logic.Rule import *
-from RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
-from RuleStructure.Argument import *
-from RuleStructure.TableauNode import TableauNode
-from RuleStructure.TableauRule import *
-
+from .RuleStructure.Logic.Literal import *
+from .RuleStructure.Logic.Rule import *
+from .RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
+from .RuleStructure.Argument import *
+from .RuleStructure.TableauNode import TableauNode
+from .RuleStructure.TableauRule import *
+from django.http import JsonResponse
 # tableau class 
 class Tableau:
     rootNode: TableauNode
@@ -41,7 +41,7 @@ class Tableau:
             self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
 
-if __name__ == '__main__':
+def main(request):
     '''
     p = Literal(stringRepresentation='p')
     q = Literal(stringRepresentation='q')
@@ -106,7 +106,8 @@ if __name__ == '__main__':
     tableau.evaluate()
 
     print('root arguments:')
-    print([str(arg) for arg in tableau.rootNode.arguments])
+    args = [str(arg) for arg in tableau.rootNode.arguments]
+    print(args)
 
     #print('left node arguments:')
     #print([str(arg) for arg in tableau.rootNode.left.left.arguments])
@@ -123,7 +124,8 @@ if __name__ == '__main__':
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
-    #'''
+    return JsonResponse({'args': args})
+
     '''
 
     a = Literal(stringRepresentation='Person signs a contract')
