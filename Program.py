@@ -37,6 +37,8 @@ class Tableau:
             tableauChanged = self.rootNode.expandTree()
             # evaluate defeasible rules
             tableauChanged =  self.rootNode.checkDefeasibleRules() or tableauChanged
+            # check for contradictions and defeat weak rules
+            tableauChanged = self.rootNode.checkContradiction()
             # check if tableau changed
             self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
@@ -83,7 +85,7 @@ if __name__ == '__main__':
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
     
     '''
-    #'''
+    '''
     a = Literal(stringRepresentation='Person signs a contract')
     b = Literal(stringRepresentation='Person is under the age of 14')
     c = Literal(stringRepresentation='Guardian approved the contract')
@@ -108,12 +110,6 @@ if __name__ == '__main__':
     print('root arguments:')
     print([str(arg) for arg in tableau.rootNode.arguments])
 
-    #print('left node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.left.left.arguments])
-
-    #print('right node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.right.arguments])
-
     print('closed?')
     print(tableau.isClosed)
 
@@ -123,8 +119,8 @@ if __name__ == '__main__':
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
-    #'''
     '''
+    #'''
 
     a = Literal(stringRepresentation='Person signs a contract')
     b = Literal(stringRepresentation='Person is under the age of 14')
@@ -143,18 +139,12 @@ if __name__ == '__main__':
     for clause in sigma:
         tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    tableau.addRootArgument(createTest(d))
+    tableau.addRootArgument(createTest(createNegation(d)))
 
     tableau.evaluate()
 
     print('root arguments:')
     print([str(arg) for arg in tableau.rootNode.arguments])
-
-    #print('left node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.left.left.arguments])
-
-    #print('right node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.right.arguments])
 
     print('closed?')
     print(tableau.isClosed)
@@ -165,4 +155,4 @@ if __name__ == '__main__':
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
-    '''
+    #'''
