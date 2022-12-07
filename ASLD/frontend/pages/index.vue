@@ -1,5 +1,5 @@
 <template>
-  <span>Hello World</span>
+  <TableauCard />
 </template>
 
 <script>
