@@ -1,6 +1,6 @@
 import pickle
 from Logic.Rule import *
-from Logic.LiteralClass import Literal
+from Logic.Literal import Literal
 from ArgumentationRule import DefeasibleRule
 from Argument import *
 

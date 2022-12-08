@@ -1,11 +1,14 @@
 from enum import Enum
-from RuleStructure.Logic.LiteralClass import Literal
+from RuleStructure.Logic.Literal import Literal
 from typing import List, Union
 from RuleStructure.Logic.Rule import Rule
 
 
 def createTest(literal: Literal):
-    testLiteral = Literal(negationOf=literal, isTest=True)
+    if literal.isNegation:
+        testLiteral = literal.negationOf
+    else:
+        testLiteral = Literal(negationOf=literal, isTest=True)
     return Argument(support=[testLiteral], conclusion=testLiteral)
     
 class Argument:

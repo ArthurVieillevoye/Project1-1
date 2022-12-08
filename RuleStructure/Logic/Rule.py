@@ -1,5 +1,6 @@
 from enum import Enum
-from Logic.LiteralClass import Literal
+
+from RuleStructure.Logic.Literal import Literal
 
 class Operator(Enum):
     # This class describes the operator that compose the rule.
@@ -39,12 +40,57 @@ class Rule:
         else:
             self.isNegation = False
 
-    def interpret(self):
-        # This method return the value of the literal (true, false, or a message if it is still a variable).
+    def interpret(self, validLiterals):
+        # This method returns the value of the literal (true, false, or a message if it is still a variable).
+        headValue = False
+        bodyValue = False
+
+        if type(self.head) == Rule:
+            headValue = self.head.interpret(validLiterals)
+        elif type(self.head) == Literal:
+            if self.head in validLiterals:
+                headValue = True
+
+        if type(self.body) == Rule:
+            bodyValue = self.body.interpret(validLiterals)
+        elif type(self.body) == Literal:
+            if self.body in validLiterals:
+                bodyValue = True
+
         if (self.operator == Operator.AND):
-            return self.head.interpret() and self.body.interpret()
+            return headValue and bodyValue
         elif (self.operator == Operator.OR):
-            return self.head.interpret() or self.body.interpret()
+            return headValue or bodyValue
+
+    def constructSupport(self, currentArguments):
+        # This method returns support for this rule, if it can be constructed on given arguments, return empty list otherwise.
+
+        headSupport = []
+        bodySupport = []
+
+        # check for head and body support in existing arguments
+        for arg in currentArguments:
+            if arg.conclusion == self.head:
+                headSupport = headSupport + arg.support
+            if arg.conclusion == self.body:
+                bodySupport = bodySupport + arg.support
+
+        if len(headSupport) == 0 and type(self.head) == Rule:
+            headSupport = self.head.constructSupport(currentArguments)
+        
+        if len(bodySupport) == 0 and type(self.body) == Rule:
+            bodySupport = self.body.constructSupport(currentArguments)
+
+        if (self.operator == Operator.AND):
+            if len(headSupport) > 0 and len(bodySupport) > 0:
+                return headSupport + bodySupport
+            else:
+                return []
+        elif (self.operator == Operator.OR):
+            if len(headSupport) > 0:
+                return headSupport
+            elif len(bodySupport) > 0:
+                return bodySupport
 
     def setOperator(self, op):
         # Setter method. Set the operator of the rule.

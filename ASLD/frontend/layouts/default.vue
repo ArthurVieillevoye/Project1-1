@@ -1,15 +1,17 @@
 <template>
-  <div class="h-screen w-screen flex flex-col">
-    <div class="flex flex-row h-full w-full absolute">
-      <div class="w-2/3 bg-red-200 h-40 w-40"><Nuxt /></div>
+  <div
+    class="h-screen w-screen flex flex-col bg-gradient-to-r from-blue-900 to-blue-400"
+  >
+    <!-- <div class="flex flex-row h-full w-full absolute -z-10">
+      <div class="w-2/3 bg-blue-800"></div>
       <div class="w-1/3"></div>
+    </div> -->
+
+    <Navigation />
+
+    <div class="p-4 h-full w-full">
+      <Nuxt />
     </div>
-
-    <!-- <Navbar /> -->
-
-    <!-- <wrapper> -->
-
-    <!-- </wrapper> -->
   </div>
 </template>
 <script>
