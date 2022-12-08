@@ -18,8 +18,8 @@ then
 fi
 
 version=$(python -V)
-echo ${version:(-6):4}
-if (( "${version:(-6):4}" < "3.8" ))
+echo ${version:(-7):4}
+if [[ "${version:(-7):4}" < "3.8" ]]
 then
     echo "No Python Version Supported, minimum version 3.8!" 
     exit
