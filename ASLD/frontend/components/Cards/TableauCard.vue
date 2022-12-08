@@ -8,17 +8,31 @@
         dynamicClass="shadow bg-blue-500 rounded text-white hover:bg-blue-400"
         icon="mdi-plus"
         width="w-36"
+        @click="fetchArgs"
       />
     </div>
     <div class="h-full w-full p-3">
-      <div class="bg-gray-100 h-full rounded"></div>
+      <div v-if="args.length !== 0" class="bg-gray-100 h-full rounded">
+        {{ args }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "TableauCard",
+
+  computed: {
+    ...mapGetters({ args: "getArgs" }),
+  },
+
+  methods: {
+    fetchArgs() {
+      this.$store.dispatch("fetchArgs");
+    },
+  },
 };
 </script>
 

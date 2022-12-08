@@ -23,10 +23,6 @@ export default {
       default: "Fact",
       type: String,
     },
-    handler: {
-      type: String,
-      default: "",
-    },
 
     width: {
       default: "w-1/2",
@@ -49,10 +45,8 @@ export default {
 
   methods: {
     actionHandler(event) {
-      if (!this.handler) return;
-
       const payload = event;
-      this.$emit(this.handler, payload);
+      this.$emit("click", payload);
     },
   },
 };

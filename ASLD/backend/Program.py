@@ -122,9 +122,10 @@ def main(request):
     print([str(arg) for arg in tableau.rootNode.closureArguments])
 
     print('arguments for closure reduced:')
-    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
+    closure = list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments]))
+    print(closure)
 
-    return JsonResponse({'args': args})
+    return JsonResponse({'closure': closure})
 
     '''
 
