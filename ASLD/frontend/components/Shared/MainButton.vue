@@ -1,6 +1,6 @@
 <template>
   <button
-    class="p-2 drop-shadow-md font-semibold uppercase"
+    class="py-1 px-2 drop-shadow-md font-light tracking-wide uppercase"
     :class="[
       width,
       dynamicClass,

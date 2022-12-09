@@ -1,5 +1,8 @@
 <template>
-  <TableauCard />
+  <div class="flex h-full space-x-4">
+    <TableauCard />
+    <FactsCard />
+  </div>
 </template>
 
 <script>
