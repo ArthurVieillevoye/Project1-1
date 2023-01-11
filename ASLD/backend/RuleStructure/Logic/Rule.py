@@ -1,6 +1,6 @@
 from enum import Enum
 
-from RuleStructure.Logic.Literal import Literal
+from .Literal import Literal
 
 class Operator(Enum):
     # This class describes the operator that compose the rule.
