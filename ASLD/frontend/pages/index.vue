@@ -1,12 +1,18 @@
 <template>
   <div class="flex h-full space-x-4">
     <TableauCard />
-    <FactsCard />
+    <side-bar>
+      <template #body>
+        <FactsCard />
+      </template>
+    </side-bar>
   </div>
 </template>
 
 <script>
+import SideBar from "../components/Shared/SideBar.vue";
 export default {
+  components: { SideBar },
   name: "IndexPage",
 
   mounted() {
