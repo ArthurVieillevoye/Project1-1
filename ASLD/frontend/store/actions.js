@@ -12,4 +12,18 @@ export default {
         });
     });
   },
+
+  fetchQuestions({ commit }) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .get("http://localhost:8000/api/questions")
+        .then((res) => {
+          commit("SET_QUESTIONS", res.data.questions);
+          resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
 };

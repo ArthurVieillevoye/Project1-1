@@ -11,6 +11,7 @@ export default {
 
   mounted() {
     // this.$axios.get("http://localhost:8000/api/hello");
+    this.$store.dispatch("fetchQuestions");
   },
 };
 </script>

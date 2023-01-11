@@ -6,7 +6,9 @@ from .RuleStructure.Argument import *
 from .RuleStructure.TableauNode import TableauNode
 from .RuleStructure.TableauRule import *
 from django.http import JsonResponse
-# tableau class 
+# tableau class
+
+
 class Tableau:
     rootNode: TableauNode
     defeasibleRules: List[DefeasibleRule]
@@ -15,7 +17,8 @@ class Tableau:
 
     def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule]):
         self.defeasibleRules = defeasibleRules
-        self.rootNode = TableauNode(arguments=arguments, defeasibleRules=defeasibleRules)
+        self.rootNode = TableauNode(
+            arguments=arguments, defeasibleRules=defeasibleRules)
         self.isClosed = False
         self.closureArguments = []
 
@@ -29,14 +32,14 @@ class Tableau:
         tableauChanged = True
         # check if tableau is already closed (contradiction) with initial information
         self.isClosed, self.closureArguments = self.rootNode.checkClosure()
-        
+
         # apply tableau rules and evaluate defeasible rules until either the tableau is closed, or no more changes are possible
         while not self.isClosed and tableauChanged:
             tableauChanged = False
             # apply tableau rule to create left (and right) child nodes
             tableauChanged = self.rootNode.expandTree()
             # evaluate defeasible rules
-            tableauChanged =  self.rootNode.checkDefeasibleRules() or tableauChanged
+            tableauChanged = self.rootNode.checkDefeasibleRules() or tableauChanged
             # check if tableau changed
             self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
@@ -51,7 +54,7 @@ def main(request):
     #sigma = [Rule(createNegation(clause=createNegation(clause=p)), Operator.OR, q), createNegation(clause=q)] #inital information
     sigma = [Rule(p, Operator.OR, q), createNegation(clause=q)] #inital information
     D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
-    
+
     tableau = Tableau(arguments=[], defeasibleRules=D)
 
     for clause in sigma:
@@ -81,9 +84,9 @@ def main(request):
 
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
-    
+
     '''
-    #'''
+    # '''
     a = Literal(stringRepresentation='Person signs a contract')
     b = Literal(stringRepresentation='Person is under the age of 14')
     c = Literal(stringRepresentation='Guardian approved the contract')
@@ -93,9 +96,9 @@ def main(request):
     d2 = DefeasibleRule(b, createNegation(d1))
     d3 = DefeasibleRule(c, createNegation(d2))
 
-    sigma = [a, b, c] #inital information
-    D = [d1, d2, d3] #defeasible rules
-    
+    sigma = [a, b, c]  # inital information
+    D = [d1, d2, d3]  # defeasible rules
+
     tableau = Tableau(arguments=[], defeasibleRules=D)
 
     for clause in sigma:
@@ -122,7 +125,8 @@ def main(request):
     print([str(arg) for arg in tableau.rootNode.closureArguments])
 
     print('arguments for closure reduced:')
-    closure = list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments]))
+    closure = list(dict.fromkeys([str(arg)
+                   for arg in tableau.rootNode.closureArguments]))
     print(closure)
 
     return JsonResponse({'closure': closure})

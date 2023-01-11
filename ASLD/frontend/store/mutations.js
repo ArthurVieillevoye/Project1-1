@@ -13,6 +13,10 @@ export default {
     state.args = payload;
   },
 
+  SET_QUESTIONS(state, payload) {
+    state.questions = payload;
+  },
+
   RESET_STATE(state) {
     Object.assign(state, InitialState());
   },

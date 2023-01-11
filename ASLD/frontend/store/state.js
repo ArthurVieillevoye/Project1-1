@@ -3,6 +3,7 @@ export const InitialState = () => {
     rules: [],
     facts: [],
     args: [],
+    questions: [],
   };
 };
 
