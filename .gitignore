@@ -12,3 +12,4 @@ env/
 *.pyc
 ASLD/frontend/package-lock.json
 Pipfile.lock
+Pipfile

@@ -44,9 +44,70 @@ class TableauNode:
             self.validLiterals.append(argument.conclusion)
 
 
+    # check for contradictions (without the test literals) and defeat weakest rule if possible
+    def checkContradiction(self):
+        contradictionFound = False
+        leftChanged = False
+        rightChanged = False
+
+        # check recursively for closure in child nodes
+        if self.left:
+            leftChanged = self.left.checkContradiction()
+
+            # can't have right child without left child
+            if self.right:
+                rightChanged = self.right.checkContradiction()
+            else:
+                rightChanged = True
+        
+        # check only for leaf nodes
+        else:
+            # check all atomic non-test arguments pair-wise for contradictions
+            for idx1, arg1 in enumerate(self.arguments):
+                if arg1.isAtomic() and not arg1.conclusion.isTest:
+                    for idx2, arg2 in enumerate(self.arguments):
+                        if idx2 > idx1 and arg2.isAtomic() and not arg2.conclusion.isTest:
+                            # check if there are opposing conclusions (--> contradiction)
+                            if arg1.conclusion.isNegation and arg1.conclusion.negationOf == arg2.conclusion \
+                             or arg2.conclusion.isNegation and arg1.conclusion == arg2.conclusion.negationOf:
+                                    contradictionFound = True
+                                    contradictionSupport = arg1.support + arg2.support
+                                    break
+
+                    if contradictionFound:
+                        break
+
+            if contradictionFound:
+                usedDefRules  = self.getUsedDefRules(contradictionSupport)
+                weakestRule: DefeasibleRule = None
+                weakestRuleOrder = 1
+                if len(usedDefRules) > 1:
+                    for defRule in usedDefRules:
+                        if defRule.orderValue > weakestRuleOrder:
+                            weakestRuleOrder = defRule.orderValue
+                            weakestRule = defRule
+
+                    weakestRule.isDefeated = True
+                    weakestRule.resetConsequence()
+
+                for item in contradictionSupport:
+                    if type(item) == Argument and item.conclusion == weakestRule:
+                        contradictionSupport.remove(item)
+
+                # create undercutting argument
+                self.addArgument(Argument(support = contradictionSupport, conclusion = createNegation(weakestRule)))
+                
+                # remove all arguments, that use defeated rule
+                self.removeWeakRuleArguments(weakestRule)
+
+        return leftChanged or rightChanged or contradictionFound
+        
     def checkClosure(self):
         leftClosed = False
         rightClosed = False
+
+        self.isClosed = False
+        self.closureArguments = []
 
         # check recursively for closure in child nodes
         if self.left:
@@ -146,13 +207,14 @@ class TableauNode:
             # when filtered for undercutting defeaters, add arguments for applicable defeasible rules
             for defRule in self.defeasibleRules:
                 if not defRule.isDefeated and not defRule.wasApplied:
-                    for arg in self.arguments:
-                        if arg.conclusion == defRule.antecedent:
-                            self.addArgument(Argument(support=arg.support, conclusion=defRule))
-                            self.addArgument(Argument(support=[Argument(support=arg.support, conclusion=defRule)], conclusion=defRule.consequence))
-                            defRule.wasApplied = True
 
-                            defeasibleRulesChanged = True
+                    argForDefRule = self.constructArgument(conclusion = defRule.antecedent)
+
+                    if argForDefRule:
+                        self.addArgument(Argument(support=argForDefRule.support, conclusion=defRule))
+                        self.addArgument(Argument(support=[Argument(support=argForDefRule.support, conclusion=defRule)], conclusion=defRule.consequence))
+                        
+                        defeasibleRulesChanged = True
 
 
         return leftDefRulesChanged or rightDefRulesChanged or defeasibleRulesChanged
@@ -171,6 +233,64 @@ class TableauNode:
         elif type(term) == DefeasibleRule:
             return not term.isDefeated and self.isValidInNode(term.antecedent)
 
+    # constructs an argument to support a given conclusion based on facts and rules in the current node, return None if not possible
+    def constructArgument(self, conclusion):
+        
+        # can't find argument, if concluson is not valid
+        if not self.isValidInNode(conclusion):
+            return None
+
+        # check, if argument already exists, then just return
+        for arg in self.arguments:
+            if arg.conclusion == conclusion:
+                return arg
+
+        # if target conclusion is a rule, try to build argument, based on valid literals and other arguments
+        if type(conclusion) == Rule:
+            argSupport = conclusion.constructSupport(self.arguments)
+            if len(argSupport) > 0:
+                return Argument(support=argSupport, conclusion=conclusion)
+            else:
+                return None
+
+        # theoretical case, should not happen
+        elif type(conclusion) == DefeasibleRule:
+            print("warning, check defeasible rule")
+            return self.constructArgument(conclusion.antecedent)
+
+    
+    # get all defeasible rules, that are used by a given list of support items of an argument
+    def getUsedDefRules(self, support):
+        usedDefRules = []
+        for item in support:
+            if type(item) == DefeasibleRule:
+                usedDefRules.append(item)
+            elif type(item) == Argument:
+                if type(item.conclusion) == DefeasibleRule:
+                    usedDefRules.append(item.conclusion)
+                usedDefRules.extend(self.getUsedDefRules(item.support))
+
+        return usedDefRules
+    
+    # check recursively, whether a given defeasible rule is used in an given argument
+    def isDefRuleUsedInArgument(self, defRule: DefeasibleRule, argument: Argument):
+        if argument.conclusion == defRule:
+            return True
+
+        for item in argument.support:
+            if item == defRule:
+                return True
+            elif type(item) == Argument and self.isDefRuleUsedInArgument(defRule=defRule, argument=item):
+                return True
+
+        return False
+
+    # remove all arguments from node, that use a given (defeated) defeasible rule
+    def removeWeakRuleArguments(self, defRule):
+        currentArguments = copy.copy(self.arguments)
+        for arg in currentArguments:
+            if self.isDefRuleUsedInArgument(defRule=defRule, argument=arg):
+                self.arguments.remove(arg)
     
     def evaluate(self):
         pass

@@ -45,48 +45,45 @@ class Tableau:
 
 
 def main(request):
-    '''
-    p = Literal(stringRepresentation='p')
-    q = Literal(stringRepresentation='q')
-    r = Literal(stringRepresentation='r')
-    s = Literal(stringRepresentation='s')
+    # p = Literal(stringRepresentation='p')
+    # q = Literal(stringRepresentation='q')
+    # r = Literal(stringRepresentation='r')
+    # s = Literal(stringRepresentation='s')
 
-    #sigma = [Rule(createNegation(clause=createNegation(clause=p)), Operator.OR, q), createNegation(clause=q)] #inital information
-    sigma = [Rule(p, Operator.OR, q), createNegation(clause=q)] #inital information
-    D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
+    # #sigma = [Rule(createNegation(clause=createNegation(clause=p)), Operator.OR, q), createNegation(clause=q)] #inital information
+    # sigma = [Rule(p, Operator.OR, q), createNegation(clause=q)] #inital information
+    # D = [DefeasibleRule(p, r), DefeasibleRule(r, s)] #defeasible rules
 
-    tableau = Tableau(arguments=[], defeasibleRules=D)
+    # tableau = Tableau(arguments=[], defeasibleRules=D)
 
-    for clause in sigma:
-        tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
+    # for clause in sigma:
+    #     tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    #for defRule in D:
-    #    tableau.addRootArgument(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
+    # #for defRule in D:
+    # #    tableau.addRootArgument(createTest(defRule.antecedent, TestReason.DEFEASIBLE_RULE))
 
-    tableau.addRootArgument(createTest(s))
+    # tableau.addRootArgument(createTest(s))
 
-    tableau.evaluate()
+    # tableau.evaluate()
 
-    print('root arguments:')
-    print([str(arg) for arg in tableau.rootNode.arguments])
+    # print('root arguments:')
+    # print([str(arg) for arg in tableau.rootNode.arguments])
 
-    print('left node arguments:')
-    print([str(arg) for arg in tableau.rootNode.left.arguments])
+    # print('left node arguments:')
+    # print([str(arg) for arg in tableau.rootNode.left.arguments])
 
-    print('right node arguments:')
-    print([str(arg) for arg in tableau.rootNode.right.arguments])
+    # print('right node arguments:')
+    # print([str(arg) for arg in tableau.rootNode.right.arguments])
 
-    print('closed?')
-    print(tableau.isClosed)
+    # print('closed?')
+    # print(tableau.isClosed)
 
-    print('arguments for closure:')
-    print([str(arg) for arg in tableau.rootNode.closureArguments])
+    # print('arguments for closure:')
+    # print([str(arg) for arg in tableau.rootNode.closureArguments])
 
-    print('arguments for closure reduced:')
-    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
+    # print('arguments for closure reduced:')
+    # print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
-    '''
-    # '''
     a = Literal(stringRepresentation='Person signs a contract')
     b = Literal(stringRepresentation='Person is under the age of 14')
     c = Literal(stringRepresentation='Guardian approved the contract')
@@ -112,12 +109,6 @@ def main(request):
     args = [str(arg) for arg in tableau.rootNode.arguments]
     print(args)
 
-    #print('left node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.left.left.arguments])
-
-    #print('right node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.right.arguments])
-
     print('closed?')
     print(tableau.isClosed)
 
@@ -131,45 +122,38 @@ def main(request):
 
     return JsonResponse({'closure': closure})
 
-    '''
 
-    a = Literal(stringRepresentation='Person signs a contract')
-    b = Literal(stringRepresentation='Person is under the age of 14')
-    c = Literal(stringRepresentation='Guardian approved the contract')
-    d = Literal(stringRepresentation='Person is bound by the contract')
 
-    d1 = DefeasibleRule(a, d, orderValue = 3)
-    d2 = DefeasibleRule(antecedent = Rule(a, Operator.AND, b), consequence = createNegation(d), orderValue = 2)
-    d3 = DefeasibleRule(antecedent = Rule(Rule(a, Operator.AND, b), Operator.AND, c), consequence = d, orderValue = 1)
+    # a = Literal(stringRepresentation='Person signs a contract')
+    # b = Literal(stringRepresentation='Person is under the age of 14')
+    # c = Literal(stringRepresentation='Guardian approved the contract')
+    # d = Literal(stringRepresentation='Person is bound by the contract')
 
-    sigma = [a, b, c] #inital information
-    D = [d1, d2, d3] #defeasible rules
+    # d1 = DefeasibleRule(a, d, orderValue = 3)
+    # d2 = DefeasibleRule(antecedent = Rule(a, Operator.AND, b), consequence = createNegation(d), orderValue = 2)
+    # d3 = DefeasibleRule(antecedent = Rule(Rule(a, Operator.AND, b), Operator.AND, c), consequence = d, orderValue = 1)
+
+    # sigma = [a, b, c] #inital information
+    # D = [d1, d2, d3] #defeasible rules
     
-    tableau = Tableau(arguments=[], defeasibleRules=D)
+    # tableau = Tableau(arguments=[], defeasibleRules=D)
 
-    for clause in sigma:
-        tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
+    # for clause in sigma:
+    #     tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    tableau.addRootArgument(createTest(d))
+    # tableau.addRootArgument(createTest(createNegation(d)))
 
-    tableau.evaluate()
+    # tableau.evaluate()
 
-    print('root arguments:')
-    print([str(arg) for arg in tableau.rootNode.arguments])
+    # print('root arguments:')
+    # print([str(arg) for arg in tableau.rootNode.arguments])
 
-    #print('left node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.left.left.arguments])
+    # print('closed?')
+    # print(tableau.isClosed)
 
-    #print('right node arguments:')
-    #print([str(arg) for arg in tableau.rootNode.right.arguments])
+    # print('arguments for closure:')
+    # print([str(arg) for arg in tableau.rootNode.closureArguments])
 
-    print('closed?')
-    print(tableau.isClosed)
+    # print('arguments for closure reduced:')
+    # print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
-    print('arguments for closure:')
-    print([str(arg) for arg in tableau.rootNode.closureArguments])
-
-    print('arguments for closure reduced:')
-    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
-
-    '''

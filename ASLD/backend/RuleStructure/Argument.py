@@ -5,7 +5,10 @@ from .Logic.Rule import Rule
 
 
 def createTest(literal: Literal):
-    testLiteral = Literal(negationOf=literal, isTest=True)
+    if literal.isNegation:
+        testLiteral = literal.negationOf
+    else:
+        testLiteral = Literal(negationOf=literal, isTest=True)
     return Argument(support=[testLiteral], conclusion=testLiteral)
     
 class Argument:
