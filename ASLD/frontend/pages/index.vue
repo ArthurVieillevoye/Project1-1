@@ -11,14 +11,16 @@
             :key="tab.name"
             class="hover:border-b"
             @click="selectTab(tab.name)"
+            :class="
+              tab.name == selectedTab ? 'border-green-400  border-b-4' : ''
+            "
           >
             {{ tab.name }}
           </span>
         </div>
       </template>
       <template #body>
-        <FactsCard v-if="tab == 'Facts'" />
-        <QuestionsCard v-if="tab == 'Questions'" />
+        <FactsCard v-if="selectedTab == 'Facts'" />
       </template>
     </side-bar>
   </div>
@@ -32,14 +34,14 @@ export default {
 
   data() {
     return {
-      tabs: [{ name: "Facts" }, { name: "Questions" }],
-      tab: "",
+      tabs: [{ name: "Facts" }],
+      selectedTab: "Facts",
     };
   },
 
   methods: {
     selectTab(selected) {
-      this.tab = selected;
+      this.selectedTab = selected;
     },
   },
 

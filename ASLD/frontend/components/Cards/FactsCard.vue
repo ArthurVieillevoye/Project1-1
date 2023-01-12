@@ -1,25 +1,23 @@
 <template>
-  <div class="bg-white/80 h-full backdrop-blur-md rounded flex flex-col p-3">
-    <div class="flex justify-between">
-      <span class="font-semibold text-xl tracking-wide"> Facts </span>
-      <MainButton
-        dynamicClass="shadow bg-blue-500 rounded text-white hover:bg-blue-400"
-        icon="mdi-plus"
-        width="w-18"
-        @click="fetchArgs"
-      />
-    </div>
+  <div
+    class="bg-white/80 backdrop-blur-md rounded h-full flex-col p-3 overflow-auto"
+  >
+    <!-- <div class="flex justify-between overflow-auto"></div> -->
+    {{ questions }}
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "FactsCard",
 
-  methods: {
-    fetchArgs() {
-      this.$store.dispatch("fetchArgs");
-    },
+  computed: {
+    ...mapGetters({ questions: "getQuestions" }),
+  },
+
+  mounted() {
+    this.$store.dispatch("fetchQuestions");
   },
 };
 </script>

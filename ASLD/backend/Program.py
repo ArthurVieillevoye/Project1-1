@@ -84,43 +84,43 @@ def main(request):
     # print('arguments for closure reduced:')
     # print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
-    a = Literal(stringRepresentation='Person signs a contract')
-    b = Literal(stringRepresentation='Person is under the age of 14')
-    c = Literal(stringRepresentation='Guardian approved the contract')
-    d = Literal(stringRepresentation='Person is bound by the contract')
+    # a = Literal(stringRepresentation='Person signs a contract')
+    # b = Literal(stringRepresentation='Person is under the age of 14')
+    # c = Literal(stringRepresentation='Guardian approved the contract')
+    # d = Literal(stringRepresentation='Person is bound by the contract')
 
-    d1 = DefeasibleRule(a, d)
-    d2 = DefeasibleRule(b, createNegation(d1))
-    d3 = DefeasibleRule(c, createNegation(d2))
+    # d1 = DefeasibleRule(a, d)
+    # d2 = DefeasibleRule(b, createNegation(d1))
+    # d3 = DefeasibleRule(c, createNegation(d2))
 
-    sigma = [a, b, c]  # inital information
-    D = [d1, d2, d3]  # defeasible rules
+    # sigma = [a, b, c]  # inital information
+    # D = [d1, d2, d3]  # defeasible rules
 
-    tableau = Tableau(arguments=[], defeasibleRules=D)
+    # tableau = Tableau(arguments=[], defeasibleRules=D)
 
-    for clause in sigma:
-        tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
+    # for clause in sigma:
+    #     tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    tableau.addRootArgument(createTest(d))
+    # tableau.addRootArgument(createTest(d))
 
-    tableau.evaluate()
+    # tableau.evaluate()
 
-    print('root arguments:')
-    args = [str(arg) for arg in tableau.rootNode.arguments]
-    print(args)
+    # # print('root arguments:')
+    # args = [str(arg) for arg in tableau.rootNode.arguments]
+    # # print(args)
 
-    print('closed?')
-    print(tableau.isClosed)
+    # # print('closed?')
+    # # print(tableau.isClosed)
 
-    print('arguments for closure:')
-    print([str(arg) for arg in tableau.rootNode.closureArguments])
+    # # print('arguments for closure:')
+    # # print([str(arg) for arg in tableau.rootNode.closureArguments])
 
-    print('arguments for closure reduced:')
-    closure = list(dict.fromkeys([str(arg)
-                   for arg in tableau.rootNode.closureArguments]))
-    print(closure)
+    # # print('arguments for closure reduced:')
+    # closure = list(dict.fromkeys([str(arg)
+    #                for arg in tableau.rootNode.closureArguments]))
+    # # print(closure)
 
-    return JsonResponse({'closure': closure})
+    # return JsonResponse({'closure': closure})
 
 
 
@@ -157,3 +157,6 @@ def main(request):
     # print('arguments for closure reduced:')
     # print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
+    closure = list(dict.fromkeys([str(arg)
+                   for arg in tableau.rootNode.closureArguments]))
+    return JsonResponse({'closure': closure})
