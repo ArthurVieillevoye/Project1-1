@@ -3,7 +3,7 @@ __pycache__/
 notebooks/.ipynb_checkpoints
 .vscode/
 *.jpg
-*.png
+
 *.zip
 venv/
 env/
@@ -11,3 +11,5 @@ env/
 .DS_Store
 *.pyc
 ASLD/frontend/package-lock.json
+Pipfile.lock
+Pipfile

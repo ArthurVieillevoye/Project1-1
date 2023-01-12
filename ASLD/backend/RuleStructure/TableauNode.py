@@ -1,11 +1,11 @@
 import copy
 from enum import Enum
-from RuleStructure.ArgumentationRule import DefeasibleRule
-from RuleStructure.Logic.Literal import LitValue, Literal
+from .ArgumentationRule import DefeasibleRule
+from .Logic.Literal import LitValue, Literal
 from typing import List, Union
-from RuleStructure.Logic.Rule import *
-from RuleStructure.Argument import *
-from RuleStructure.TableauRule import applyTableauRule, createNegation
+from .Logic.Rule import *
+from .Argument import *
+from .TableauRule import applyTableauRule
 
 # class for each Node in an argumentation tableau
 class TableauNode:
