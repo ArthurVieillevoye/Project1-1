@@ -3,15 +3,22 @@
     <TableauCard />
     <side-bar>
       <template #header>
-        <div>
-          <div class="w-full h-20 flex space-x-4">
-            <div>Facts</div>
-            <div>Questions</div>
-          </div>
+        <div
+          class="w-full flex space-x-4 p-3 justify-center bg-white/80 rounded backdrop-blur-md"
+        >
+          <span
+            v-for="tab in tabs"
+            :key="tab.name"
+            class="hover:border-b"
+            @click="selectTab(tab.name)"
+          >
+            {{ tab.name }}
+          </span>
         </div>
       </template>
       <template #body>
-        <FactsCard />
+        <FactsCard v-if="tab == 'Facts'" />
+        <QuestionsCard v-if="tab == 'Questions'" />
       </template>
     </side-bar>
   </div>
@@ -23,9 +30,21 @@ export default {
   components: { SideBar },
   name: "IndexPage",
 
+  data() {
+    return {
+      tabs: [{ name: "Facts" }, { name: "Questions" }],
+      tab: "",
+    };
+  },
+
+  methods: {
+    selectTab(selected) {
+      this.tab = selected;
+    },
+  },
+
   mounted() {
     // this.$axios.get("http://localhost:8000/api/hello");
-    this.$store.dispatch("fetchQuestions");
   },
 };
 </script>
