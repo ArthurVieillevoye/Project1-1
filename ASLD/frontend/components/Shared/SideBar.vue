@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/3 h-full border overflow-auto">
+  <div class="w-1/3 h-full border overflow-auto flex flex-col">
     <slot name="header"></slot>
     <slot name="body"></slot>
   </div>

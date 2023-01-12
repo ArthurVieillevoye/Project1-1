@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-1/3 h-full bg-white/80 backdrop-blur-md rounded flex flex-col p-3"
-  >
+  <div class="bg-white/80 backdrop-blur-md rounded flex flex-col p-3">
     <div class="flex justify-between">
       <span class="font-semibold text-xl tracking-wide"> Facts </span>
       <MainButton

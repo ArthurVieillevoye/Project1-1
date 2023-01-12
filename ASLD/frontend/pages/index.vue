@@ -2,6 +2,14 @@
   <div class="flex h-full space-x-4">
     <TableauCard />
     <side-bar>
+      <template #header>
+        <div>
+          <div class="w-full h-20 flex space-x-4">
+            <div>Facts</div>
+            <div>Questions</div>
+          </div>
+        </div>
+      </template>
       <template #body>
         <FactsCard />
       </template>
