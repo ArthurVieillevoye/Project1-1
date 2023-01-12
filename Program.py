@@ -146,6 +146,9 @@ if __name__ == '__main__':
     print('root arguments:')
     print([str(arg) for arg in tableau.rootNode.arguments])
 
+    print('root arguments reduced:')
+    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.arguments])))
+
     print('closed?')
     print(tableau.isClosed)
 
