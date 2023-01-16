@@ -1,6 +1,9 @@
 from Logic.Literal import Literal
 from Logic.Rule import *
 from ArgumentationRule import StrictRule, DefeasibleRule
+import pandas as pd
+import os
+import numpy as np
 
 # This class implements the law of the working hours act
 
@@ -306,3 +309,10 @@ defeasibleRulesList.append(DefeasibleRule(r44, l48))
 literalsList = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,
                 l27,l28,l29,l30,l31,l32,l33,l34,l35,l36,l37,l38,l39,l40,l41,l42,l43,l44,l45,l46,l47,l48,l49,l50,
                 l51,l52,l53]
+
+
+# 0 = No relation
+# 1 = Row stronger than column
+# 2 = column stronger than row
+df = pd.read_csv(".\OrderLawWorkingHours.csv", header=None, delimiter=';')
+order = df.values
