@@ -1,27 +1,44 @@
 <template>
-  <div
-    class="w-1/3 h-full bg-white/80 backdrop-blur-md rounded flex flex-col p-3"
-  >
-    <div class="flex justify-between">
-      <span class="font-semibold text-xl tracking-wide"> Facts </span>
-      <MainButton
-        dynamicClass="shadow bg-blue-500 rounded text-white hover:bg-blue-400"
-        icon="mdi-plus"
-        width="w-18"
-        @click="fetchArgs"
-      />
-    </div>
+  <div class="">
+    <template v-for="question in questions">
+      <div
+        v-if="question.question"
+        :key="question.id"
+        class="flex p-3 justify-between"
+      >
+        {{ question.question }}
+        <input
+          type="checkbox"
+          :id="question.id"
+          v-model="checked"
+          :value="question.id"
+          true-value="True"
+          false-value="False"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "FactsCard",
 
-  methods: {
-    fetchArgs() {
-      this.$store.dispatch("fetchArgs");
-    },
+  data() {
+    return {
+      checked: [],
+    };
+  },
+
+  methods: {},
+
+  computed: {
+    ...mapGetters({ questions: "getQuestions" }),
+  },
+
+  mounted() {
+    this.$store.dispatch("fetchQuestions");
   },
 };
 </script>
