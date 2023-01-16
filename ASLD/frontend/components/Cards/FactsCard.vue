@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <template v-for="question in questions">
       <div
         v-if="question.question"

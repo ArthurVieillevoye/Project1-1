@@ -1,5 +1,7 @@
 <template>
-  <div class="h-full w-2/3 bg-white/80 backdrop-blur-md rounded flex flex-col">
+  <div
+    class="h-full w-2/3 bg-gray-200/80 backdrop-blur-md rounded flex flex-col"
+  >
     <div class="flex justify-between p-3">
       <span class="font-semibold text-xl tracking-wide">
         Argumentation Tableau
@@ -11,8 +13,11 @@
         @click="fetchArgs"
       />
     </div>
-    <div class="w-full p-3 overflow-auto">
-      <div v-if="args.length !== 0" class="bg-gray-100 rounded">
+    <div class="p-3 h-full w-full overflow-auto">
+      <div
+        v-if="args.length !== 0"
+        class="bg-gray-100 rounded h-full w-full overflow-auto"
+      >
         {{ args }}
       </div>
     </div>

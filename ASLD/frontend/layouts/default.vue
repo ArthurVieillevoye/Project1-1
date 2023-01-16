@@ -9,7 +9,7 @@
 
     <Navigation />
 
-    <div class="p-4 h-full w-full">
+    <div class="p-4 flex flex-row basis-full overflow-auto">
       <Nuxt />
     </div>
   </div>
