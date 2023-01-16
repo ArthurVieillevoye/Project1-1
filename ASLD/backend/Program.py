@@ -14,13 +14,16 @@ class Tableau:
     defeasibleRules: List[DefeasibleRule]
     isClosed: bool
     closureArguments: List[Argument]
+    allArguments: List[Argument]
+    order: List
 
-    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule]):
+    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule], order: List):
         self.defeasibleRules = defeasibleRules
         self.rootNode = TableauNode(
-            arguments=arguments, defeasibleRules=defeasibleRules)
+            arguments=arguments, defeasibleRules=defeasibleRules, order=order)
         self.isClosed = False
         self.closureArguments = []
+        self.order = order
 
     def addRootArgument(self, argument):
         self.rootNode.addArgument(argument)
@@ -31,17 +34,21 @@ class Tableau:
     def evaluate(self):
         tableauChanged = True
         # check if tableau is already closed (contradiction) with initial information
-        self.isClosed, self.closureArguments = self.rootNode.checkClosure()
+        #self.isClosed, self.closureArguments = self.rootNode.checkClosure()
 
         # apply tableau rules and evaluate defeasible rules until either the tableau is closed, or no more changes are possible
-        while not self.isClosed and tableauChanged:
+        while tableauChanged:
             tableauChanged = False
             # apply tableau rule to create left (and right) child nodes
             tableauChanged = self.rootNode.expandTree()
             # evaluate defeasible rules
             tableauChanged = self.rootNode.checkDefeasibleRules() or tableauChanged
+            # check for contradictions and create undercutting arguments
+            tableauChanged = self.rootNode.checkContradiction() or tableauChanged
             # check if tableau changed
             self.isClosed, self.closureArguments = self.rootNode.checkClosure()
+
+        self.allArguments = self.rootNode.getAllArguments()        
 
 
 def main(request):
@@ -126,19 +133,21 @@ def main(request):
     c = Literal(stringRepresentation='Guardian approved the contract')
     d = Literal(stringRepresentation='Person is bound by the contract')
 
-    d1 = DefeasibleRule(a, d, orderValue = 3)
-    d2 = DefeasibleRule(antecedent = Rule(a, Operator.AND, b), consequence = createNegation(d), orderValue = 2)
-    d3 = DefeasibleRule(antecedent = Rule(Rule(a, Operator.AND, b), Operator.AND, c), consequence = d, orderValue = 1)
+    d1 = DefeasibleRule(a, d, ruleId = 1)
+    d2 = DefeasibleRule(antecedent = Rule(a, Operator.AND, b), consequence = createNegation(d), ruleId = 2)
+    d3 = DefeasibleRule(antecedent = Rule(Rule(a, Operator.AND, b), Operator.AND, c), consequence = d, ruleId = 3)
 
     sigma = [a, b, c] #inital information
     D = [d1, d2, d3] #defeasible rules
+        
+    order = [[0,2,2],[1,0,2],[1,1,0]]
     
-    tableau = Tableau(arguments=[], defeasibleRules=D)
+    tableau = Tableau(arguments=[], defeasibleRules=D, order=order)
 
     for clause in sigma:
         tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
-    #tableau.addRootArgument(createTest(createNegation(d)))
+    tableau.addRootArgument(createTest(createNegation(d)))
     tableau.addRootArgument(createTest(d))
 
     tableau.evaluate()
@@ -158,4 +167,4 @@ def main(request):
     closure = list(dict.fromkeys([str(arg)
                     for arg in tableau.rootNode.closureArguments]))
 
-    return JsonResponse({'closure': closure})
+    return JsonResponse({'closure': tableau.allArguments})
