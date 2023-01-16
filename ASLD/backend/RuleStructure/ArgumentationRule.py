@@ -32,14 +32,14 @@ class DefeasibleRule():
     # defeasible rule which is the negated consequence in case of negated rule
     negationOf: None # DefeasibleRule
 
-    # value by which to order rules in case of contradictions
-    orderValue: int
-
     # indicates, whether the rule was already applied in the current Node (True after antecedent holds and no undercutting defeaters)
     wasApplied: bool
 
     # indicates, whether the rule was defeated by an undercutting defeater
     isDefeated: bool
+
+    # Identification number of the defeasible rule. This will be used in the ordering of the rules.
+    ruleId: int
 
 
 
@@ -47,12 +47,12 @@ class DefeasibleRule():
                  antecedent = None, 
                  consequence = None, 
                  negationOf = None, 
-                 orderValue: int = 1
+                 ruleId: int = None
                 ):
         self.antecedent = antecedent
         self.consequence = consequence
         self.negationOf = negationOf
-        self.orderValue = orderValue
+        self.ruleId = ruleId
         self.wasApplied = False
         self.isDefeated = False
         
