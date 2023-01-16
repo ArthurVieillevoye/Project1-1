@@ -17,7 +17,7 @@ class Tableau:
     allArguments: List[Argument]
     order: List
 
-    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule], order: List):
+    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule], order):
         self.defeasibleRules = defeasibleRules
         self.rootNode = TableauNode(
             arguments=arguments, defeasibleRules=defeasibleRules, order=order)
@@ -90,7 +90,6 @@ def main(request):
 
     # print('arguments for closure reduced:')
     # print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
-
 
     # a = Literal(stringRepresentation='Person signs a contract')
     # b = Literal(stringRepresentation='Person is under the age of 14')
@@ -168,3 +167,6 @@ def main(request):
                     for arg in tableau.rootNode.closureArguments]))
 
     return JsonResponse({'closure': tableau.allArguments})
+
+    print('arguments for closure reduced:')
+    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
