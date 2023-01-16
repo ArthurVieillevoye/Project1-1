@@ -327,7 +327,7 @@ class TableauNode:
 
     
 
-    def getweakestRules(self, rules):
+    def getWeakestRules(self, rules):
         newRuleList = []
         newRuleList = self.findWeakRule(rules)
         if len(newRuleList) == len(rules):
