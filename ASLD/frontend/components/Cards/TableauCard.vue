@@ -2,18 +2,19 @@
   <div
     class="h-full w-2/3 bg-gray-200/80 backdrop-blur-md rounded flex flex-col"
   >
-    <div class="flex justify-between p-3">
+    <div class="flex justify-between p-3 items-baseline">
       <span class="font-semibold text-xl tracking-wide">
         Argumentation Tableau
       </span>
       <MainButton
         dynamicClass="shadow bg-blue-500 rounded text-white hover:bg-blue-400"
-        icon="mdi-plus"
+        icon="mdi-chevron-triple-right"
         width="w-18"
+        placeholder="Get Arguments"
         @click="fetchArgs"
       />
     </div>
-    <div class="p-3 h-full w-full overflow-auto">
+    <div class="px-3 pb-3 h-full w-full overflow-auto">
       <div
         v-if="args.length !== 0"
         class="bg-gray-100 rounded h-full w-full overflow-auto"
