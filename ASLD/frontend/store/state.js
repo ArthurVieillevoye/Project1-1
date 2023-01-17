@@ -3,7 +3,11 @@ export const InitialState = () => {
     rules: [],
     facts: [],
     args: [],
+    closure: [],
+    stable: [],
+    grounded: [],
     questions: [],
+    examples: [],
   };
 };
 
