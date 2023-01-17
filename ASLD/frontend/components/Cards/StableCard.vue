@@ -1,6 +1,6 @@
 <template>
-  <card-layout title="Stable Semantics">
-    <div v-if="stable.length !== 0">{{ stable }}</div>
+  <card-layout title="Stable Semantics" :info="stable">
+    <!-- <div v-if="stable.length !== 0">{{ stable }}</div> -->
   </card-layout>
 </template>
 

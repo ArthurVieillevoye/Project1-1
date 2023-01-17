@@ -1,6 +1,10 @@
 <template>
   <card-layout title="Arguments">
-    <div v-if="args.length !== 0">{{ args }}</div>
+    <div v-if="args.length !== 0">
+      <ul v-for="arg in args" :key="arg">
+        <li class="p-2">{{ arg }}</li>
+      </ul>
+    </div>
   </card-layout>
 </template>
 

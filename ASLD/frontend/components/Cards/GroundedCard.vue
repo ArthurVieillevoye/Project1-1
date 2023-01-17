@@ -1,6 +1,6 @@
 <template>
-  <card-layout title="Grounded Semantics">
-    <div v-if="grounded.length !== 0">{{ grounded }}</div>
+  <card-layout title="Grounded Semantics" :info="grounded">
+    <!-- <div v-if="grounded.length !== 0">{{ grounded }}</div> -->
   </card-layout>
 </template>
 

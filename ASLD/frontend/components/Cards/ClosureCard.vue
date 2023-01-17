@@ -1,6 +1,10 @@
 <template>
-  <card-layout title="Closure Arguments">
-    <div v-if="closure.length !== 0">{{ closure }}</div>
+  <card-layout title="Closure Arguments" :info="closure">
+    <div v-if="closure.length !== 0">
+      <ul v-for="close in closure" :key="close">
+        <li class="p-2">{{ close }}</li>
+      </ul>
+    </div>
   </card-layout>
 </template>
 
