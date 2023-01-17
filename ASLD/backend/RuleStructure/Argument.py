@@ -6,7 +6,7 @@ from .Logic.Rule import Rule
 
 def createTest(literal: Literal):
     if literal.isNegation:
-        testLiteral = literal.negationOf
+        testLiteral = Literal(stringRepresentation=str(literal.negationOf), isTest=True)
     else:
         testLiteral = Literal(negationOf=literal, isTest=True)
     return Argument(support=[testLiteral], conclusion=testLiteral)
