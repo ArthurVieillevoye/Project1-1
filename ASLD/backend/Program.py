@@ -204,10 +204,13 @@ def main(request):
     #print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
 
     closure = list(set([str(arg) for arg in tableau.rootNode.closureArguments]))
+    closure.sort(key=lambda x: (x.depth, len(x.support)))
 
     allArgs = list(set([str(arg) for arg in tableau.allArguments]))
+    allArgs.sort(key=lambda x: (x.depth, len(x.support)))
 
-    return JsonResponse({'closure': allArgs + closure})
+    #print(request, flush=True)
+    return JsonResponse({'closure': allArgs})
 
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))

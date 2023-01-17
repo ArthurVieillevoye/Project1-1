@@ -22,12 +22,10 @@ class Literal:
     stringRepresentation: str
     isNegation: bool
     negationOf: None # Literal
-    isTest: bool
 
-    def __init__(self, stringRepresentation = None, negationOf = None, isTest=False):
+    def __init__(self, stringRepresentation = None, negationOf = None):
         self.stringRepresentation = stringRepresentation
         self.negationOf = negationOf
-        self.isTest = isTest
         if negationOf:
             self.isNegation = True
         else:
@@ -55,8 +53,5 @@ class Literal:
             returnString = '¬' + str(self.negationOf)
         else:
             returnString = self.stringRepresentation
-
-        if self.isTest:
-            returnString = returnString + '?'
 
         return returnString
