@@ -62,6 +62,9 @@ def getStableExtensions(labels):
         elif label == Label.UNDEC:
             isStable = False
 
+    if isStable:
+        stableExtensions.append(extension)
+    
     extension = []
     isStable = True
 
@@ -100,14 +103,14 @@ def getExtensions(arguments):
 
     if isGrounded:
         groundedExtension = extension
+        groundedExtension.sort(key = lambda x: (x.depth, len(x.support)))
+        groundedExtension = [str(arg) for arg in groundedExtension]
+
         stableExtensions = [extension]
     else:
-        groundedExtension = None
-        stableExtensions = getStableExtensions()
+        groundedExtension = []
+        stableExtensions = getStableExtensions(labels)
     
-    groundedExtension.sort(key = lambda x: (x.depth, len(x.support)))
-    groundedExtension = [str(arg) for arg in groundedExtension]
-
     stableExtensions.sort(key = lambda x: len(x))
     for i in range(len(stableExtensions)):
         stableExtensions[i].sort(key = lambda x: (x.depth, len(x.support)))
