@@ -6,18 +6,25 @@ from .Logic.Rule import Rule
 
 def createTest(literal: Literal):
     if literal.isNegation:
-        testLiteral = Literal(stringRepresentation=str(literal.negationOf), isTest=True)
+        #testLiteral = Literal(stringRepresentation=str(literal.negationOf), isTest=True)
+        testLiteral = literal.negationOf
+        #testLiteral.isTest = True
     else:
         testLiteral = Literal(negationOf=literal, isTest=True)
+        #testLiteral = Literal(negationOf=literal)
     return Argument(support=[testLiteral], conclusion=testLiteral)
     
 class Argument:
     support: List
     conclusion = None
+    attacks: List
+    attackedBy: List
 
     def __init__(self, support: List, conclusion):
         self.support = support
         self.conclusion = conclusion
+        self.attacks = []
+        self.attackedBy = []
 
     def isAtomic(self):
         return type(self.conclusion) == Literal and (not self.conclusion.isNegation or not self.conclusion.negationOf.isNegation)

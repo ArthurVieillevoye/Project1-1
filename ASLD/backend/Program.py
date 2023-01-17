@@ -191,8 +191,8 @@ def main(request):
 
     tableau.evaluate()
 
-    print('root arguments:', flush=True)
-    print([str(arg) for arg in tableau.rootNode.arguments], flush=True)
+    #print('root arguments:', flush=True)
+    #print([str(arg) for arg in tableau.rootNode.arguments], flush=True)
 
     print('closed?', flush=True)
     print(tableau.isClosed, flush=True)
