@@ -12,6 +12,15 @@ export default {
   SET_ARGS(state, payload) {
     state.args = payload;
   },
+  SET_CLOSURE(state, payload) {
+    state.closure = payload;
+  },
+  SET_STABLE(state, payload) {
+    state.stable = payload;
+  },
+  SET_GROUNDED(state, payload) {
+    state.grounded = payload;
+  },
 
   SET_QUESTIONS(state, payload) {
     state.questions = payload;

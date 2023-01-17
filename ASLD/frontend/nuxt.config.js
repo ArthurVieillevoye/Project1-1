@@ -23,7 +23,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: "~/plugins/decision-tree.js", mode: "" }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: ["~/components", "~/components/Cards", "~/components/Shared"],

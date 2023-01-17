@@ -1,0 +1,27 @@
+<template>
+  <card-layout title="Arguments">
+    <div v-if="args.length !== 0">{{ args }}</div>
+  </card-layout>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import CardLayout from "../Shared/CardLayout.vue";
+import TreeCard from "./TreeCard.vue";
+export default {
+  components: { TreeCard, CardLayout },
+  name: "ArgumentsCard",
+
+  data() {
+    return {
+      parsedArgs: [],
+    };
+  },
+
+  computed: {
+    ...mapGetters({ args: "getArgs" }),
+  },
+};
+</script>
+
+<style></style>

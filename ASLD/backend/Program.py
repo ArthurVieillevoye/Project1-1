@@ -206,8 +206,18 @@ def main(request):
     closure = list(set([str(arg) for arg in tableau.rootNode.closureArguments]))
 
     allArgs = list(set([str(arg) for arg in tableau.allArguments]))
+    stable=""
+    grounded=""
 
-    return JsonResponse({'closure': allArgs + closure})
+    return JsonResponse({
+        'args': allArgs,
+        'closure': closure,
+        'stable': stable,
+        'grounded': grounded
+        })
 
     print('arguments for closure reduced:')
     print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
+
+
+#TODO just for the arguments return te
