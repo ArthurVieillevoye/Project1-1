@@ -207,26 +207,21 @@ class TableauNode:
                             # check if there are opposing conclusions (--> contradiction)
                             if arg1.conclusion.isNegation and arg1.conclusion.negationOf == arg2.conclusion \
                              or arg2.conclusion.isNegation and arg1.conclusion == arg2.conclusion.negationOf:
-                                    newContradictionFound = True
                                     contradictionSupport = arg1.support + arg2.support
-                                    break
 
-                    if newContradictionFound:
-                        break
+                                    # identify weakest rule used in contradiction
+                                    usedDefRules  = self.getUsedDefRules(contradictionSupport)
+                                    weakestRules = self.getWeakestRules(usedDefRules)
 
-            if newContradictionFound:
-                usedDefRules  = self.getUsedDefRules(contradictionSupport)
-                weakestRules = self.getWeakestRules(usedDefRules)
-                newContradictionFound = False
-
-                for weakestRule in weakestRules:
-                    if not weakestRule.isDefeated:
-                        newContradictionFound = True
-                        undercuttingArgSupport = self.getUndercuttingAttackSupport(support=contradictionSupport, defRule=weakestRule)
-                        weakestRule.isDefeated = True
-                        # create undercutting argument
-                        self.addArgument(Argument(support = undercuttingArgSupport, conclusion = createNegation(weakestRule)))
-                        break
+                                    for weakestRule in weakestRules:
+                                        # defeat weakest non-defeated rule
+                                        if not weakestRule.isDefeated:
+                                            newContradictionFound = True
+                                            undercuttingArgSupport = self.getUndercuttingAttackSupport(support=contradictionSupport, defRule=weakestRule)
+                                            weakestRule.isDefeated = True
+                                            # create undercutting argument
+                                            self.addArgument(Argument(support = undercuttingArgSupport, conclusion = createNegation(weakestRule)))
+                                            break
                     
 
         return leftChanged or rightChanged or newContradictionFound
