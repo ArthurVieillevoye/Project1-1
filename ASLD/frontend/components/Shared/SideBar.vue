@@ -9,7 +9,7 @@
         class="hover:border-b border-green-400"
         @click="selectTab(tab.name)"
         :class="
-          tab.name == selectedTab
+          tab.name === selectedTab
             ? 'border-green-400  border-b-4 drop-shadow-md'
             : ''
         "
@@ -19,6 +19,7 @@
     </div>
     <div class="overflow-auto h-full bg-gray-100/40 rounded-t">
       <FactsCard v-if="selectedTab === 'Facts'" />
+      <ExampleCard v-if="selectedTab === 'Examples'" />
     </div>
     <MainButton
       dynamicClass="bg-green-400 rounded-b text-white hover:bg-green-600"
@@ -43,6 +44,7 @@ export default {
 
   methods: {
     selectTab(selected) {
+      this.$store.commit("SET_FACTS", []);
       this.selectedTab = selected;
     },
     fetchArgs() {

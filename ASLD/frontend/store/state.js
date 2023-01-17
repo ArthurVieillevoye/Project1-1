@@ -7,6 +7,7 @@ export const InitialState = () => {
     stable: [],
     grounded: [],
     questions: [],
+    examples: [],
   };
 };
 

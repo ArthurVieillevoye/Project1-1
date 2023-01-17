@@ -1,17 +1,17 @@
 <template>
   <div>
-    <template v-for="question in questions">
+    <template v-for="example in examples">
       <div
-        v-if="question.question"
-        :key="question.id"
+        v-if="example.question"
+        :key="example.id"
         class="flex p-3 justify-between"
       >
-        {{ question.question }}
+        {{ example.question }}
         <input
           type="checkbox"
-          :id="question.id"
+          :id="example.id"
           v-model="checked"
-          :value="question.id"
+          :value="example.id"
           true-value="True"
           false-value="False"
         />
@@ -23,7 +23,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "FactsCard",
+  name: "ExampleCard",
 
   data() {
     return {
@@ -31,20 +31,20 @@ export default {
     };
   },
 
+  methods: {},
+
   watch: {
     checked(newFact) {
       this.$store.commit("SET_FACTS", newFact);
     },
   },
 
-  methods: {},
-
   computed: {
-    ...mapGetters({ questions: "getQuestions" }),
+    ...mapGetters({ examples: "getExamples" }),
   },
 
   mounted() {
-    this.$store.dispatch("fetchQuestions");
+    this.$store.dispatch("fetchToyExamples");
   },
 };
 </script>

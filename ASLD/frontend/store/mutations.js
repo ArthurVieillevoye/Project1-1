@@ -26,6 +26,10 @@ export default {
     state.questions = payload;
   },
 
+  SET_EXAMPLES(state, payload) {
+    state.examples = payload;
+  },
+
   RESET_STATE(state) {
     Object.assign(state, InitialState());
   },

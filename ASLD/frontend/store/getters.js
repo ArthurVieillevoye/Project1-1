@@ -6,4 +6,5 @@ export default {
   getGrounded: (state) => state.grounded,
   getFacts: (state) => state.facts,
   getQuestions: (state) => state.questions,
+  getExamples: (state) => state.examples,
 };
