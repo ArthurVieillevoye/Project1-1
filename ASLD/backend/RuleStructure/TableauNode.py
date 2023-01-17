@@ -92,14 +92,12 @@ class TableauNode:
                     for idx2, arg2 in enumerate(self.arguments):
                         if idx2 > idx1 and arg2.isAtomic():
                             # check if there are opposing conclusions (--> contradiction --> branch closure)
-                            if arg1.conclusion.isNegation:
-                                if arg1.conclusion.negationOf == arg2.conclusion:
+                            if arg1.conclusion.isNegation and arg1.conclusion.negationOf == arg2.conclusion \
+                                or arg2.conclusion.isNegation and arg1.conclusion == arg2.conclusion.negationOf:
                                     self.isClosed = True
                                     self.closureArguments.append(Argument(support=arg1.support + arg2.support, conclusion=Literal(stringRepresentation='⊥')))
-                            elif arg2.conclusion.isNegation:
-                                if arg1.conclusion == arg2.conclusion.negationOf:
-                                    self.isClosed = True
-                                    self.closureArguments.append(Argument(support=arg1.support + arg2.support, conclusion=Literal(stringRepresentation='⊥')))
+                                    # note attack relation for later labeling
+                                    self.updateAttackSymmetric(argument1=arg1, argument2=arg2)
                                     
         return self.isClosed, self.closureArguments
 
@@ -220,9 +218,12 @@ class TableauNode:
                                             undercuttingArgSupport = self.getUndercuttingAttackSupport(support=contradictionSupport, defRule=weakestRule)
                                             weakestRule.isDefeated = True
                                             # create undercutting argument
-                                            self.addArgument(Argument(support = undercuttingArgSupport, conclusion = createNegation(weakestRule)))
+                                            undercuttingArg = Argument(support = undercuttingArgSupport, conclusion = createNegation(weakestRule))
+                                            # note attack relation for later labeling
+                                            self.updateAttackRelationUndercuttingArg(undercuttingArgument=undercuttingArg, defeatedRule=weakestRule)
+                                            # add undercutting argument to list of arguments
+                                            self.addArgument(undercuttingArg)
                                             break
-                    
 
         return leftChanged or rightChanged or newContradictionFound
 
@@ -301,6 +302,27 @@ class TableauNode:
                 return True
 
         return False
+
+    # note attack relation for two arguments attacking each other
+    def updateAttackSymmetric(self, argument1, argument2):
+        argument1.attacks.append(argument2)
+        argument1.attackedBy.append(argument2)
+        argument2.attacks.append(argument1)
+        argument2.attackedBy.append(argument1)
+
+        argument1.attacks = list(set(argument1.attacks))
+        argument1.attackedBy = list(set(argument1.attackedBy))
+        argument2.attacks = list(set(argument2.attacks))
+        argument2.attackedBy = list(set(argument2.attackedBy))
+
+    # note attack relation for all arguments using a defeated rule for later labeling
+    def updateAttackRelationUndercuttingArg(self, undercuttingArgument, defeatedRule):
+        for arg in self.arguments:
+            if self.isDefRuleUsedInArgument(defRule=defeatedRule, argument=arg):
+                undercuttingArgument.attacks.append(arg)
+                undercuttingArgument.attacks = list(set(undercuttingArgument.attacks))
+                arg.attackedBy.append(undercuttingArgument)
+                arg.attackedBy = list(set(arg.attackedBy))
 
 
     def findWeakRule(self, rules):
