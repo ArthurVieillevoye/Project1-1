@@ -58,6 +58,14 @@ class TableauNode:
         else:
             allArguments = copy.copy(self.arguments)
 
+        args = allArguments.copy()
+
+        for arg in args:
+            if arg.isTest:
+                allArguments.remove(arg)
+
+        allArguments.sort(key=lambda x: (x.depth, len(x.support)))
+
         return list(set(allArguments))
 
         
@@ -199,9 +207,9 @@ class TableauNode:
         else:
             # check all atomic non-test arguments pair-wise for contradictions
             for idx1, arg1 in enumerate(self.arguments):
-                if arg1.isAtomic() and not arg1.conclusion.isTest:
+                if arg1.isAtomic() and not arg1.isTest:
                     for idx2, arg2 in enumerate(self.arguments):
-                        if idx2 > idx1 and arg2.isAtomic() and not arg2.conclusion.isTest:
+                        if idx2 > idx1 and arg2.isAtomic() and not arg2.isTest:
                             # check if there are opposing conclusions (--> contradiction)
                             if arg1.conclusion.isNegation and arg1.conclusion.negationOf == arg2.conclusion \
                              or arg2.conclusion.isNegation and arg1.conclusion == arg2.conclusion.negationOf:
@@ -305,24 +313,26 @@ class TableauNode:
 
     # note attack relation for two arguments attacking each other
     def updateAttackSymmetric(self, argument1, argument2):
-        argument1.attacks.append(argument2)
-        argument1.attackedBy.append(argument2)
-        argument2.attacks.append(argument1)
-        argument2.attackedBy.append(argument1)
+        if not (argument1.isTest or argument2.isTest):
+            argument1.attacks.append(argument2)
+            argument1.attackedBy.append(argument2)
+            argument2.attacks.append(argument1)
+            argument2.attackedBy.append(argument1)
 
-        argument1.attacks = list(set(argument1.attacks))
-        argument1.attackedBy = list(set(argument1.attackedBy))
-        argument2.attacks = list(set(argument2.attacks))
-        argument2.attackedBy = list(set(argument2.attackedBy))
+            argument1.attacks = list(set(argument1.attacks))
+            argument1.attackedBy = list(set(argument1.attackedBy))
+            argument2.attacks = list(set(argument2.attacks))
+            argument2.attackedBy = list(set(argument2.attackedBy))
 
     # note attack relation for all arguments using a defeated rule for later labeling
     def updateAttackRelationUndercuttingArg(self, undercuttingArgument, defeatedRule):
         for arg in self.arguments:
             if self.isDefRuleUsedInArgument(defRule=defeatedRule, argument=arg):
-                undercuttingArgument.attacks.append(arg)
-                undercuttingArgument.attacks = list(set(undercuttingArgument.attacks))
-                arg.attackedBy.append(undercuttingArgument)
-                arg.attackedBy = list(set(arg.attackedBy))
+                if not arg.isTest:
+                    undercuttingArgument.attacks.append(arg)
+                    undercuttingArgument.attacks = list(set(undercuttingArgument.attacks))
+                    arg.attackedBy.append(undercuttingArgument)
+                    arg.attackedBy = list(set(arg.attackedBy))
 
 
     def findWeakRule(self, rules):
