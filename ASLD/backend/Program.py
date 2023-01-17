@@ -5,6 +5,7 @@ from .RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 from .RuleStructure.Argument import *
 from .RuleStructure.TableauNode import TableauNode
 from .RuleStructure.TableauRule import *
+from .Semantics import *
 from django.http import JsonResponse
 # tableau class
 
@@ -191,26 +192,21 @@ def main(request):
 
     tableau.evaluate()
 
-    #print('root arguments:', flush=True)
-    #print([str(arg) for arg in tableau.rootNode.arguments], flush=True)
-
     print('closed?', flush=True)
     print(tableau.isClosed, flush=True)
 
-    #print('arguments for closure:')
-    #print([str(arg) for arg in tableau.rootNode.closureArguments])
-
-    #print('arguments for closure reduced:')
-    #print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
-
-    closure = list(set([str(arg) for arg in tableau.rootNode.closureArguments]))
+    
+    closure = list(set(tableau.rootNode.closureArguments))
     closure.sort(key=lambda x: (x.depth, len(x.support)))
+    closure = [str(arg) for arg in closure]
 
-    allArgs = list(set([str(arg) for arg in tableau.allArguments]))
+    allArgs = list(set(tableau.allArguments))
     allArgs.sort(key=lambda x: (x.depth, len(x.support)))
+    allArgs = [str(arg) for arg in allArgs]
 
-    #print(request, flush=True)
-    return JsonResponse({'closure': allArgs})
+    groundedExtension, stableExtensions = getExtensions(tableau.allArguments)
 
-    print('arguments for closure reduced:')
-    print(list(dict.fromkeys([str(arg) for arg in tableau.rootNode.closureArguments])))
+    return JsonResponse({'allArgs': allArgs,
+                         'closure': closure,
+                         'groundedExtension': groundedExtension,
+                         'stableExtensions': stableExtensions})
