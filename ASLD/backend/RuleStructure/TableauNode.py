@@ -98,7 +98,7 @@ class TableauNode:
             for idx1, arg1 in enumerate(self.arguments):
                 if arg1.isAtomic():
                     for idx2, arg2 in enumerate(self.arguments):
-                        if idx2 > idx1 and arg2.isAtomic():
+                        if idx2 > idx1 and arg2.isAtomic() and not (arg1.isTest and arg2.isTest):
                             # check if there are opposing conclusions (--> contradiction --> branch closure)
                             if arg1.conclusion.isNegation and arg1.conclusion.negationOf == arg2.conclusion \
                                 or arg2.conclusion.isNegation and arg1.conclusion == arg2.conclusion.negationOf:
