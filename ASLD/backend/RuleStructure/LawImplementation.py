@@ -310,6 +310,8 @@ literalsList = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l
                 l27,l28,l29,l30,l31,l32,l33,l34,l35,l36,l37,l38,l39,l40,l41,l42,l43,l44,l45,l46,l47,l48,l49,l50,
                 l51,l52,l53]
 
+for i in range(len(literalsList)):
+    literalsList[i].setID(i)
 
 # 0 = No relation
 # 1 = Row stronger than column

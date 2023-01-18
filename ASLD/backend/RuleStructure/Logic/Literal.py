@@ -23,9 +23,10 @@ class Literal:
     isNegation: bool
     negationOf: None # Literal
 
-    def __init__(self, stringRepresentation = None, negationOf = None):
+    def __init__(self, stringRepresentation = None, negationOf = None, litId = None):
         self.stringRepresentation = stringRepresentation
         self.negationOf = negationOf
+        self.literalId = litId
         if negationOf:
             self.isNegation = True
         else:
@@ -47,6 +48,9 @@ class Literal:
         else: 
             self.value = LitValue.FALSE
 
+
+    def setID(self, iD):
+        self.literalId = iD
 
     def __str__(self):
         if self.isNegation:
