@@ -156,8 +156,8 @@ def main(request):
 
     #####################
 
-    tmp = request.body
-    print("#########################################################", type(tmp))
+    # tmp = request.POST["facts"]
+    # print("#########################################################", type(tmp))
 
     a = Literal(stringRepresentation='Person is Quaker')
     b = Literal(stringRepresentation='Person is Republican')
