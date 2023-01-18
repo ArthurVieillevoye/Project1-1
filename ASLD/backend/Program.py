@@ -6,53 +6,20 @@ from .RuleStructure.Argument import *
 from .RuleStructure.TableauNode import TableauNode
 from .RuleStructure.TableauRule import *
 from .Semantics import *
-from django.http import JsonResponse
-# tableau class
+from .Tableau import *
+from django.http import JsonResponse, HttpRequest
+import json    
+
+def decod_body(body):
+    body_unicode = body.decode('utf-8')
+    return json.loads(body_unicode)
 
 
-class Tableau:
-    rootNode: TableauNode
-    defeasibleRules: List[DefeasibleRule]
-    isClosed: bool
-    closureArguments: List[Argument]
-    allArguments: List[Argument]
-    order: List
+def main(request: HttpRequest()):
 
-    def __init__(self, arguments: List[Argument], defeasibleRules: List[DefeasibleRule], order):
-        self.defeasibleRules = defeasibleRules
-        self.rootNode = TableauNode(
-            arguments=arguments, defeasibleRules=defeasibleRules, order=order)
-        self.isClosed = False
-        self.closureArguments = []
-        self.order = order
+    if request.method =='POST':
+       body = decod_body(request.body)
 
-    def addRootArgument(self, argument):
-        self.rootNode.addArgument(argument)
-
-    def addDefeasibleRules(self, rule):
-        self.defeasibleRules.append(rule)
-
-    def evaluate(self):
-        tableauChanged = True
-        # check if tableau is already closed (contradiction) with initial information
-        #self.isClosed, self.closureArguments = self.rootNode.checkClosure()
-
-        # apply tableau rules and evaluate defeasible rules until either the tableau is closed, or no more changes are possible
-        while tableauChanged:
-            tableauChanged = False
-            # apply tableau rule to create left (and right) child nodes
-            tableauChanged = self.rootNode.expandTree()
-            # evaluate defeasible rules
-            tableauChanged = self.rootNode.checkDefeasibleRules() or tableauChanged
-            # check for contradictions and create undercutting arguments
-            tableauChanged = self.rootNode.checkContradiction() or tableauChanged
-            # check if tableau changed
-            self.isClosed, self.closureArguments = self.rootNode.checkClosure()
-
-        self.allArguments = self.rootNode.getAllArguments()        
-
-
-def main(request):
     # p = Literal(stringRepresentation='p')
     # q = Literal(stringRepresentation='q')
     # r = Literal(stringRepresentation='r')
