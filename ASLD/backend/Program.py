@@ -6,7 +6,9 @@ from .RuleStructure.Argument import *
 from .RuleStructure.TableauNode import TableauNode
 from .RuleStructure.TableauRule import *
 from .Semantics import *
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpRequest
+import json
+
 # tableau class
 
 
@@ -52,7 +54,16 @@ class Tableau:
         self.allArguments = self.rootNode.getAllArguments()        
 
 
-def main(request):
+def decod_body(body):
+    body_unicode = body.decode('utf-8')
+    return json.loads(body_unicode)
+
+
+def main(request: HttpRequest()):
+
+    if request.method =='POST':
+       body = decod_body(request.body)
+
     # p = Literal(stringRepresentation='p')
     # q = Literal(stringRepresentation='q')
     # r = Literal(stringRepresentation='r')
