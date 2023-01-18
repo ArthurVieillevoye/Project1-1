@@ -9,10 +9,10 @@ export default {
       this.$axios
         .get("http://localhost:8000/api/main")
         .then((res) => {
-          commit("SET_ARGS", res.data.args);
+          commit("SET_ARGS", res.data.allArgs);
           commit("SET_CLOSURE", res.data.closure);
-          commit("SET_STABLE", res.data.stable);
-          commit("SET_GROUNDED", res.data.grounded);
+          commit("SET_STABLE", res.data.stableExtensions);
+          commit("SET_GROUNDED", res.data.groundedExtension);
           resolve(res);
         })
         .catch((error) => {
