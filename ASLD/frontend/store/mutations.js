@@ -29,6 +29,12 @@ export default {
   SET_EXAMPLES(state, payload) {
     state.examples = payload;
   },
+  SET_EXAMPLES_TWO(state, payload) {
+    state.examplesTwo = payload;
+  },
+  SET_SELECTED_TAB(state, payload) {
+    state.selectedTab = payload;
+  },
 
   RESET_STATE(state) {
     Object.assign(state, InitialState());

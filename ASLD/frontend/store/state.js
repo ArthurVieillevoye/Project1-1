@@ -8,6 +8,8 @@ export const InitialState = () => {
     grounded: [],
     questions: [],
     examples: [],
+    selectedTab: "Facts",
+    examplesTwo: [],
   };
 };
 

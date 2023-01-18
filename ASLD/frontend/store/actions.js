@@ -1,7 +1,7 @@
 export default {
   fetchData({ state, commit }) {
     return new Promise((resolve, reject) => {
-      const payload = { facts: state.facts };
+      const payload = { facts: state.facts, identfier: state.selectedTab };
       this.$axios
         .post("http://localhost:8000/api/main", payload)
         .then((res) => {
@@ -48,17 +48,19 @@ export default {
     });
   },
 
-  // dispatchFacts({ state }) {
-  //   return new Promise((resolve, reject) => {
+  fetchToyExamplesTwo({ state, commit }) {
+    if (state.examplesTwo.length !== 0) return;
 
-  //     this.$axios
-  //       .post("http://localhost:8000/api/facts", payload)
-  //       .then((res) => {
-  //         resolve(res);
-  //       })
-  //       .catch((e) => {
-  //         reject(e);
-  //       });
-  //   });
-  // },
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .get("http://localhost:8000/api/examplestwo")
+        .then((res) => {
+          commit("SET_EXAMPLES_TWO", res.data.examples);
+          resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
 };

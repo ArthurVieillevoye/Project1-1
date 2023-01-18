@@ -7,4 +7,6 @@ export default {
   getFacts: (state) => state.facts,
   getQuestions: (state) => state.questions,
   getExamples: (state) => state.examples,
+  getExamplesTwo: (state) => state.examplesTwo,
+  getSelectedTab: (state) => state.selectedTab,
 };

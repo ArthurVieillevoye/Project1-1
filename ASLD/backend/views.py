@@ -22,3 +22,6 @@ def questions(request):
 
 def examples(request):
     return JsonResponse({"examples": toy_examples})
+
+def examplesTwo(request):
+    return JsonResponse({"examples": toy_examples_two})
