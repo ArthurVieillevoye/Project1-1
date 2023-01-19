@@ -1,7 +1,7 @@
 export default {
   fetchData({ state, commit }) {
     return new Promise((resolve, reject) => {
-      const payload = { facts: state.facts, identfier: state.selectedTab };
+      const payload = { facts: state.facts, identifier: state.selectedTab };
       this.$axios
         .post("http://localhost:8000/api/main", payload)
         .then((res) => {

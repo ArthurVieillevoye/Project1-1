@@ -1,10 +1,49 @@
 <template>
   <div class="flex flex-row space-x-4 w-full">
-    <div class="grid grid-cols-2 grid-rows-2 gap-4 w-full h-full">
-      <ArgumentsCard />
-      <ClosureCard />
-      <StableCard />
-      <GroundedCard />
+    <div class="flex flex-col space-y-4 w-full h-full">
+      <div
+        class="flex flex-col w-full h-full bg-gray-200/40 backdrop-blur-md rounded"
+      >
+        <div class="flex space-x-4 py-2 justify-center h-12">
+          <span
+            v-for="tab in tabs"
+            :key="tab.name"
+            class="hover:border-b border-green-400"
+            @click="selectTab(tab.name)"
+            :class="
+              tab.name === currentTab
+                ? 'border-green-400  border-b-4 drop-shadow-md'
+                : ''
+            "
+          >
+            {{ tab.name }}
+          </span>
+        </div>
+        <ArgumentsCard v-if="currentTab === 'Arguments'" />
+        <ClosureCard v-if="currentTab === 'Closure Arguments'" />
+      </div>
+
+      <div
+        class="flex flex-col w-full h-full bg-gray-200/40 backdrop-blur-md rounded rounded"
+      >
+        <div class="flex space-x-4 py-2 justify-center h-12">
+          <span
+            v-for="tab in windows"
+            :key="tab.name"
+            class="hover:border-b border-green-400"
+            @click="chooseWindow(tab.name)"
+            :class="
+              tab.name === currentWindow
+                ? 'border-green-400  border-b-4 drop-shadow-md'
+                : ''
+            "
+          >
+            {{ tab.name }}
+          </span>
+        </div>
+        <StableCard v-if="currentWindow === 'Stable Semantics'" />
+        <GroundedCard v-if="currentWindow === 'Grounded Semantics'" />
+      </div>
     </div>
 
     <SideBar />
@@ -19,10 +58,22 @@ export default {
   name: "IndexPage",
 
   data() {
-    return {};
+    return {
+      tabs: [{ name: "Arguments" }, { name: "Closure Arguments" }],
+      currentTab: "Arguments",
+      windows: [{ name: "Stable Semantics" }, { name: "Grounded Semantics" }],
+      currentWindow: "Stable Semantics",
+    };
   },
 
-  methods: {},
+  methods: {
+    selectTab(selected) {
+      this.currentTab = selected;
+    },
+    chooseWindow(selected) {
+      this.currentWindow = selected;
+    },
+  },
 
   mounted() {},
 };
