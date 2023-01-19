@@ -2,7 +2,7 @@
   <div class="flex flex-row space-x-4 w-full">
     <div class="flex flex-col space-y-4 w-full h-full">
       <div
-        class="flex flex-col w-full h-full bg-gray-200/40 backdrop-blur-md rounded"
+        class="flex flex-col w-full h-1/2 bg-gray-200/40 backdrop-blur-md rounded"
       >
         <div class="flex space-x-4 py-2 justify-center h-12">
           <span
@@ -24,7 +24,7 @@
       </div>
 
       <div
-        class="flex flex-col w-full h-full bg-gray-200/40 backdrop-blur-md rounded rounded"
+        class="flex flex-col w-full h-1/2 bg-gray-200/40 backdrop-blur-md rounded rounded"
       >
         <div class="flex space-x-4 py-2 justify-center h-12">
           <span

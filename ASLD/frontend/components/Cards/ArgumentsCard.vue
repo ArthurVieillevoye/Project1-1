@@ -2,7 +2,7 @@
   <card-layout>
     <div v-if="args.length !== 0">
       <ul v-for="(arg, index) in args" :key="index">
-        <li class="p-2">{{ arg }}</li>
+        <li class="py-1">{{ arg }}</li>
       </ul>
     </div>
   </card-layout>
