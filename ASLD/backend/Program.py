@@ -1,5 +1,6 @@
 import copy
 from .RuleStructure.Logic.Literal import *
+from .RuleStructure.LawImplementation import *
 from .RuleStructure.Logic.Rule import *
 from .RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 from .RuleStructure.Argument import *
@@ -19,6 +20,22 @@ def main(request: HttpRequest()):
 
     if request.method =='POST':
        body = decod_body(request.body)
+
+    #TODO: Change the literals used according to the selected problem.
+    [literals, defeasibleRules, order] = getData()
+
+    for l in literals:
+        l.setValue(False)
+        for x in body["facts"]:
+            if l.literalId == x:
+                l.setValue(True)
+
+    for l in literals:
+        if l.interpret():
+            print(l.literalId  , " , " , l)
+    
+    print(body["facts"])
+        
 
     # p = Literal(stringRepresentation='p')
     # q = Literal(stringRepresentation='q')
@@ -122,6 +139,9 @@ def main(request: HttpRequest()):
     # tableau.addRootArgument(createTest(d))
 
     #####################
+
+    # tmp = request.POST["facts"]
+    # print("#########################################################", type(tmp))
 
     a = Literal(stringRepresentation='Person is Quaker')
     b = Literal(stringRepresentation='Person is Republican')
