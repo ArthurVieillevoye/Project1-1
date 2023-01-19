@@ -1,6 +1,8 @@
 import copy
 from .RuleStructure.Logic.Literal import *
-from .RuleStructure.LawImplementation import *
+from .RuleStructure import LawImplementation
+from .RuleStructure import NixonLawExample2
+from .RuleStructure import ContractSignedLawExample
 from .RuleStructure.Logic.Rule import *
 from .RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 from .RuleStructure.Argument import *
@@ -16,24 +18,42 @@ def decod_body(body):
     return json.loads(body_unicode)
 
 
+def setLiteralsValue(literals, usersLiteralValue):
+    for l in literals:
+            l.setValue(False)
+            for x in usersLiteralValue:
+                if l.literalId == x:
+                    l.setValue(True)
+
+
 def main(request: HttpRequest()):
 
     if request.method =='POST':
        body = decod_body(request.body)
 
-    #TODO: Change the literals used according to the selected problem.
-    [literals, defeasibleRules, order] = getData()
 
-    for l in literals:
-        l.setValue(False)
-        for x in body["facts"]:
-            if l.literalId == x:
-                l.setValue(True)
+    if body["identifier"] == 'Facts':
+        print("facts")
+        [literals, defeasibleRules, order] = LawImplementation.getData()
+        setLiteralsValue(literals, body["facts"])
 
+    elif body["identifier"] == 'Example One':
+        print("contract")
+        # Contract signed
+        [literals, defeasibleRules, order] = ContractSignedLawExample.getData()
+        setLiteralsValue(literals, body["facts"])
+    
+    elif body["identifier"] == 'Example Two':
+        print("nixon")
+        # Nixon example
+        [literals, defeasibleRules, order] = NixonLawExample2.getData()
+        setLiteralsValue(literals, body["facts"])
+    
     for l in literals:
         if l.interpret():
-            print(l.literalId  , " , " , l)
-    
+            print("helooooooo")
+            print(l.literalId, " , ", l)
+
     print(body["facts"])
         
 
