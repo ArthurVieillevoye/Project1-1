@@ -48,7 +48,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ selectedTab: "getSelectedTab" }),
+    ...mapGetters({ selectedTab: "getSelectedTab", facts: "getFacts" }),
   },
 
   methods: {
@@ -58,7 +58,11 @@ export default {
     },
 
     fetchData() {
-      this.$store.dispatch("fetchData");
+      if (this.facts.length !== 0) {
+        this.$store.dispatch("fetchData");
+      } else {
+        alert("Facts or Examples cannot be empty.");
+      }
     },
   },
 
