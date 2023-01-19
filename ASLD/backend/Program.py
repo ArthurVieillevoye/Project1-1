@@ -22,13 +22,19 @@ def main(request: HttpRequest()):
        body = decod_body(request.body)
 
     #TODO: Change the literals used according to the selected problem.
-    literals = getData()
+    [literals, defeasibleRules, order] = getData()
 
     for l in literals:
         l.setValue(False)
         for x in body["facts"]:
             if l.literalId == x:
                 l.setValue(True)
+
+    for l in literals:
+        if l.interpret():
+            print(l.literalId  , " , " , l)
+    
+    print(body["facts"])
         
 
     # p = Literal(stringRepresentation='p')

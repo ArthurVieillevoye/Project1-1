@@ -3,6 +3,7 @@ from .Logic.Rule import *
 from .ArgumentationRule import StrictRule, DefeasibleRule
 import pandas as pd
 import numpy as np
+import os
 
 def getData():
     # This class implements the law of the working hours act
@@ -313,11 +314,14 @@ def getData():
     for i in range(len(literalsList)):
         literalsList[i].setID(i+1)
 
-    print(literalsList[14].literalId)
     # 0 = No relation
     # 1 = Row stronger than column
     # 2 = column stronger than row
-    df = pd.read_csv(".\RuleStructure\\OrderLawWorkingHours.csv", header=None, delimiter=';')
+    cwd = os.getcwd()  # Get the current working directory (cwd)
+    cwd = cwd + '\\backend\\RuleStructure\\OrderLawWorkingHours.csv'
+    print("Files in: %s" % (cwd))
+
+    df = pd.read_csv(cwd, header=None, delimiter=';')
     order = df.values
 
-    return literalsList, defeasibleRulesList, order
+    return [literalsList, defeasibleRulesList, order]
