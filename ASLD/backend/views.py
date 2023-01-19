@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .RuleStructure.Questions import lit_question
 from .RuleStructure.Examples import toy_examples
+from .RuleStructure.Examples2 import toy_examples_two
 from django.core import serializers
 import json
 
