@@ -1,13 +1,9 @@
 export default {
-  fetchData({ dispatch, commit }) {
+  fetchData({ state, commit }) {
     return new Promise((resolve, reject) => {
-      dispatch("dispatchFacts").then((res) => {
-        if (res.statusCode === 404) {
-          resolve(res);
-        }
-      });
+      const payload = { facts: state.facts, identfier: state.selectedTab };
       this.$axios
-        .get("http://localhost:8000/api/main")
+        .post("http://localhost:8000/api/main", payload)
         .then((res) => {
           commit("SET_ARGS", res.data.allArgs);
           commit("SET_CLOSURE", res.data.closure);
@@ -52,17 +48,18 @@ export default {
     });
   },
 
-  dispatchFacts({ state }) {
+  fetchToyExamplesTwo({ state, commit }) {
+    if (state.examplesTwo.length !== 0) return;
+
     return new Promise((resolve, reject) => {
       this.$axios
-        .post("http://localhost:8000/api/facts", {
-          facts: state.facts,
-        })
+        .get("http://localhost:8000/api/examplestwo")
         .then((res) => {
+          commit("SET_EXAMPLES_TWO", res.data.examples);
           resolve(res);
         })
-        .catch((e) => {
-          reject(e);
+        .catch((error) => {
+          reject(error);
         });
     });
   },

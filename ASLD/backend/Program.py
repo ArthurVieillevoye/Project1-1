@@ -7,9 +7,19 @@ from .RuleStructure.TableauNode import TableauNode
 from .RuleStructure.TableauRule import *
 from .Semantics import *
 from .Tableau import *
-from django.http import JsonResponse     
+from django.http import JsonResponse, HttpRequest
+import json    
 
-def main(request):
+def decod_body(body):
+    body_unicode = body.decode('utf-8')
+    return json.loads(body_unicode)
+
+
+def main(request: HttpRequest()):
+
+    if request.method =='POST':
+       body = decod_body(request.body)
+
     # p = Literal(stringRepresentation='p')
     # q = Literal(stringRepresentation='q')
     # r = Literal(stringRepresentation='r')

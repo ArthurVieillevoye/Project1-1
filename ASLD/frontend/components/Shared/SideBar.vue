@@ -19,35 +19,45 @@
     </div>
     <div class="overflow-auto h-full bg-gray-100/40 rounded-t">
       <FactsCard v-if="selectedTab === 'Facts'" />
-      <ExampleCard v-if="selectedTab === 'Examples'" />
+      <ExampleCard v-if="selectedTab === 'Example One'" />
+      <ExampleTwoCard v-if="selectedTab === 'Example Two'" />
     </div>
     <MainButton
       dynamicClass="bg-green-400 rounded-b text-white hover:bg-green-600"
       icon="mdi-chevron-triple-right"
       width="w-18"
       placeholder="Submit"
-      @click="fetchArgs"
+      @click="fetchData"
     />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "SideBar",
 
   data() {
     return {
-      tabs: [{ name: "Facts" }, { name: "Examples" }],
-      selectedTab: "Facts",
+      tabs: [
+        { name: "Facts" },
+        { name: "Example One" },
+        { name: "Example Two" },
+      ],
     };
+  },
+
+  computed: {
+    ...mapGetters({ selectedTab: "getSelectedTab" }),
   },
 
   methods: {
     selectTab(selected) {
       this.$store.commit("SET_FACTS", []);
-      this.selectedTab = selected;
+      this.$store.commit("SET_SELECTED_TAB", selected);
     },
-    fetchArgs() {
+
+    fetchData() {
       this.$store.dispatch("fetchData");
     },
   },
