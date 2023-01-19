@@ -1,5 +1,6 @@
 import copy
 from .RuleStructure.Logic.Literal import *
+from .RuleStructure.LawImplementation import *
 from .RuleStructure.Logic.Rule import *
 from .RuleStructure.ArgumentationRule import StrictRule, DefeasibleRule
 from .RuleStructure.Argument import *
@@ -19,6 +20,16 @@ def main(request: HttpRequest()):
 
     if request.method =='POST':
        body = decod_body(request.body)
+
+    #TODO: Change the literals used according to the selected problem.
+    literals = getData()
+
+    for l in literals:
+        l.setValue(False)
+        for x in body["facts"]:
+            if l.literalId == x:
+                l.setValue(True)
+        
 
     # p = Literal(stringRepresentation='p')
     # q = Literal(stringRepresentation='q')
