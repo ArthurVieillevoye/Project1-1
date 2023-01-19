@@ -319,7 +319,6 @@ def getData():
     # 2 = column stronger than row
     cwd = os.getcwd()  # Get the current working directory (cwd)
     cwd = cwd + '\\backend\\RuleStructure\\OrderLawWorkingHours.csv'
-    print("Files in: %s" % (cwd))
 
     df = pd.read_csv(cwd, header=None, delimiter=';')
     order = df.values
