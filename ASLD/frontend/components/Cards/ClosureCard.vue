@@ -1,7 +1,7 @@
 <template>
   <card-layout>
     <div v-if="closure.length !== 0">
-      <ul v-for="close in closure" :key="close">
+      <ul v-for="(close, index) in closure" :key="index">
         <li class="p-2">{{ close }}</li>
       </ul>
     </div>

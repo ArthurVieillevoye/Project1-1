@@ -1,7 +1,7 @@
 <template>
   <card-layout title="Stable Semantics" :info="stable">
     <div v-if="stable.length !== 0">
-      <ul v-for="stab in stable" :key="stab">
+      <ul v-for="(stab, index) in stable" :key="index">
         <li class="p-2">{{ stab }}</li>
       </ul>
     </div>

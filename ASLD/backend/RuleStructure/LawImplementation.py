@@ -317,10 +317,14 @@ def getData():
     # 0 = No relation
     # 1 = Row stronger than column
     # 2 = column stronger than row
-    cwd = os.getcwd()  # Get the current working directory (cwd)
-    cwd = cwd + '\\backend\\RuleStructure\\OrderLawWorkingHours.csv'
+    # cwd = os.getcwd()  # Get the current working directory (cwd)
+    # cwd = cwd + '\\backend\\RuleStructure\\OrderLawWorkingHours.csv'
 
-    df = pd.read_csv(cwd, header=None, delimiter=';')
+    df = pd.read_csv(
+            os.path.realpath(os.path.dirname(__file__))  + '/OrderLawWorkingHours.csv',
+            header=None,
+            delimiter=';'
+        )
     order = df.values
 
     return [literalsList, defeasibleRulesList, order]
