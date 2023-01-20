@@ -170,14 +170,14 @@ def main(request: HttpRequest()):
     d1 = DefeasibleRule(a, c, ruleId = 1)
     d2 = DefeasibleRule(b, createNegation(c), ruleId = 2)
 
-    sigma = [a, b] #inital information
-    D = [d1, d2] #defeasible rules
+    # sigma = [a, b] #inital information
+    # D = [d1, d2] #defeasible rules
         
-    order = [[0,0],[0,0]]
+    # order = [[0,0],[0,0]]
     
-    tableau = Tableau(arguments=[], defeasibleRules=D, order=order)
+    tableau = Tableau(arguments=[], defeasibleRules=defeasibleRules, order=order)
 
-    for clause in sigma:
+    for clause in literals:
         tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
     tableau.addRootArgument(createTest(createNegation(c)))
