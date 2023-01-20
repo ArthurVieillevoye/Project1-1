@@ -1,7 +1,7 @@
 <template>
   <card-layout>
     <div v-if="grounded.length !== 0">
-      <ul v-for="(ground, index) in grounded" :key="index" class="pb-3">
+      <ul v-for="(ground, index) in grounded" :key="index">
         <li class="py-1">{{ ground }}</li>
       </ul>
     </div>
