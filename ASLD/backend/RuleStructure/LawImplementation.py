@@ -1,8 +1,8 @@
+from .TableauRule import createNegation
 from .Logic.Literal import Literal
 from .Logic.Rule import *
-from .ArgumentationRule import StrictRule, DefeasibleRule
+from .ArgumentationRule import *
 import pandas as pd
-import numpy as np
 import os
 
 def getData():
@@ -20,14 +20,14 @@ def getData():
     # l1 = Literal(stringRepresentation='Employed')
     l3 = Literal(stringRepresentation='less than 10 employees')
     r1 = Rule(l1, Operator.AND, l3)
-    l4 = Literal(stringRepresentation='Cannot make a request')
+    #l4 = Literal(stringRepresentation='Cannot make a request')
+    l4 = createNegation(l2)
     defeasibleRulesList.append(DefeasibleRule(r1,l4, ruleId=2))
 
     # Rule 3
     # l1 = Literal(stringRepresentation='Employed')
     l5 = Literal(stringRepresentation='Too old')
     r2 = Rule(l1, Operator.AND, l5)
-    # l3 = Literal(stringRepresentation='Cannot make a request')
     defeasibleRulesList.append(DefeasibleRule(r2,l4, ruleId=3))
 
     # Rule 4
@@ -57,7 +57,8 @@ def getData():
     # Rule 7
     l10 = Literal(stringRepresentation='Request not submitted in writing')
     r6 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, l10)
-    l11 = Literal(stringRepresentation='Not Legal request for a change in working hours')
+    # l11 = Literal(stringRepresentation='Not Legal request for a change in working hours')
+    l11 = createNegation(l9)
     defeasibleRulesList.append(DefeasibleRule(r6, l11, ruleId=7))
 
     # Rule 8
@@ -86,7 +87,8 @@ def getData():
 
     # Rule 12
     r11 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, l10)
-    l16 = Literal(stringRepresentation='Not a legal request for a change in working time')
+    #l16 = Literal(stringRepresentation='Not a legal request for a change in working time')
+    l16 = createNegation(l15)
     defeasibleRulesList.append(DefeasibleRule(r11, l16, ruleId=12))
 
     # Rule 13
@@ -111,7 +113,8 @@ def getData():
 
     # Rule 17
     r16 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l10)
-    l19 = Literal(stringRepresentation='Not Legal request for a change in working place')
+    # l19 = Literal(stringRepresentation='Not Legal request for a change in working place')
+    l19 = createNegation(l18)
     defeasibleRulesList.append(DefeasibleRule(r16, l19, ruleId=17))
 
     # Rule 18
@@ -137,19 +140,21 @@ def getData():
     l21 = Literal(stringRepresentation='DUTY Accept Request Change Working Hours')
     defeasibleRulesList.append(DefeasibleRule(l8, l21, ruleId=22))
 
-    # Rule 23
-    l22 = Literal(stringRepresentation='No power to Reject Request Change Working Hours')
-    defeasibleRulesList.append(DefeasibleRule(l8, l22, ruleId=23))
-
     # Rule 24
     l23 = Literal(stringRepresentation='IMMUNITY Substantial Business Or Service Interests')
     r20 = Rule(l8, l23)
-    l24 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Hours')
+    # l24 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Hours')
+    l24 = createNegation(l21)
     defeasibleRulesList.append(DefeasibleRule(l8, l24, ruleId=24))
 
     # Rule 25
     l25 = Literal(stringRepresentation='power to Reject Request Change Working Hours')
     defeasibleRulesList.append(DefeasibleRule(r20, l25, ruleId=25))
+
+    # Rule 23
+    # l22 = Literal(stringRepresentation='No power to Reject Request Change Working Hours')
+    l22 = createNegation(l25)
+    defeasibleRulesList.append(DefeasibleRule(l8, l22, ruleId=23))
 
 
     ###############################################################################
@@ -162,19 +167,21 @@ def getData():
     l27 = Literal(stringRepresentation='DUTY to Accept Request Change Working Times')
     defeasibleRulesList.append(DefeasibleRule(l15, l27, ruleId=27))
 
-    #Rule 28
-    l28 = Literal(stringRepresentation='No POWER to Change Request Change Working Times')
-    defeasibleRulesList.append(DefeasibleRule(l15, l28, ruleId=28))
-
     # Rule 29
     l29 = Literal(stringRepresentation='IMMUNITY Interests Of Employee Yield For Reasons Of Reasonableness And Fairness')
     r21 = Rule(l15, Operator.AND, l29)
-    l30 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Times')
+    # l30 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Times')
+    l30 = createNegation(l27)
     defeasibleRulesList.append(DefeasibleRule(r21, l30, ruleId=29))
 
     # Rule 30
     l31 = Literal(stringRepresentation='POWER to Change Request Change Working Times')
     defeasibleRulesList.append(DefeasibleRule(r21, l31, ruleId=30))
+
+    #Rule 28
+    # l28 = Literal(stringRepresentation='No POWER to Change Request Change Working Times')
+    l28 = createNegation(l31)
+    defeasibleRulesList.append(DefeasibleRule(l15, l28, ruleId=28))
 
     ################################################################################
     # Rules resulting from legal action: Request by Employee Change in Working place
@@ -193,7 +200,8 @@ def getData():
     # Rule 33
     l35 = Literal(stringRepresentation='Decision On Request Not Sent In Writing')
     r23 = Rule(Rule(l21, Operator.AND, l33), Operator.AND, l35)
-    l36 = Literal(stringRepresentation='NOT a LEGAL Accepted Request Change Working Hours')
+    # l36 = Literal(stringRepresentation='NOT a LEGAL Accepted Request Change Working Hours')
+    l36 = createNegation(l34)
     defeasibleRulesList.append(DefeasibleRule(r23, l36, ruleId=33))
 
     # Rule 34
@@ -204,7 +212,8 @@ def getData():
 
     # Rule 35
     r25 = Rule(Rule(l25, Operator.AND, l37), Operator.AND, l35)
-    l39 = Literal(stringRepresentation='NOT a LEGAL Rejected Request Change Working Hours')
+    # l39 = Literal(stringRepresentation='NOT a LEGAL Rejected Request Change Working Hours')
+    l39 = createNegation(l38)
     defeasibleRulesList.append(DefeasibleRule(r25, l39, ruleId=35))
 
     # Rule 36
@@ -215,7 +224,8 @@ def getData():
 
     # Rule 37
     r27 = Rule(Rule(l27, Operator.AND, l40), Operator.AND, l35)
-    l42 = Literal(stringRepresentation='NOT LEGAL Accepted Request Change Working Times')
+    # l42 = Literal(stringRepresentation='NOT LEGAL Accepted Request Change Working Times')
+    l42 = createNegation(l41)
     defeasibleRulesList.append(DefeasibleRule(r27, l42, ruleId=37))
 
     # Rule 38
@@ -226,7 +236,8 @@ def getData():
 
     # Rule 39
     r29 = Rule(Rule(l31, Operator.AND, l43), Operator.AND, l35)
-    l45 = Literal(stringRepresentation='NOT a LEGAL Changed Request Change Working Times')
+    # l45 = Literal(stringRepresentation='NOT a LEGAL Changed Request Change Working Times')
+    l45 = createNegation(l44)
     defeasibleRulesList.append(DefeasibleRule(r29, l45, ruleId=39))
 
     # Rules 40
@@ -237,7 +248,8 @@ def getData():
 
     # Rule 41
     r31 = Rule(Rule(l32, Operator.AND, l46), Operator.AND, l35)
-    l48 = Literal(stringRepresentation='NOT a LEGAL Accepted Request Change Working Place')
+    # l48 = Literal(stringRepresentation='NOT a LEGAL Accepted Request Change Working Place')
+    l48 = createNegation(l47)
     defeasibleRulesList.append(DefeasibleRule(r31, l48, ruleId=41))
 
     # Rule 42
@@ -248,7 +260,8 @@ def getData():
 
     # Rule 43 
     r33 = Rule(Rule(l32, Operator.AND, l49), Operator.AND, l35)
-    l51 = Literal(stringRepresentation='NOT a LEGAL Rejected Request Change Working Place')
+    # l51 = Literal(stringRepresentation='NOT a LEGAL Rejected Request Change Working Place')
+    l51 = createNegation(l50)
     defeasibleRulesList.append(DefeasibleRule(r33, l51, ruleId=43))
 
 

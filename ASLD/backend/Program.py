@@ -20,10 +20,10 @@ def decod_body(body):
 
 def setLiteralsValue(literals, usersLiteralValue):
     for l in literals:
-            l.setValue(False)
-            for x in usersLiteralValue:
-                if l.literalId == x:
-                    l.setValue(True)
+        l.setValue(False)
+        for x in usersLiteralValue:
+            if l.literalId == x:
+                l.setValue(True)
 
 
 def main(request: HttpRequest()):
@@ -163,12 +163,12 @@ def main(request: HttpRequest()):
     # tmp = request.POST["facts"]
     # print("#########################################################", type(tmp))
 
-    a = Literal(stringRepresentation='Person is Quaker')
-    b = Literal(stringRepresentation='Person is Republican')
+    # a = Literal(stringRepresentation='Person is Quaker')
+    # b = Literal(stringRepresentation='Person is Republican')
     c = Literal(stringRepresentation='Person is Pacifist')
 
-    d1 = DefeasibleRule(a, c, ruleId = 1)
-    d2 = DefeasibleRule(b, createNegation(c), ruleId = 2)
+    # d1 = DefeasibleRule(a, c, ruleId = 1)
+    # d2 = DefeasibleRule(b, createNegation(c), ruleId = 2)
 
     # sigma = [a, b] #inital information
     # D = [d1, d2] #defeasible rules
@@ -178,7 +178,8 @@ def main(request: HttpRequest()):
     tableau = Tableau(arguments=[], defeasibleRules=defeasibleRules, order=order)
 
     for clause in literals:
-        tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
+        if clause.interpret():
+            tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
 
     tableau.addRootArgument(createTest(createNegation(c)))
     tableau.addRootArgument(createTest(c))
