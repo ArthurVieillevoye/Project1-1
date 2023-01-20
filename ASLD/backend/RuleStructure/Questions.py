@@ -47,8 +47,8 @@ lit_question = [
     },
     {
         "id": 10,
-        "literal": "Request not submitted in writing",
-        "question": "Was the request not submitted in writing?"
+        "literal": "Request submitted in writing",
+        "question": "Was the request submitted in writing?"
     },
     {
         "id": 11,
@@ -62,8 +62,8 @@ lit_question = [
     },
     {
         "id": 13,
-        "literal": "Did not work for at least 26 weeks",
-        "question": "Has the employee not worked at the company for at least 26 weeks ?"
+        "literal": "Did work for at least 26 weeks",
+        "question": "Has the employee worked at the company for at least 26 weeks?"
     },
     {
         "id": 14,
@@ -143,7 +143,7 @@ lit_question = [
     {
         "id": 29,
         "literal": "IMMUNITY Interests Of Employee Yield For Reasons Of Reasonableness And Fairness",
-        "question": ""
+        "question": None
     },
     {
         "id": 30,
@@ -172,8 +172,8 @@ lit_question = [
     },
     {
         "id": 35,
-        "literal": "Decision On Request Not Sent In Writing",
-        "question": "Was the employer's decision not sent in writing?"
+        "literal": "Decision On Request Sent In Writing",
+        "question": "Was the employer's decision sent in writing?"
     },
     {
         "id": 36,

@@ -200,8 +200,6 @@ class TableauNode:
             # can't have right child without left child
             if self.right:
                 rightChanged = self.right.checkContradiction()
-            else:
-                rightChanged = True
         
         # check only for leaf nodes
         else:

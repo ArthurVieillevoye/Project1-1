@@ -42,7 +42,7 @@ def getData():
     l7 = Literal(stringRepresentation='Immunity unforseen circumstances')
     r4 = Rule(l1, Operator.AND, l7)
     # l3 = Literal(stringRepresentation='Cannot make a request')
-    defeasibleRulesList.append(DefeasibleRule(r4,l4, ruleId=5))
+    defeasibleRulesList.append(DefeasibleRule(r4,l2, ruleId=5))
 
 
     #################################################################################
@@ -55,20 +55,20 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r5,l9, ruleId=6))
 
     # Rule 7
-    l10 = Literal(stringRepresentation='Request not submitted in writing')
-    r6 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, l10)
+    l10 = Literal(stringRepresentation='Request submitted in writing')
+    r6 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, createNegation(l10))
     # l11 = Literal(stringRepresentation='Not Legal request for a change in working hours')
     l11 = createNegation(l9)
     defeasibleRulesList.append(DefeasibleRule(r6, l11, ruleId=7))
 
     # Rule 8
-    l12 = Literal(stringRepresentation='time since last request over a year')
-    r7 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, l12)
+    l12 = Literal(stringRepresentation='Time since last request is over a year')
+    r7 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, createNegation(l12))
     defeasibleRulesList.append(DefeasibleRule(r7, l11, ruleId=8))
 
     # Rule 9
-    l13 = Literal(stringRepresentation='Did not work for at least 26 weeks')
-    r8 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, l13)
+    l13 = Literal(stringRepresentation='Did work for at least 26 weeks')
+    r8 = Rule(Rule(l2, Operator.AND, l8), Operator.AND, createNegation(l13))
     defeasibleRulesList.append(DefeasibleRule(r8, l11, ruleId=9))
 
     # Rule 10
@@ -83,20 +83,20 @@ def getData():
     l14 = Literal(stringRepresentation='request is about a change in the working time')
     r10 = Rule(l2, Operator.AND, l14)
     l15 = Literal(stringRepresentation='Legal request for a change in working time')
-    defeasibleRulesList.append(DefeasibleRule(r10,l15, ruleId=11))
+    defeasibleRulesList.append(DefeasibleRule(r10, l15, ruleId=11))
 
     # Rule 12
-    r11 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, l10)
+    r11 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, createNegation(l10))
     #l16 = Literal(stringRepresentation='Not a legal request for a change in working time')
     l16 = createNegation(l15)
     defeasibleRulesList.append(DefeasibleRule(r11, l16, ruleId=12))
 
     # Rule 13
-    r12 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, l12)
+    r12 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, createNegation(l12))
     defeasibleRulesList.append(DefeasibleRule(r12, l16, ruleId=13))
 
     # Rule 14
-    r13 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, l13)
+    r13 = Rule(Rule(l2, Operator.AND, l14), Operator.AND, createNegation(l13))
     defeasibleRulesList.append(DefeasibleRule(r13, l16, ruleId=14))
 
     # Rule 15
@@ -112,17 +112,17 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r15, l18, ruleId=16))
 
     # Rule 17
-    r16 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l10)
+    r16 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, createNegation(l10))
     # l19 = Literal(stringRepresentation='Not Legal request for a change in working place')
     l19 = createNegation(l18)
     defeasibleRulesList.append(DefeasibleRule(r16, l19, ruleId=17))
 
     # Rule 18
-    r17 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, l12)
+    r17 = Rule(Rule(l2, Operator.AND, l17), Operator.AND, createNegation(l12))
     defeasibleRulesList.append(DefeasibleRule(r17, l19, ruleId=18))
 
     # Rule 19
-    r18 = Rule (Rule(l2, Operator.AND, l17), Operator.AND, l13)
+    r18 = Rule (Rule(l2, Operator.AND, l17), Operator.AND, createNegation(l13))
     defeasibleRulesList.append(DefeasibleRule(r18, l19, ruleId=19))
 
     # Rule 20
@@ -134,27 +134,27 @@ def getData():
     # Rules resulting from legal action: Request by Employee Change in Working hours
     # Rule 21
     l20 = Literal(stringRepresentation='DUTY Consult Employee About Request Change Working Hours')
-    defeasibleRulesList.append(DefeasibleRule(l8, l20, ruleId=21))
+    defeasibleRulesList.append(DefeasibleRule(l9, l20, ruleId=21))
 
     #Rule 22
     l21 = Literal(stringRepresentation='DUTY Accept Request Change Working Hours')
-    defeasibleRulesList.append(DefeasibleRule(l8, l21, ruleId=22))
+    defeasibleRulesList.append(DefeasibleRule(l9, l21, ruleId=22))
 
     # Rule 24
     l23 = Literal(stringRepresentation='IMMUNITY Substantial Business Or Service Interests')
-    r20 = Rule(l8, l23)
+    r20 = Rule(l9, l23)
     # l24 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Hours')
     l24 = createNegation(l21)
-    defeasibleRulesList.append(DefeasibleRule(l8, l24, ruleId=24))
+    defeasibleRulesList.append(DefeasibleRule(r20, l24, ruleId=24))
 
     # Rule 25
-    l25 = Literal(stringRepresentation='power to Reject Request Change Working Hours')
+    l25 = Literal(stringRepresentation='POWER to Reject Request Change Working Hours')
     defeasibleRulesList.append(DefeasibleRule(r20, l25, ruleId=25))
 
     # Rule 23
     # l22 = Literal(stringRepresentation='No power to Reject Request Change Working Hours')
     l22 = createNegation(l25)
-    defeasibleRulesList.append(DefeasibleRule(l8, l22, ruleId=23))
+    defeasibleRulesList.append(DefeasibleRule(l9, l22, ruleId=23))
 
 
     ###############################################################################
@@ -198,8 +198,8 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r22, l34, ruleId=32))
 
     # Rule 33
-    l35 = Literal(stringRepresentation='Decision On Request Not Sent In Writing')
-    r23 = Rule(Rule(l21, Operator.AND, l33), Operator.AND, l35)
+    l35 = Literal(stringRepresentation='Decision On Request Sent In Writing')
+    r23 = Rule(Rule(l21, Operator.AND, l33), Operator.AND, createNegation(l35))
     # l36 = Literal(stringRepresentation='NOT a LEGAL Accepted Request Change Working Hours')
     l36 = createNegation(l34)
     defeasibleRulesList.append(DefeasibleRule(r23, l36, ruleId=33))
@@ -211,7 +211,7 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r24, l38, ruleId=34))
 
     # Rule 35
-    r25 = Rule(Rule(l25, Operator.AND, l37), Operator.AND, l35)
+    r25 = Rule(Rule(l25, Operator.AND, l37), Operator.AND, createNegation(l35))
     # l39 = Literal(stringRepresentation='NOT a LEGAL Rejected Request Change Working Hours')
     l39 = createNegation(l38)
     defeasibleRulesList.append(DefeasibleRule(r25, l39, ruleId=35))
@@ -223,7 +223,7 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r26, l41, ruleId=36))
 
     # Rule 37
-    r27 = Rule(Rule(l27, Operator.AND, l40), Operator.AND, l35)
+    r27 = Rule(Rule(l27, Operator.AND, l40), Operator.AND, createNegation(l35))
     # l42 = Literal(stringRepresentation='NOT LEGAL Accepted Request Change Working Times')
     l42 = createNegation(l41)
     defeasibleRulesList.append(DefeasibleRule(r27, l42, ruleId=37))
@@ -235,7 +235,7 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r28, l44, ruleId=38))
 
     # Rule 39
-    r29 = Rule(Rule(l31, Operator.AND, l43), Operator.AND, l35)
+    r29 = Rule(Rule(l31, Operator.AND, l43), Operator.AND, createNegation(l35))
     # l45 = Literal(stringRepresentation='NOT a LEGAL Changed Request Change Working Times')
     l45 = createNegation(l44)
     defeasibleRulesList.append(DefeasibleRule(r29, l45, ruleId=39))
@@ -247,7 +247,7 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r30, l47, ruleId=40))
 
     # Rule 41
-    r31 = Rule(Rule(l32, Operator.AND, l46), Operator.AND, l35)
+    r31 = Rule(Rule(l32, Operator.AND, l46), Operator.AND, createNegation(l35))
     # l48 = Literal(stringRepresentation='NOT a LEGAL Accepted Request Change Working Place')
     l48 = createNegation(l47)
     defeasibleRulesList.append(DefeasibleRule(r31, l48, ruleId=41))
@@ -259,7 +259,7 @@ def getData():
     defeasibleRulesList.append(DefeasibleRule(r32, l50, ruleId=42))
 
     # Rule 43 
-    r33 = Rule(Rule(l32, Operator.AND, l49), Operator.AND, l35)
+    r33 = Rule(Rule(l32, Operator.AND, l49), Operator.AND, createNegation(l35))
     # l51 = Literal(stringRepresentation='NOT a LEGAL Rejected Request Change Working Place')
     l51 = createNegation(l50)
     defeasibleRulesList.append(DefeasibleRule(r33, l51, ruleId=43))
@@ -324,6 +324,10 @@ def getData():
                     l27,l28,l29,l30,l31,l32,l33,l34,l35,l36,l37,l38,l39,l40,l41,l42,l43,l44,l45,l46,l47,l48,l49,l50,
                     l51,l52,l53]
 
+    literalsListQuestions = [l1,l3,l5,l6,l7,l8,l10,l12,l13,l14,l17,
+                    l33,l35,l37,l40,l43,l46,l49,
+                    l52,l53]
+
     for i in range(len(literalsList)):
         literalsList[i].setID(i+1)
 
@@ -337,4 +341,4 @@ def getData():
         )
     order = df.values
 
-    return [literalsList, defeasibleRulesList, order]
+    return [literalsListQuestions, defeasibleRulesList, order]

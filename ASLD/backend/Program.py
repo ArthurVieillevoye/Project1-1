@@ -49,13 +49,12 @@ def main(request: HttpRequest()):
         [literals, defeasibleRules, order] = NixonLawExample2.getData()
         setLiteralsValue(literals, body["facts"])
     
-    for l in literals:
-        if l.interpret():
-            print("helooooooo")
-            print(l.literalId, " , ", l)
+    # for l in literals:
+    #     if l.interpret():
+    #         print("helooooooo")
+    #         print(l.literalId, " , ", l)
 
-    print(body["facts"])
-        
+    print(body["facts"], flush=True)
 
     # p = Literal(stringRepresentation='p')
     # q = Literal(stringRepresentation='q')
@@ -180,6 +179,10 @@ def main(request: HttpRequest()):
     for clause in literals:
         if clause.interpret():
             tableau.addRootArgument(Argument(support=[clause], conclusion=clause))
+        else:
+            c2 = createNegation(clause)
+            tableau.addRootArgument(Argument(support=[c2], conclusion=c2))
+
 
     tableau.addRootArgument(createTest(createNegation(c)))
     tableau.addRootArgument(createTest(c))
