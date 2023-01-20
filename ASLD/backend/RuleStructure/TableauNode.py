@@ -219,7 +219,7 @@ class TableauNode:
 
                                     for weakestRule in weakestRules:
                                         # defeat weakest non-defeated rule
-                                        if not weakestRule.isDefeated:
+                                        if not weakestRule.isDefeated and not (self.isDefRuleUsedInArgument(weakestRule, arg1) and self.isDefRuleUsedInArgument(weakestRule, arg2)):
                                             newContradictionFound = True
                                             undercuttingArgSupport = self.getUndercuttingAttackSupport(support=contradictionSupport, defRule=weakestRule)
                                             weakestRule.isDefeated = True

@@ -48,14 +48,18 @@ class Rule:
         if type(self.head) == Rule:
             headValue = self.head.interpret(validLiterals)
         elif type(self.head) == Literal:
-            if self.head in validLiterals:
-                headValue = True
+            for literal in validLiterals:
+                if self.head == literal or (self.head.isNegation and literal.isNegation and self.head.negationOf == literal.negationOf):
+                    headValue = True
+                    break
 
         if type(self.body) == Rule:
             bodyValue = self.body.interpret(validLiterals)
         elif type(self.body) == Literal:
-            if self.body in validLiterals:
-                bodyValue = True
+            for literal in validLiterals:
+                if self.body == literal or (self.body.isNegation and literal.isNegation and self.body.negationOf == literal.negationOf):
+                    bodyValue = True
+                    break
 
         if (self.operator == Operator.AND):
             return headValue and bodyValue
@@ -70,9 +74,9 @@ class Rule:
 
         # check for head and body support in existing arguments
         for arg in currentArguments:
-            if arg.conclusion == self.head:
+            if self.head == arg.conclusion or (self.head.isNegation and arg.conclusion.isNegation and self.head.negationOf == arg.conclusion.negationOf):
                 headSupport = headSupport + arg.support
-            if arg.conclusion == self.body:
+            if self.body == arg.conclusion or (self.body.isNegation and arg.conclusion.isNegation and self.body.negationOf == arg.conclusion.negationOf):
                 bodySupport = bodySupport + arg.support
 
         if len(headSupport) == 0 and type(self.head) == Rule:
