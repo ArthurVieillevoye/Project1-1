@@ -41,8 +41,8 @@
             {{ tab.name }}
           </span>
         </div>
-        <StableCard v-if="currentWindow === 'Stable Semantics'" />
-        <GroundedCard v-if="currentWindow === 'Grounded Semantics'" />
+        <StableCard v-if="currentWindow === 'Stable Extensions'" />
+        <GroundedCard v-if="currentWindow === 'Grounded Extension'" />
       </div>
     </div>
 
@@ -61,7 +61,7 @@ export default {
     return {
       tabs: [{ name: "Arguments" }, { name: "Closure Arguments" }],
       currentTab: "Arguments",
-      windows: [{ name: "Stable Semantics" }, { name: "Grounded Semantics" }],
+      windows: [{ name: "Stable Extensions" }, { name: "Grounded Extension" }],
       currentWindow: "Stable Semantics",
     };
   },

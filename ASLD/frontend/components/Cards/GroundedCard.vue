@@ -2,9 +2,7 @@
   <card-layout>
     <div v-if="grounded.length !== 0">
       <ul v-for="(ground, index) in grounded" :key="index" class="pb-3">
-        <ul v-for="(semantic, index) in ground" :key="index">
-          <li class="py-1">{{ semantic }}</li>
-        </ul>
+        <li class="py-1">{{ ground }}</li>
       </ul>
     </div>
     <div v-if="grounded.length === 0" class="flex justify-center pt-16">
