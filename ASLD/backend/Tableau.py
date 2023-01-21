@@ -29,6 +29,41 @@ class Tableau:
     def addDefeasibleRules(self, rule):
         self.defeasibleRules.append(rule)
 
+    def addDefeasibleRules(self, rule):
+        self.defeasibleRules.append(rule)
+
+    def getLastArgs(self, arguments):
+        lastArgs = []
+        for arg1 in arguments:
+            if not (len(arg1.support) == 1 and arg1.support[0] == arg1.conclusion) \
+                and not (type(arg1.conclusion) == DefeasibleRule):
+                isUsed = False
+                for arg2 in arguments:
+                    if arg2.isArgumentInArgument(arg1):
+                        isUsed = True
+                        break
+                if not isUsed:
+                    lastArgs.append(arg1)
+                    
+        return lastArgs
+
+    def getUndercuttingArgs(self, arguments):
+        undercuttingArgs = []
+        for arg in arguments:
+            if type(arg.conclusion) == DefeasibleRule and arg.conclusion.isNegation:
+                undercuttingArgs.append(arg)
+                    
+        return undercuttingArgs
+
+    def getArgumentsString(self, arguments):
+        strArgs = list(set(arguments))
+        strArgs.sort(key=lambda x: (x.depth, len(x.support)))
+        strArgs = [str(arg) for arg in strArgs]
+                    
+        return strArgs
+
+
+
     def evaluate(self):
         tableauChanged = True
         # check if tableau is already closed (contradiction) with initial information

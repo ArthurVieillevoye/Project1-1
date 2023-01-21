@@ -103,8 +103,8 @@ def getExtensions(arguments):
 
     if isGrounded:
         groundedExtension = extension
-        groundedExtension.sort(key = lambda x: (x.depth, len(x.support)))
-        groundedExtension = [str(arg) for arg in groundedExtension]
+        # groundedExtension.sort(key = lambda x: (x.depth, len(x.support)))
+        # groundedExtension = [str(arg) for arg in groundedExtension]
 
         stableExtensions = [extension]
     else:
@@ -112,9 +112,9 @@ def getExtensions(arguments):
         stableExtensions = getStableExtensions(labels)
     
     stableExtensions.sort(key = lambda x: len(x))
-    for i in range(len(stableExtensions)):
-        stableExtensions[i].sort(key = lambda x: (x.depth, len(x.support)))
-        stableExtensions[i] = [str(arg) for arg in stableExtensions[i]]
+    # for i in range(len(stableExtensions)):
+    #     stableExtensions[i].sort(key = lambda x: (x.depth, len(x.support)))
+    #     stableExtensions[i] = [str(arg) for arg in stableExtensions[i]]
 
     return groundedExtension, stableExtensions
 

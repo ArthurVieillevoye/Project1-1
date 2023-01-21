@@ -48,6 +48,17 @@ class Argument:
         else:
             return str(supportItem)
 
+    # check recursively, whether a argument is used in argument support
+    def isArgumentInArgument(self, argument):
+        for item in self.support:
+            if type(item) == Argument:
+                if item.support == argument.support and item.conclusion == argument.conclusion:
+                    return True
+                elif item.isArgumentInArgument(argument=argument):
+                    return True
+
+        return False
+
     def __str__(self):
         support = ', '.join(self.getSupportString(arg) for arg in self.support)
         conclusion = str(self.conclusion)

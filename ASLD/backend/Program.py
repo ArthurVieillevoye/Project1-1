@@ -196,17 +196,40 @@ def main(request: HttpRequest()):
     print(tableau.isClosed, flush=True)
 
     
-    closure = list(set(tableau.rootNode.closureArguments))
-    closure.sort(key=lambda x: (x.depth, len(x.support)))
-    closure = [str(arg) for arg in closure]
+    # closure = list(set(tableau.closureArguments))
+    # closure.sort(key=lambda x: (x.depth, len(x.support)))
+    # closure = [str(arg) for arg in closure]
 
-    allArgs = list(set(tableau.allArguments))
-    allArgs.sort(key=lambda x: (x.depth, len(x.support)))
-    allArgs = [str(arg) for arg in allArgs]
+    closure = tableau.getArgumentsString(tableau.closureArguments)
+
+    # allArgs = list(set(tableau.allArguments))
+    # allArgs.sort(key=lambda x: (x.depth, len(x.support)))
+    # allArgs = [str(arg) for arg in allArgs]
+
+    allArgs = tableau.getArgumentsString(tableau.allArguments)
+
+    # lastArgs = list(set(tableau.getLastArgs(tableau.allArguments)))
+    # lastArgs.sort(key=lambda x: (x.depth, len(x.support)))
+    # lastArgs = [str(arg) for arg in allArgs]
+
+    lastArgs = tableau.getArgumentsString(tableau.getLastArgs(tableau.allArguments))
 
     groundedExtension, stableExtensions = getExtensions(tableau.allArguments)
+    undercuttingArgs = tableau.getUndercuttingArgs(groundedExtension)
+
+    groundedExtensionFilter = tableau.getLastArgs(groundedExtension)
+    stableExtensionsFilter = [tableau.getLastArgs(extension) for extension in stableExtensions]
+
+    groundedExtension = tableau.getArgumentsString(groundedExtension)
+    groundedExtensionFilter = tableau.getArgumentsString(groundedExtensionFilter)
+    undercuttingArgs = tableau.getArgumentsString(undercuttingArgs)
+
+    stableExtensions = [tableau.getArgumentsString(extension) for extension in stableExtensions]
+    stableExtensionsFilter = [tableau.getArgumentsString(extension) for extension in stableExtensionsFilter]
 
     return JsonResponse({'allArgs': allArgs, # ["aaa", "bbb"]
                          'closure': closure, # ["aaa", "bbb"]
                          'groundedExtension': groundedExtension, # ["aaa", "bbb"]
-                         'stableExtensions': stableExtensions}) # [["aaa", "bbb"], ["ccc", "ddd"]]
+                         'stableExtensions': stableExtensions, # [["aaa", "bbb"], ["ccc", "ddd"]]
+                         'groundedExtensionFilter': groundedExtensionFilter, # ["aaa", "bbb"]
+                         'undercuttingArgs': undercuttingArgs}) # ["aaa", "bbb"]
