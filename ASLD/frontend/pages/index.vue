@@ -21,6 +21,7 @@
         </div>
         <ArgumentsCard v-if="currentTab === 'Arguments'" />
         <ClosureCard v-if="currentTab === 'Closure Arguments'" />
+        <UndercuttingCard v-if="currentTab === 'Undercutting Arguments'" />
       </div>
 
       <div
@@ -43,6 +44,9 @@
         </div>
         <StableCard v-if="currentWindow === 'Stable Extensions'" />
         <GroundedCard v-if="currentWindow === 'Grounded Extension'" />
+        <GroundedFilterCard
+          v-if="currentWindow === 'Grounded Extension Filter'"
+        />
       </div>
     </div>
 
@@ -59,10 +63,18 @@ export default {
 
   data() {
     return {
-      tabs: [{ name: "Arguments" }, { name: "Closure Arguments" }],
+      tabs: [
+        { name: "Arguments" },
+        { name: "Closure Arguments" },
+        { name: "Undercutting Arguments" },
+      ],
       currentTab: "Arguments",
-      windows: [{ name: "Stable Extensions" }, { name: "Grounded Extension" }],
-      currentWindow: "Stable Semantics",
+      windows: [
+        { name: "Stable Extensions" },
+        { name: "Grounded Extension" },
+        { name: "Grounded Extension Filter" },
+      ],
+      currentWindow: "Grounded Extension Filter",
     };
   },
 

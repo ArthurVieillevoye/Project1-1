@@ -10,6 +10,8 @@ export const InitialState = () => {
     examples: [],
     selectedTab: "Facts",
     examplesTwo: [],
+    groundedExtensionFilter: [],
+    undercuttingArgs: [],
   };
 };
 

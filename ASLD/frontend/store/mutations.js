@@ -36,6 +36,14 @@ export default {
     state.selectedTab = payload;
   },
 
+  SET_GE_FILTER(state, payload) {
+    state.groundedExtensionFilter = payload;
+  },
+
+  SET_UNDERCUTTING(state, payload) {
+    state.undercuttingArgs = payload;
+  },
+
   RESET_STATE(state) {
     Object.assign(state, InitialState());
   },

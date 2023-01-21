@@ -1,16 +1,6 @@
 <template>
   <div>
-    <!-- <client-only> -->
     <OrganizationChart :datasource="ds" />
-    <!-- </client-only> -->
-    <!-- <decision-tree
-      :data="mockData"
-      #default="{ node, data }"
-    >
-      <template>
-        <span>{{ data.label }}</span>
-      </template>
-    </decision-tree> -->
   </div>
 </template>
 
