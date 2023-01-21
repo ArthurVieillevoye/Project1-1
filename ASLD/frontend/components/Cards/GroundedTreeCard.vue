@@ -1,7 +1,7 @@
 <template>
   <card-layout>
     <div v-if="groundedFilter.length !== 0">
-      <OrganizationChart :datasource="transformDataToTree" />
+      <OrganizationChart :datasource="groundedFilter[0]" />
     </div>
   </card-layout>
 </template>

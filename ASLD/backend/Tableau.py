@@ -62,10 +62,18 @@ class Tableau:
                     
         return strArgs
 
+    def getTreeElementType(self, clause):
+        if type(clause) == DefeasibleRule:
+            return "Defeasible Rule"
+        else:
+            return 'Fact (Input)'
+            
+
     def getTreeChild(self, argument, id):
         child = {}
         child['id'] = str(id)
-        child['name'] = str(argument.conclusion)
+        child['name'] = self.getTreeElementType(argument.conclusion)
+        child['title'] = str(argument.conclusion)
         id = id + 1
         children = []
         for item in argument.support:
@@ -73,7 +81,7 @@ class Tableau:
                 subChild, id = self.getTreeChild(item, id)
                 children.append(subChild)
             else:
-                children.append({'id': str(id), 'name': str(item)})
+                children.append({'id': str(id), 'title': str(item), 'name': 'Fact (Input)'})
                 id = id + 1 
         child['children'] = children
 
@@ -85,7 +93,8 @@ class Tableau:
             id = 1
             root = {}
             root['id'] = str(id)
-            root['name'] = str(arg.conclusion)
+            child['name'] = 'Conclusion'
+            root['title'] = str(arg.conclusion)
             id = id + 1
             children = []
             for item in arg.support:
@@ -93,7 +102,7 @@ class Tableau:
                     child, id = self.getTreeChild(item, id)
                     children.append(child)
                 else:
-                    children.append({'id': str(id), 'name': str(item)})
+                    children.append({'id': str(id), 'title': str(item), 'name': 'Fact (Input)'})
                     id = id + 1 
             root['children'] = children
             trees.append(root)
