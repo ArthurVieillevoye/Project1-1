@@ -62,7 +62,42 @@ class Tableau:
                     
         return strArgs
 
+    def getTreeChild(self, argument, id):
+        child = {}
+        child['id'] = str(id)
+        child['name'] = str(argument.conclusion)
+        id = id + 1
+        children = []
+        for item in argument.support:
+            if type(item) == Argument:
+                subChild, id = self.getTreeChild(item, id)
+                children.append(subChild)
+            else:
+                children.append({'id': str(id), 'name': str(item)})
+                id = id + 1 
+        child['children'] = children
 
+        return child, id
+
+    def getTrees(self, arguments):
+        trees = []
+        for arg in arguments:
+            id = 1
+            root = {}
+            root['id'] = str(id)
+            root['name'] = str(arg.conclusion)
+            id = id + 1
+            children = []
+            for item in arg.support:
+                if type(item) == Argument:
+                    child, id = self.getTreeChild(item, id)
+                    children.append(child)
+                else:
+                    children.append({'id': str(id), 'name': str(item)})
+                    id = id + 1 
+            root['children'] = children
+            trees.append(root)
+        return trees
 
     def evaluate(self):
         tableauChanged = True
