@@ -93,7 +93,7 @@ class Tableau:
             id = 1
             root = {}
             root['id'] = str(id)
-            child['name'] = 'Conclusion'
+            root['name'] = 'Conclusion'
             root['title'] = str(arg.conclusion)
             id = id + 1
             children = []
