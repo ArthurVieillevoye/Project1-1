@@ -47,6 +47,7 @@
         <GroundedFilterCard
           v-if="currentWindow === 'Grounded Extension Filter'"
         />
+        <GroundedTreeCard v-if="currentWindow === 'Grounded Extension Tree'" />
       </div>
     </div>
 
@@ -73,6 +74,7 @@ export default {
         { name: "Stable Extensions" },
         { name: "Grounded Extension" },
         { name: "Grounded Extension Filter" },
+        { name: "Grounded Extension Tree" },
       ],
       currentWindow: "Grounded Extension Filter",
     };
