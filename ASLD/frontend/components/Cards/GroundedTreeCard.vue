@@ -1,7 +1,7 @@
 <template>
   <card-layout>
-    <div v-if="groundedFilter.length !== 0">
-      <div v-for="(tree, index) in groundedFilter" :key="index">
+    <div v-if="groundedTree.length !== 0">
+      <div v-for="(tree, index) in groundedTree" :key="index">
         <OrganizationChart :datasource="tree" />
       </div>
     </div>
@@ -28,13 +28,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ groundedFilter: "getGEFilter" }),
+    ...mapGetters({ groundedTree: "getGETree" }),
 
     transformDataToTree() {
       return {
         id: "1",
         name: "1",
-        title: this.groundedFilter[0],
+        title: this.groundedTree[0],
       };
     },
   },

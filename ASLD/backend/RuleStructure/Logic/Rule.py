@@ -74,10 +74,11 @@ class Rule:
 
         # check for head and body support in existing arguments
         for arg in currentArguments:
-            if self.head == arg.conclusion or (self.head.isNegation and arg.conclusion.isNegation and self.head.negationOf == arg.conclusion.negationOf):
-                headSupport = headSupport + arg.support
-            if self.body == arg.conclusion or (self.body.isNegation and arg.conclusion.isNegation and self.body.negationOf == arg.conclusion.negationOf):
-                bodySupport = bodySupport + arg.support
+            if not arg.isTest:
+                if self.head == arg.conclusion or (self.head.isNegation and arg.conclusion.isNegation and self.head.negationOf == arg.conclusion.negationOf):
+                    headSupport = headSupport + arg.support
+                if self.body == arg.conclusion or (self.body.isNegation and arg.conclusion.isNegation and self.body.negationOf == arg.conclusion.negationOf):
+                    bodySupport = bodySupport + arg.support
 
         if len(headSupport) == 0 and type(self.head) == Rule:
             headSupport = self.head.constructSupport(currentArguments)

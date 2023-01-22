@@ -10,5 +10,7 @@ export default {
   getExamplesTwo: (state) => state.examplesTwo,
   getSelectedTab: (state) => state.selectedTab,
   getGEFilter: (state) => state.groundedExtensionFilter,
+  getGETree: (state) => state.groundedExtensionTrees,
+  getSEFilter: (state) => state.stableExtensionsFilter,
   getUndercutting: (state) => state.undercuttingArgs,
 };

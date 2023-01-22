@@ -6,7 +6,7 @@
       </ul>
     </div>
     <div v-if="grounded.length === 0" class="flex justify-center pt-16">
-      <h5>No grounded extensions were identified.</h5>
+      <h5>No grounded extension was identified.</h5>
     </div>
   </card-layout>
 </template>

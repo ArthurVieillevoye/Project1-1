@@ -19,9 +19,9 @@
             {{ tab.name }}
           </span>
         </div>
-        <ArgumentsCard v-if="currentTab === 'Arguments'" />
+        <ArgumentsCard v-if="currentTab === 'All Arguments'" />
         <ClosureCard v-if="currentTab === 'Closure Arguments'" />
-        <UndercuttingCard v-if="currentTab === 'Undercutting Arguments'" />
+        <UndercuttingCard v-if="currentTab === 'Undefeated Undercutting Arguments'" />
       </div>
 
       <div
@@ -42,12 +42,12 @@
             {{ tab.name }}
           </span>
         </div>
-        <StableCard v-if="currentWindow === 'Stable Extensions'" />
-        <GroundedCard v-if="currentWindow === 'Grounded Extension'" />
-        <GroundedFilterCard
-          v-if="currentWindow === 'Grounded Extension Filter'"
+        <StableCard v-if="currentWindow === 'Stable Extensions (Full)'" />
+        <GroundedCard v-if="currentWindow === 'Grounded Extension (Full)'" />
+        <StableFilterCard
+          v-if="currentWindow === 'Final Arguments (Stable Extensions)'"
         />
-        <GroundedTreeCard v-if="currentWindow === 'Grounded Extension Tree'" />
+        <GroundedTreeCard v-if="currentWindow === 'Final Argument Trees (Grounded Extension)'" />
       </div>
     </div>
 
@@ -65,18 +65,18 @@ export default {
   data() {
     return {
       tabs: [
-        { name: "Arguments" },
+        { name: "All Arguments" },
         { name: "Closure Arguments" },
-        { name: "Undercutting Arguments" },
+        { name: "Undefeated Undercutting Arguments" },
       ],
       currentTab: "Arguments",
       windows: [
-        { name: "Stable Extensions" },
-        { name: "Grounded Extension" },
-        { name: "Grounded Extension Filter" },
-        { name: "Grounded Extension Tree" },
+        { name: "Stable Extensions (Full)" },
+        { name: "Grounded Extension (Full)" },
+        { name: "Final Arguments (Stable Extensions)" },
+        { name: "Final Argument Trees (Grounded Extension)" },
       ],
-      currentWindow: "Grounded Extension Filter",
+      currentWindow: "Final Argument Trees (Grounded Extension)",
     };
   },
 

@@ -11,6 +11,8 @@ export const InitialState = () => {
     selectedTab: "Facts",
     examplesTwo: [],
     groundedExtensionFilter: [],
+    groundedExtensionTrees: [],
+    stableExtensionsFilter: [],
     undercuttingArgs: [],
   };
 };

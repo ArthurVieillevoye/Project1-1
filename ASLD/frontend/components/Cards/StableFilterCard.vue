@@ -1,8 +1,8 @@
 <template>
   <card-layout>
-    <div v-if="groundedFilter.length !== 0">
-      <ul v-for="(grounded, index) in groundedFilter" :key="index">
-        <li class="py-1">{{ grounded }}</li>
+    <div v-if="stableFilter.length !== 0">
+      <ul v-for="(stable, index) in stableFilter" :key="index">
+        <li class="py-1">{{ stable }}</li>
       </ul>
     </div>
   </card-layout>
@@ -14,7 +14,7 @@ import CardLayout from "../Shared/CardLayout.vue";
 
 export default {
   components: { CardLayout },
-  name: "GroundedFilterCard",
+  name: "StableFilterCard",
 
   data() {
     return {
@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ groundedFilter: "getGEFilter" }),
+    ...mapGetters({ stableFilter: "getSEFilter" }),
   },
 };
 </script>

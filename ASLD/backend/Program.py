@@ -33,18 +33,18 @@ def main(request: HttpRequest()):
 
 
     if body["identifier"] == 'Facts':
-        print("facts")
+        # print("facts")
         [literals, defeasibleRules, order, tests] = LawImplementation.getData()
         setLiteralsValue(literals, body["facts"])
 
     elif body["identifier"] == 'Example One':
-        print("contract")
+        # print("contract")
         # Contract signed
         [literals, defeasibleRules, order, tests] = ContractSignedLawExample.getData()
         setLiteralsValue(literals, body["facts"])
     
     elif body["identifier"] == 'Example Two':
-        print("nixon")
+        # print("nixon")
         # Nixon example
         [literals, defeasibleRules, order, tests] = NixonLawExample2.getData()
         setLiteralsValue(literals, body["facts"])
@@ -71,8 +71,8 @@ def main(request: HttpRequest()):
 
     tableau.evaluate()
 
-    print('closed?', flush=True)
-    print(tableau.isClosed, flush=True)
+    # print('closed?', flush=True)
+    # print(tableau.isClosed, flush=True)
 
     closure = tableau.getArgumentsString(tableau.closureArguments)
 
@@ -84,7 +84,7 @@ def main(request: HttpRequest()):
     undercuttingArgs = tableau.getUndercuttingArgs(groundedExtension)
 
     groundedExtensionFilter = tableau.getLastArgs(groundedExtension)
-    finalArgsTrees = tableau.getTrees(groundedExtensionFilter)
+    groundedExtensionTrees = tableau.getTrees(groundedExtensionFilter)
     stableExtensionsFilter = [tableau.getLastArgs(extension) for extension in stableExtensions]
 
     groundedExtension = tableau.getArgumentsString(groundedExtension)
@@ -98,5 +98,7 @@ def main(request: HttpRequest()):
                          'closure': closure, # ["aaa", "bbb"]
                          'groundedExtension': groundedExtension, # ["aaa", "bbb"]
                          'stableExtensions': stableExtensions, # [["aaa", "bbb"], ["ccc", "ddd"]]
-                         'groundedExtensionFilter': finalArgsTrees, # [treeJSON1, treeJSON2]
+                         'groundedExtensionFilter': groundedExtensionFilter, # ["aaa", "bbb"]
+                         'stableExtensionsFilter': stableExtensionsFilter, # [["aaa", "bbb"], ["ccc", "ddd"]]
+                         'groundedExtensionTrees': groundedExtensionTrees, # [treeJSON1, treeJSON2]
                          'undercuttingArgs': undercuttingArgs}) # ["aaa", "bbb"]

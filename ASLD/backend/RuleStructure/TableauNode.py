@@ -43,7 +43,7 @@ class TableauNode:
     # add argument to current node, and update valid literals if applicable
     def addArgument(self, argument):
         self.arguments.append(argument)
-        if argument.isAtomic():
+        if argument.isAtomic() and not argument.isTest:
             self.validLiterals.append(argument.conclusion)
 
     # return all arguments of the node and its children
@@ -256,7 +256,7 @@ class TableauNode:
 
         # check, if argument already exists, then just return
         for arg in self.arguments:
-            if arg.conclusion == conclusion:
+            if arg.conclusion == conclusion and not arg.isTest:
                 return arg
 
         # if target conclusion is a rule, try to build argument, based on valid literals and other arguments

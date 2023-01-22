@@ -10,6 +10,8 @@ export default {
           commit("SET_STABLE", res.data.stableExtensions);
           commit("SET_GROUNDED", res.data.groundedExtension);
           commit("SET_GE_FILTER", res.data.groundedExtensionFilter);
+          commit("SET_GE_TREE", res.data.groundedExtensionTrees);
+          commit("SET_SE_FILTER", res.data.stableExtensionsFilter);
           commit("SET_UNDERCUTTING", res.data.undercuttingArgs);
           resolve(res);
         })

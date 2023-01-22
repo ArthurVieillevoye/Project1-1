@@ -40,6 +40,14 @@ export default {
     state.groundedExtensionFilter = payload;
   },
 
+  SET_GE_TREE(state, payload) {
+    state.groundedExtensionTrees = payload;
+  },
+
+  SET_SE_FILTER(state, payload) {
+    state.stableExtensionsFilter = payload;
+  },
+
   SET_UNDERCUTTING(state, payload) {
     state.undercuttingArgs = payload;
   },
