@@ -34,19 +34,19 @@ def main(request: HttpRequest()):
 
     if body["identifier"] == 'Facts':
         print("facts")
-        [literals, defeasibleRules, order] = LawImplementation.getData()
+        [literals, defeasibleRules, order, tests] = LawImplementation.getData()
         setLiteralsValue(literals, body["facts"])
 
     elif body["identifier"] == 'Example One':
         print("contract")
         # Contract signed
-        [literals, defeasibleRules, order] = ContractSignedLawExample.getData()
+        [literals, defeasibleRules, order, tests] = ContractSignedLawExample.getData()
         setLiteralsValue(literals, body["facts"])
     
     elif body["identifier"] == 'Example Two':
         print("nixon")
         # Nixon example
-        [literals, defeasibleRules, order] = NixonLawExample2.getData()
+        [literals, defeasibleRules, order, tests] = NixonLawExample2.getData()
         setLiteralsValue(literals, body["facts"])
 
     # print(body["facts"], flush=True)
@@ -62,8 +62,9 @@ def main(request: HttpRequest()):
             tableau.addRootArgument(Argument(support=[c2], conclusion=c2))
 
 
-    # tableau.addRootArgument(createTest(createNegation(c)))
-    # tableau.addRootArgument(createTest(c))
+    for test in tests:
+        tableau.addRootArgument(createTest(createNegation(test)))
+        tableau.addRootArgument(createTest(test))
 
     ######################
 

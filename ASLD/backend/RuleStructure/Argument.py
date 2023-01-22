@@ -8,10 +8,8 @@ def createTest(literal: Literal):
     if literal.isNegation:
         #testLiteral = Literal(stringRepresentation=str(literal.negationOf), isTest=True)
         testLiteral = literal.negationOf
-        #testLiteral.isTest = True
     else:
         testLiteral = Literal(negationOf=literal)
-        #testLiteral = Literal(negationOf=literal)
     return Argument(support=[testLiteral], conclusion=testLiteral, isTest=True)
     
 class Argument:

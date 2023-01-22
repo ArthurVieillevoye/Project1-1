@@ -3,7 +3,7 @@ lit_question = [
     {
         "id": 1,
         "literal": "employed",
-        "question": "Are you employed at the company"
+        "question": "Is the requestor employed at the company?"
     },
     {
         "id": 2,
@@ -23,12 +23,12 @@ lit_question = [
     {
         "id": 5,
         "literal": "Age",
-        "question": "Has the employee reached the retirement age?"
+        "question": "Has the requestor reached the retirement age?"
     },
     {
         "id": 6,
         "literal": "Militar Official",
-        "question": "Is the employee a military official?"
+        "question": "Is the requestor a military official?"
     },
     {
         "id": 7,
@@ -58,7 +58,7 @@ lit_question = [
     {
         "id": 12,
         "literal": "time since last request over a year",
-        "question": "Was the previous reject or adjust of request for working hours (if any) made over a year ago?"
+        "question": "Was the previous request (if any) accepted or rejected over a year ago?"
     },
     {
         "id": 13,
@@ -68,7 +68,7 @@ lit_question = [
     {
         "id": 14,
         "literal": "request is about a change in the working time",
-        "question": "Is the request about a change in the working TIMES?"
+        "question": "Is the request about a change in the working times?"
     },
     {
         "id": 15,
@@ -83,7 +83,7 @@ lit_question = [
     {
         "id": 17,
         "literal": "request is about a change in the working place",
-        "question": "Is the request about a change in the working PLACE?"
+        "question": "Is the request about a change in the working place?"
     },
     {
         "id": 18,
@@ -228,7 +228,7 @@ lit_question = [
     {
         "id": 46,
         "literal": "DOES Accept Request Change Working Place",
-        "question": "Did the employer accept the request of working place?"
+        "question": "Did the employer accept the request of change in the working place?"
     },
     {
         "id": 47,
@@ -258,11 +258,11 @@ lit_question = [
     {
         "id": 52,
         "literal": "Time Before Commencement Date Request Less Than One Month",
-        "question": "Time before the commencement date and the response on the request less than a month?"
+        "question": "Is the time between response on the request (if any) commencement date less than a month?"
     },
     {
         "id": 53,
         "literal": "Time Before Commencement Date Request Less Than Five Days",
-        "question": "Time before the commencement date and the response on the request less than five days?"
+        "question": "Is the time between response on the request (if any) commencement date less than five days?"
     },
 ]

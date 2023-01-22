@@ -8,6 +8,6 @@ toy_examples_two = [
     {
         "id": 2,
         "literal": "quaker",
-        "question": "Is the person quaker?"
+        "question": "Is the person Quaker?"
     },
 ]

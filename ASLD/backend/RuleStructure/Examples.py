@@ -3,7 +3,7 @@ toy_examples = [
     {
         "id": 1,
         "literal": "signed",
-        "question": "Is the contract signed?"
+        "question": "Did the person sign the contract?"
     },
     {
         "id": 2,
@@ -13,6 +13,6 @@ toy_examples = [
     {
         "id": 3,
         "literal": "guardian",
-        "question": "Has the guardian approved?"
+        "question": "Has the guardian approved the signing of the contract?"
     },
 ]

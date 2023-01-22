@@ -16,4 +16,6 @@ def getData():
             
     order = [[0,0],[0,0]]
 
-    return [literalsList, defeasibleRulesList, order]
+    tests = [c]
+
+    return [literalsList, defeasibleRulesList, order, tests]
