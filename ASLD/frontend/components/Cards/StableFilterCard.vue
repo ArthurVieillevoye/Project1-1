@@ -1,8 +1,10 @@
 <template>
   <card-layout>
     <div v-if="stableFilter.length !== 0">
-      <ul v-for="(stable, index) in stableFilter" :key="index">
-        <li class="py-1">{{ stable }}</li>
+      <ul v-for="(stable, index) in stableFilter" :key="index" class="pb-3">
+        <ul v-for="(argument, index) in stable" :key="index">
+          <li class="py-1">{{ argument }}</li>
+        </ul>
       </ul>
     </div>
   </card-layout>
