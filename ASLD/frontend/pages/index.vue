@@ -25,7 +25,7 @@
       </div>
 
       <div
-        class="flex flex-col w-full h-2/3 bg-gray-200/40 backdrop-blur-md rounded rounded"
+        class="flex flex-col w-full h-2/3 bg-gray-200/40 backdrop-blur-md rounded overflow-auto"
       >
         <div class="flex space-x-4 py-2 justify-center h-12">
           <span
