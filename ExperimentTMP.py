@@ -37,7 +37,7 @@ def getListOfTrue():
         print(i)
         for combo in combinations(lst, i):
             [literals, defeasibleRules, order, tests] = LawImplementation.getData()
-            setLiteralsValue(literals, lst)
+            setLiteralsValue(literals, combo)
             order1 = np.zeros(order.shape)
             if len(runProgramm(literals, order1, defeasibleRules, tests)):
                 counter += 1
