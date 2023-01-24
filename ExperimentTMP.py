@@ -31,17 +31,17 @@ def getListOfTrue():
     lst = literalsListQuestions = [1,3,5,6,7,8,10,12,13,14,17,33,35,37,40,43,46,49,52,53]
 
     results = []
-    total = 0
+    # total = 0
     for i in range(len(lst)+1):
         counter = 0
         print(i)
         for combo in combinations(lst, i):
             [literals, defeasibleRules, order, tests] = LawImplementation.getData()
             setLiteralsValue(literals, combo)
-            order1 = np.zeros(order.shape)
-            if len(runProgramm(literals, order1, defeasibleRules, tests)):
+            # order1 = np.zeros(order.shape)
+            if len(runProgramm(literals, order, defeasibleRules, tests)):
                 counter += 1
-                total += 1
+                # total += 1
 
         results.append(counter)
 
@@ -78,17 +78,19 @@ def runProgramm(literals, order, defeasibleRules, tests):
     undercuttingArgs = tableau.getUndercuttingArgs(groundedExtension)
 
     groundedExtensionFilter = tableau.getLastArgs(groundedExtension)
-    groundedExtensionTrees = tableau.getTrees(groundedExtensionFilter)
-    stableExtensionsFilter = [tableau.getLastArgs(extension) for extension in stableExtensions]
+    # groundedExtensionTrees = tableau.getTrees(groundedExtensionFilter)
+    # stableExtensionsFilter = [tableau.getLastArgs(extension) for extension in stableExtensions]
 
     groundedExtension = tableau.getArgumentsString(groundedExtension)
     groundedExtensionFilter = tableau.getArgumentsString(groundedExtensionFilter)
     undercuttingArgs = tableau.getArgumentsString(undercuttingArgs)
 
-    stableExtensions = [tableau.getArgumentsString(extension) for extension in stableExtensions]
-    stableExtensionsFilter = [tableau.getArgumentsString(extension) for extension in stableExtensionsFilter]
+    # stableExtensions = [tableau.getArgumentsString(extension) for extension in stableExtensions]
+    # stableExtensionsFilter = [tableau.getArgumentsString(extension) for extension in stableExtensionsFilter]
 
     return groundedExtension
 
 
-print(getListOfTrue())
+[literals, defeasibleRules, order, tests] = LawImplementation.getData()
+for i in range(len(defeasibleRules)):
+    print( i+1 , ": ", defeasibleRules[i])

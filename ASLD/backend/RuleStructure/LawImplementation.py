@@ -142,7 +142,7 @@ def getData():
 
     # Rule 24
     l23 = Literal(stringRepresentation='Immunity due to substantial business interests')
-    r20 = Rule(l9, l23)
+    r20 = Rule(l9, Operator.AND, l23)
     # l24 = Literal(stringRepresentation='Not a DUTY to Accept Request Change Working Hours')
     l24 = createNegation(l21)
     defeasibleRulesList.append(DefeasibleRule(r20, l24, ruleId=24))
