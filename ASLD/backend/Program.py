@@ -49,7 +49,7 @@ def main(request: HttpRequest()):
         [literals, defeasibleRules, order, tests] = NixonLawExample2.getData()
         setLiteralsValue(literals, body["facts"])
 
-    # print(body["facts"], flush=True)
+    print(len(body["facts"]))
 
     
     tableau = Tableau(arguments=[], defeasibleRules=defeasibleRules, order=order)
