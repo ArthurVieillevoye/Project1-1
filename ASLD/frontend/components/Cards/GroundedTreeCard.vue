@@ -1,7 +1,11 @@
 <template>
   <card-layout>
     <div v-if="groundedTree.length !== 0">
-      <div v-for="(tree, index) in groundedTree" :key="index">
+      <div
+        v-for="(tree, index) in groundedTree"
+        :key="index"
+        class="w-full h-full"
+      >
         <OrganizationChart :datasource="tree" />
       </div>
     </div>
