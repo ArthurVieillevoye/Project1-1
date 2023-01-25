@@ -89,9 +89,6 @@ def getExtensions(arguments):
 
     labels = doLabeling(labels)
 
-    # for arg in sorted(labels, key = lambda x: (x.depth, len(x.support))):
-    #     print(arg, labels[arg])
-
     extension = []
     isGrounded = True
 

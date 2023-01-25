@@ -33,23 +33,18 @@ def main(request: HttpRequest()):
 
 
     if body["identifier"] == 'Facts':
-        # print("facts")
         [literals, defeasibleRules, order, tests] = LawImplementation.getData()
         setLiteralsValue(literals, body["facts"])
 
     elif body["identifier"] == 'Example One':
-        # print("contract")
         # Contract signed
         [literals, defeasibleRules, order, tests] = ContractSignedLawExample.getData()
         setLiteralsValue(literals, body["facts"])
     
     elif body["identifier"] == 'Example Two':
-        # print("nixon")
         # Nixon example
         [literals, defeasibleRules, order, tests] = NixonLawExample2.getData()
         setLiteralsValue(literals, body["facts"])
-
-    # print(body["facts"], flush=True)
 
     
     tableau = Tableau(arguments=[], defeasibleRules=defeasibleRules, order=order)
@@ -70,9 +65,6 @@ def main(request: HttpRequest()):
 
 
     tableau.evaluate()
-
-    # print('closed?', flush=True)
-    # print(tableau.isClosed, flush=True)
 
     closure = tableau.getArgumentsString(tableau.closureArguments)
 
