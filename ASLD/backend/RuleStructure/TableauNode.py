@@ -187,7 +187,7 @@ class TableauNode:
         return leftDefRulesChanged or rightDefRulesChanged or defeasibleRulesChanged
 
 
-    # check for contradictions (without the test literals) and defeat weakest rule if possible
+    # check for contradictions (without the test literals) and create undercutting arguments
     def checkContradiction(self):
         newContradictionFound = False
         leftChanged = False
